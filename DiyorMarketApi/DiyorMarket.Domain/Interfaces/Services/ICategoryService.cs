@@ -7,7 +7,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ICategoryService
     {
-        GetCategoriesResponse GetCategories(CategoryResourceParameters categoryResourceParameters);
+        GetCategoryResponse GetCategories(CategoryResourceParameters categoryResourceParameters);
         CategoryDto? GetCategoryById(int id);
         CategoryDto CreateCategory(CategoryForCreateDto categoryToCreate);
         void UpdateCategory(CategoryForUpdateDto categoryToUpdate);
