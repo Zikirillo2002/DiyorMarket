@@ -3,7 +3,6 @@
 namespace DiyorMarket.Domain.Responses
 {
     public class GetCategoryResponse : GetBaseResponse<CategoryDto>
-    {
-        
+    {        
     }
 }

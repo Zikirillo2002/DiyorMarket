@@ -1,10 +1,8 @@
-﻿using Lesson11.Models;
-
-namespace Lesson11.Response
+﻿namespace Lesson11.Response
 {
-    public class CategoryResponse
+    public abstract class GetBaseResponse<T>
     {
-        public IEnumerable<Category> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public bool HasNextPage { get; set; }

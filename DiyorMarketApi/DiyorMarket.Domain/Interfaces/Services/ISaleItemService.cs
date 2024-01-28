@@ -2,6 +2,7 @@
 using DiyorMarket.Domain.DTOs.SaleItem;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
+using DiyorMarket.Domain.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ISaleItemService
     {
-        PaginatedList<SaleItemDto> GetSaleItems(SaleItemResourceParameters saleItemResourceParameters);
+        GetSaleItemResponse GetSaleItems(SaleItemResourceParameters saleItemResourceParameters);
         SaleItemDto? GetSaleItemById(int id);
         SaleItemDto CreateSaleItem(SaleItemForCreateDto saleItemToCreate);
         void UpdateSaleItem(SaleItemForUpdateDto saleItemToUpdate);

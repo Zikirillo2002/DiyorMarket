@@ -25,10 +25,6 @@ namespace DiyorMarket.Controllers
         {
             var saleItems = _saleItemService.GetSaleItems(saleItemResourceParameters);
 
-            var metaData = GetPaginationMetaData(saleItems);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
-
             return Ok(saleItems);
         }
 
@@ -73,17 +69,6 @@ namespace DiyorMarket.Controllers
             _saleItemService.DeleteSaleItem(id);
 
             return NoContent();
-        }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<SaleItemDto> saleItems)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = saleItems.TotalCount,
-                PageSize = saleItems.PageSize,
-                CurrentPage = saleItems.CurrentPage,
-                TotalPages = saleItems.TotalPages,
-            };
         }
     }
 }

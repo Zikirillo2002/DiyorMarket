@@ -4,6 +4,7 @@ using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
+using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.ResourceParameters;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,7 @@ namespace DiyorMarket.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public PaginatedList<SupplierDto> GetSuppliers(SupplierResourceParameters supplierResourceParameters)
+        public GetSupplierResponse GetSuppliers(SupplierResourceParameters supplierResourceParameters)
         {
             var query = _context.Suppliers.AsQueryable();
 
@@ -59,7 +60,19 @@ namespace DiyorMarket.Services
 
             var supplierDtos = _mapper.Map<List<SupplierDto>>(suppliers);
 
-            return new PaginatedList<SupplierDto>(supplierDtos, suppliers.TotalCount, suppliers.CurrentPage, suppliers.PageSize);
+            var paginatedResult = new PaginatedList<SupplierDto>(supplierDtos, suppliers.TotalCount, suppliers.CurrentPage, suppliers.PageSize);
+
+            var result = new GetSupplierResponse()
+            {
+                Data = paginatedResult.ToList(),
+                HasNextPage = paginatedResult.HasNext,
+                HasPreviousPage = paginatedResult.HasPrevious,
+                PageNumber = paginatedResult.CurrentPage,
+                PageSize = paginatedResult.PageSize,
+                TotalPages = paginatedResult.TotalPages
+            };
+
+            return result;
         }
 
         public SupplierDto? GetSupplierById(int id)
