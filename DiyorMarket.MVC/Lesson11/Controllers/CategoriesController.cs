@@ -9,7 +9,7 @@ namespace Lesson11.Controllers
 
         public CategoriesController(ICategoryDataStore categoryDataStore)
         {
-            _categoryDataStore = categoryDataStore;
+            _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
         }
 
         public IActionResult Index()

@@ -2,7 +2,6 @@
 using Lesson11.Response;
 using Lesson11.Services;
 using Newtonsoft.Json;
-using Syncfusion.EJ2.Diagrams;
 
 namespace Lesson11.Stores.Supplies
 {
@@ -15,7 +14,7 @@ namespace Lesson11.Stores.Supplies
             _api = new ApiClient(); 
         }
 
-        public GetSupplyResponse? GetSupply()
+        public GetSupplyResponse? GetSupplies()
         {
             var response = _api.Get("supplies");
 

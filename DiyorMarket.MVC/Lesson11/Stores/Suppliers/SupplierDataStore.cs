@@ -13,7 +13,7 @@ namespace Lesson11.Stores.Suppliers
         {
             _api = new ApiClient();
         }
-        public GetSupplierResponse? GetSupplier()
+        public GetSupplierResponse? GetSuppliers()
         {
             var response = _api.Get("suppliers");
 

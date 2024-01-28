@@ -14,7 +14,7 @@ namespace Lesson11.Stores.Products
             _api = new ApiClient();
         }
 
-        public GetProductResponse? GetProduct()
+        public GetProductResponse? GetProducts()
         {
             var response = _api.Get("products");
 

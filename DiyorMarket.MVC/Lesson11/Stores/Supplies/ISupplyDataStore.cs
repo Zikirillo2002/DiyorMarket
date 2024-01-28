@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Supplies
 {
     public interface ISupplyDataStore
     {
-        public GetSupplyResponse? GetSupply();
+        public GetSupplyResponse? GetSupplies();
         public Supply? GetSupply(int id);
         public Supply? CreateSupply(Supply category);
         public Supply? UpdateSupply(Supply category);
