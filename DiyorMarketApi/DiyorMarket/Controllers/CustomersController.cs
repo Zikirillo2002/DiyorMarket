@@ -75,16 +75,5 @@ namespace DiyorMarket.Controllers
 
             return NoContent();
         }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<CustomerDto> customers)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = customers.TotalCount,
-                PageSize = customers.PageSize,
-                CurrentPage = customers.CurrentPage,
-                TotalPages = customers.TotalPages,
-            };
-        }
     }
 }

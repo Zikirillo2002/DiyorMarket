@@ -30,10 +30,6 @@ namespace DiyorMarket.Controllers
         {
             var sales = _saleService.GetSales(saleResourceParameters);
 
-            var metaData = GetPaginationMetaData(sales);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
-
             return Ok(sales);
         }
 
@@ -50,15 +46,6 @@ namespace DiyorMarket.Controllers
             return Ok(sale);
         }
 
-        [HttpGet("{id}/saleItems")]
-        public ActionResult<SaleItemDto> GetSaleItemsBySaleId(int id, SaleItemResourceParameters saleItemResourceParameters)
-        {
-            var saleItems = _saleItemService.GetSaleItems(saleItemResourceParameters);
-
-            var filteredSaleItems = saleItems.Where(x => x.SaleId == id).ToList();
-
-            return Ok(filteredSaleItems);
-        }
 
         [HttpPost]
         public ActionResult Post([FromBody] SaleForCreateDto sale)
