@@ -28,7 +28,7 @@ namespace DiyorMarket.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public GetCategoriesResponse GetCategories(CategoryResourceParameters categoryResourceParameters)
+        public GetCategoryResponse GetCategories(CategoryResourceParameters categoryResourceParameters)
         {
             var query = _context.Categories.AsQueryable();
 
@@ -52,7 +52,7 @@ namespace DiyorMarket.Services
             var categoryDtos = _mapper.Map<List<CategoryDto>>(categories);
             var paginatedResult = new PaginatedList<CategoryDto>(categoryDtos, categories.TotalCount, categories.CurrentPage, categories.PageSize);
 
-            var result = new GetCategoriesResponse()
+            var result = new GetCategoryResponse()
             {
                 Data = paginatedResult.ToList(),
                 HasNextPage = paginatedResult.HasNext,

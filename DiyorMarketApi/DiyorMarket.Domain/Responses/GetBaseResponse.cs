@@ -1,10 +1,8 @@
-﻿using DiyorMarket.Domain.DTOs.Category;
-
-namespace DiyorMarket.Domain.Responses
+﻿namespace DiyorMarket.Domain.Responses
 {
-    public class GetCategoriesResponse
+    public abstract class GetBaseResponse<T>
     {
-        public IEnumerable<CategoryDto> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public bool HasNextPage { get; set; }
