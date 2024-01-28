@@ -24,13 +24,11 @@ namespace Lesson11.Models
 
         public virtual ICollection<SaleItem> SaleItems { get; set; }
         public virtual ICollection<SupplyItem> SupplyItems { get; set; }
-        public virtual ICollection<InventoryItem> InventoryItems { get; set; }
 
         public Product()
         {
             SaleItems = new List<SaleItem>();
             SupplyItems = new List<SupplyItem>();
-            InventoryItems = new List<InventoryItem>();
         }
     }
 }

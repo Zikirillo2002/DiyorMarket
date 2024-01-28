@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Categories
 {
     public interface ICategoryDataStore
     {
-        public CategoryResponse? GetCategories();
+        public GetCategoryResponse? GetCategories();
         public Category? GetCategory(int id);
         public Category? CreateCategory(Category category);
         public Category? UpdateCategory(Category category);

@@ -14,7 +14,7 @@ namespace Lesson11.Stores.Categories
             _api = new ApiClient();
         }
 
-        public CategoryResponse? GetCategories()
+        public GetCategoryResponse? GetCategories()
         {
             var response = _api.Get("categories");
 
@@ -24,7 +24,7 @@ namespace Lesson11.Stores.Categories
             }
 
             var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var result = JsonConvert.DeserializeObject<CategoryResponse>(json);
+            var result = JsonConvert.DeserializeObject<GetCategoryResponse>(json);
 
             return result;
         }

@@ -41,7 +41,7 @@ namespace DiyorMarket.Controllers
                 "anvar-mobile",
                 claimsForToken,
                 DateTime.UtcNow,
-                DateTime.UtcNow.AddHours(1),
+                DateTime.UtcNow.AddDays(1),
                 signingCredentials);
 
             var token = new JwtSecurityTokenHandler()

@@ -46,15 +46,6 @@ namespace DiyorMarket.Controllers
             return Ok(sale);
         }
 
-        [HttpGet("{id}/saleItems")]
-        public ActionResult<SaleItemDto> GetSaleItemsBySaleId(int id, SaleItemResourceParameters saleItemResourceParameters)
-        {
-            var saleItems = _saleItemService.GetSaleItems(saleItemResourceParameters);
-
-            var filteredSaleItems = saleItems.Where(x => x.SaleId == id).ToList();
-
-            return Ok(filteredSaleItems);
-        }
 
         [HttpPost]
         public ActionResult Post([FromBody] SaleForCreateDto sale)
