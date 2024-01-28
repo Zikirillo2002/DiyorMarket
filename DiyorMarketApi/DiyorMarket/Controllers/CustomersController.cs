@@ -30,10 +30,6 @@ namespace DiyorMarket.Controllers
         {
             var customers = _customerService.GetCustomers(customerResourceParameters);
 
-            var metaData = GetPaginationMetaData(customers);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
-
             return Ok(customers);
         }
 

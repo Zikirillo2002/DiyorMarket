@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
 using DiyorMarket.Domain.DTOs.Category;
-using DiyorMarket.Domain.DTOs.Product;
 using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Exceptions;
-using DiyorMarket.Domain.Interfaces.Repositories;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
-using DiyorMarket.ResourceParameters;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Data.Common;
 
 namespace DiyorMarket.Services
 {
@@ -103,7 +97,7 @@ namespace DiyorMarket.Services
         public void DeleteCategory(int id)
         {
             var category = _context.Categories.FirstOrDefault(x => x.Id == id);
-            
+
             if (category is not null)
             {
                 _context.Categories.Remove(category);

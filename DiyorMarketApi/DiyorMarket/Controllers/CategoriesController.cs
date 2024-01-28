@@ -30,10 +30,6 @@ namespace DiyorMarketApi.Controllers
         {
             var categories = _categoryService.GetCategories(categoryResourceParameters);
 
-            //var metaData = GetPaginationMetaData(categories);
-
-            //Response.Headers.Add("X-Pegination", JsonSerializer.Serialize(metaData));
-
             return Ok(categories);
         }
 
@@ -83,17 +79,6 @@ namespace DiyorMarketApi.Controllers
             _categoryService.DeleteCategory(id);
 
             return NoContent();
-        }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<CategoryDto> categories)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = categories.TotalCount,
-                PageSize = categories.PageSize,
-                CurrentPage = categories.CurrentPage,
-                TotalPages = categories.TotalPages,
-            };
         }
     }
 }

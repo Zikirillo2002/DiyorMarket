@@ -29,11 +29,6 @@ namespace DiyorMarket.Controllers
         {
             var supplyItems = _supplyItemService.GetSupplyItems(supplyItemResourceParameters);
 
-            var metaData = GetPaginationMetaData(supplyItems);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
-
-
             return Ok(supplyItems);
         }
 
@@ -78,17 +73,6 @@ namespace DiyorMarket.Controllers
             _supplyItemService.DeleteSupplyItem(id);
 
             return NoContent();
-        }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<SupplyItemDto> supplyItems)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = supplyItems.TotalCount,
-                PageSize = supplyItems.PageSize,
-                CurrentPage = supplyItems.CurrentPage,
-                TotalPages = supplyItems.TotalPages,
-            };
         }
     }
 }

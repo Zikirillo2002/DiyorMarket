@@ -28,10 +28,6 @@ namespace DiyorMarket.Controllers
         {
             var supplies = _supplyService.GetSupplies(supplyResourceParameters);
 
-            var metaData = GetPaginationMetaData(supplies);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
-
             return Ok(supplies);
         }
 
@@ -76,17 +72,6 @@ namespace DiyorMarket.Controllers
             _supplyService.DeleteSupply(id);
 
             return NoContent();
-        }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<SupplyDto> supplies)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = supplies.TotalCount,
-                PageSize = supplies.PageSize,
-                CurrentPage = supplies.CurrentPage,
-                TotalPages = supplies.TotalPages,
-            };
         }
     }
 }

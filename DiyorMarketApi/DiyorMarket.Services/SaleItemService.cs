@@ -5,6 +5,7 @@ using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
+using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.ResourceParameters;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace DiyorMarket.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public PaginatedList<SaleItemDto> GetSaleItems(SaleItemResourceParameters saleItemResourceParameters)
+        public GetSaleItemResponse GetSaleItems(SaleItemResourceParameters saleItemResourceParameters)
         {
             var query = _context.SaleItems.AsQueryable();
 
@@ -78,7 +79,19 @@ namespace DiyorMarket.Services
 
             var saleItemDtos = _mapper.Map<List<SaleItemDto>>(saleItems);
 
-            return new PaginatedList<SaleItemDto>(saleItemDtos, saleItems.TotalCount, saleItems.CurrentPage, saleItems.PageSize);
+            var paginatedResult = new PaginatedList<SaleItemDto>(saleItemDtos, saleItems.TotalCount, saleItems.CurrentPage, saleItems.PageSize);
+
+            var result = new GetSaleItemResponse()
+            {
+                Data = paginatedResult.ToList(),
+                HasNextPage = paginatedResult.HasNext,
+                HasPreviousPage = paginatedResult.HasPrevious,
+                PageNumber = paginatedResult.CurrentPage,
+                PageSize = paginatedResult.PageSize,
+                TotalPages = paginatedResult.TotalPages
+            };
+
+            return result;
         }
 
         public SaleItemDto? GetSaleItemById(int id)
