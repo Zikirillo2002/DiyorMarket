@@ -1,12 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lesson11.Stores.Categories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
 {
     public class CustomersController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //private readonly ICustomerDataStore _customerDataStore;
+
+        //public CustomersController(ICustomerDataStore customerDataStore)
+        //{
+        //    _customerDataStore = customerDataStore;
+        //}
+
+        //public IActionResult Index()
+        //{
+        //    var result = _customerDataStore.GetCustomers();
+
+        //    if (result is null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    ViewBag.CustomersCount = result.Data.Count();
+        //    ViewBag.CurrentPage = result.PageNumber;
+        //    ViewBag.PageSize = result.PageSize;
+        //    ViewBag.HasNext = result.HasNextPage;
+        //    ViewBag.HasPrevious = result.HasPreviousPage;
+        //    ViewBag.TotalPages = result.TotalPages;
+
+        //    return View(result.Data);
+        //}
     }
 }
