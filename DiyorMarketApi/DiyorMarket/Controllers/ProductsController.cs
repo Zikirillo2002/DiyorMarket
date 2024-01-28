@@ -34,10 +34,6 @@ namespace DiyorMarketApi.Controllers
         {
             var products = _productService.GetProducts(productResourceParameters);
 
-            var metaData = GetPaginationMetaData(products);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
-
             return Ok(products);
         }
 
@@ -126,24 +122,5 @@ namespace DiyorMarketApi.Controllers
         {
             _productService.DeleteProduct(id);
         }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<ProductDto> products)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = products.TotalCount,
-                PageSize = products.PageSize,
-                CurrentPage = products.CurrentPage,
-                TotalPages = products.TotalPages,
-            };
-        }
-    }
-
-    class PaginationMetaData
-    {
-        public int TotalCount { get; set; }
-        public int PageSize { get; set; }
-        public int CurrentPage { get; set; }
-        public int TotalPages { get; set; }
     }
 }

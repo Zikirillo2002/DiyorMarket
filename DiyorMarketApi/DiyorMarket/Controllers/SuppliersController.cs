@@ -1,7 +1,4 @@
-﻿using DiyorMarket.Domain.DTOs.Product;
-using DiyorMarket.Domain.DTOs.Sale;
-using DiyorMarket.Domain.DTOs.Supplier;
-using DiyorMarket.Domain.Entities;
+﻿using DiyorMarket.Domain.DTOs.Supplier;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
@@ -27,10 +24,6 @@ namespace DiyorMarket.Controllers
             [FromQuery] SupplierResourceParameters supplierResourceParameters)
         {
             var suppliers = _supplierService.GetSuppliers(supplierResourceParameters);
-
-            var metaData = GetPaginationMetaData(suppliers);
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
 
             return Ok(suppliers);
         }
@@ -76,17 +69,6 @@ namespace DiyorMarket.Controllers
             _supplierService.DeleteSupplier(id);
 
             return NoContent();
-        }
-
-        private PaginationMetaData GetPaginationMetaData(PaginatedList<SupplierDto> suppliers)
-        {
-            return new PaginationMetaData
-            {
-                TotalCount = suppliers.TotalCount,
-                PageSize = suppliers.PageSize,
-                CurrentPage = suppliers.CurrentPage,
-                TotalPages = suppliers.TotalPages,
-            };
         }
     }
 }
