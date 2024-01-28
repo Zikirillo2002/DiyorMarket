@@ -1,27 +1,27 @@
-﻿using Lesson11.Stores.Categories;
+﻿using Lesson11.Stores.Suppliers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
 {
-    public class CategoriesController : Controller
+    public class SuppliersController : Controller
     {
-        private readonly ICategoryDataStore _categoryDataStore;
+        private readonly ISupplierDataStore _supplierDataStore;
 
-        public CategoriesController(ICategoryDataStore categoryDataStore)
+        public SuppliersController(ISupplierDataStore supplierDataStore)
         {
-            _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
+            _supplierDataStore = supplierDataStore ?? throw new ArgumentNullException(nameof(supplierDataStore));
         }
 
         public IActionResult Index()
         {
-            var result = _categoryDataStore.GetCategories();
+            var result = _supplierDataStore.GetSuppliers();
 
             if (result is null)
             {
                 return NotFound();
             }
 
-            ViewBag.CategoriesCount = result.Data.Count();
+            ViewBag.SuppliersCount = result.Data.Count();
             ViewBag.CurrentPage = result.PageNumber;
             ViewBag.PageSize = result.PageSize;
             ViewBag.HasNext = result.HasNextPage;

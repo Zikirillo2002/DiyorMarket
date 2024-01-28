@@ -5,7 +5,7 @@ namespace Lesson11.Stores.SaleItems
 {
     public interface ISaleItemDataStore
     {
-        public GetSaleItemResponse? GetSaleItem();
+        public GetSaleItemResponse? GetSaleItems();
         public SaleItem? GetSaleItem(int id);
         public SaleItem? CreateSaleItem(SaleItem category);
         public SaleItem? UpdateSaleItem(SaleItem category);

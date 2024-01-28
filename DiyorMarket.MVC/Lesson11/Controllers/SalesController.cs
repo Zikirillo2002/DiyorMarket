@@ -1,27 +1,27 @@
-﻿using Lesson11.Stores.Categories;
+﻿using Lesson11.Stores.Sales;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
 {
-    public class CategoriesController : Controller
+    public class SalesController : Controller
     {
-        private readonly ICategoryDataStore _categoryDataStore;
+        private readonly ISaleDataStore _saleDataStore;
 
-        public CategoriesController(ICategoryDataStore categoryDataStore)
+        public SalesController(ISaleDataStore saleDataStore)
         {
-            _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
+            _saleDataStore = saleDataStore ?? throw new ArgumentNullException(nameof(saleDataStore));
         }
 
         public IActionResult Index()
         {
-            var result = _categoryDataStore.GetCategories();
+            var result = _saleDataStore.GetSales();
 
             if (result is null)
             {
                 return NotFound();
             }
 
-            ViewBag.CategoriesCount = result.Data.Count();
+            ViewBag.SalesCount = result.Data.Count();
             ViewBag.CurrentPage = result.PageNumber;
             ViewBag.PageSize = result.PageSize;
             ViewBag.HasNext = result.HasNextPage;

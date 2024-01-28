@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Suppliers
 {
     public interface ISupplierDataStore
     {
-        public GetSupplierResponse? GetSupplier();
+        public GetSupplierResponse? GetSuppliers();
         public Supplier? GetSupplier(int id);
         public Supplier? CreateSupplier(Supplier category);
         public Supplier? UpdateSupplier(Supplier category);

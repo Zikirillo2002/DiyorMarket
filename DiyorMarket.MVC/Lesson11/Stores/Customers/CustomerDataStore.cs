@@ -13,7 +13,7 @@ namespace Lesson11.Stores.Customers
             _api = new ApiClient();
         }
 
-        public GetCustomerResponse? GetCustomer()
+        public GetCustomerResponse? GetCustomers()
         {
             var response = _api.Get("customers");
 

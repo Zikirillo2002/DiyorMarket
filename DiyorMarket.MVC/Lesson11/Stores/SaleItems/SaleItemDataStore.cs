@@ -14,7 +14,7 @@ namespace Lesson11.Stores.SaleItems
             _api = new ApiClient();
         }
 
-        public GetSaleItemResponse? GetSaleItem()
+        public GetSaleItemResponse? GetSaleItems()
         {
             var response = _api.Get("saleItems");
 

@@ -1,27 +1,27 @@
-﻿using Lesson11.Stores.Categories;
+﻿using Lesson11.Stores.SupplyItems;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
 {
-    public class CategoriesController : Controller
+    public class SupplyItemsController : Controller
     {
-        private readonly ICategoryDataStore _categoryDataStore;
+        private readonly ISupplyItemDataStore _supplyItemDataStore;
 
-        public CategoriesController(ICategoryDataStore categoryDataStore)
+        public SupplyItemsController(ISupplyItemDataStore supplyItemDataStore)
         {
-            _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
+            _supplyItemDataStore = supplyItemDataStore ?? throw new ArgumentNullException(nameof(supplyItemDataStore));
         }
 
         public IActionResult Index()
         {
-            var result = _categoryDataStore.GetCategories();
+            var result = _supplyItemDataStore.GetSupplyItems();
 
             if (result is null)
             {
                 return NotFound();
             }
 
-            ViewBag.CategoriesCount = result.Data.Count();
+            ViewBag.SupplyItemsCount = result.Data.Count();
             ViewBag.CurrentPage = result.PageNumber;
             ViewBag.PageSize = result.PageSize;
             ViewBag.HasNext = result.HasNextPage;

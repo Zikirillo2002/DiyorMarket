@@ -1,27 +1,28 @@
-﻿using Lesson11.Stores.Categories;
+﻿using Lesson11.Stores.Products;
+using Lesson11.Stores.SaleItems;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
 {
-    public class CategoriesController : Controller
+    public class ProductsController : Controller
     {
-        private readonly ICategoryDataStore _categoryDataStore;
+        private readonly IProductDataStore _productDataStore;
 
-        public CategoriesController(ICategoryDataStore categoryDataStore)
+        public ProductsController(IProductDataStore productDataStore)
         {
-            _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
+            _productDataStore = productDataStore ?? throw new ArgumentNullException(nameof(productDataStore));
         }
 
         public IActionResult Index()
         {
-            var result = _categoryDataStore.GetCategories();
+            var result = _productDataStore.GetProducts();
 
             if (result is null)
             {
                 return NotFound();
             }
 
-            ViewBag.CategoriesCount = result.Data.Count();
+            ViewBag.ProductsCount = result.Data.Count();
             ViewBag.CurrentPage = result.PageNumber;
             ViewBag.PageSize = result.PageSize;
             ViewBag.HasNext = result.HasNextPage;
