@@ -22,4 +22,13 @@
     <PackageReference Include="Syncfusion.Licensing" Version="23.1.44" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Customers\" />
+    <Folder Include="Views\SupplyItems\" />
+    <Folder Include="Views\Supplies\" />
+    <Folder Include="Views\Suppliers\" />
+    <Folder Include="Views\SaleItems\" />
+    <Folder Include="Views\Sales\" />
+  </ItemGroup>
+
 </Project>
