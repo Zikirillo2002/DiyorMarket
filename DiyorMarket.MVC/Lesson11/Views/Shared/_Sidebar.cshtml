@@ -1,0 +1,130 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "Общие",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Главное",
+        url = "/dashboard",
+        iconCss = "fa-solid fa-home",
+    });
+    menuItems.Add(new
+    {
+        text = "Продажи",
+        url = "/sales",
+        iconCss = "fa-solid fa-money-bill-trend-up",
+    });
+    menuItems.Add(new
+    {
+        text = "Поставки",
+        iconCss = "fa-solid fa-bolt",
+        url = "/supplies"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Партнёры",
+        separator = true,
+    });
+
+    menuItems.Add(new
+    {
+        text = "Клиенты",
+        iconCss = "fa-solid fa-user-group",
+        url = "/customers"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Поставщики",
+        iconCss = "fa-solid fa-people-arrows",
+        url = "/customers"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Продукция",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Продукты",
+        iconCss = "fa-solid fa-cube",
+        url = "/products"
+    }); 
+    menuItems.Add(new
+    {
+        text = "Категории",
+        iconCss = "fa-solid fa-box",
+        url = "/categories"
+    });
+    menuItems.Add(new
+    {
+        text = "Склад",
+        iconCss = "fa-solid fa-warehouse",
+        url = "/warehouse"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Отчёты",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Reports",
+        iconCss = "fa-solid fa-chart-simple",
+        url = "/reports"
+    }); 
+    menuItems.Add(new
+    {
+        text = "Settings",
+        iconCss = "fa-solid fa-gear",
+        url = "#"
+    });
+}
+
+
+<ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px"
+             target=".dock-target" enableGestures="false">
+    <e-content-template>
+
+        <div class="logo-wrapper">
+            <div class="app-logo">
+                <img src="~/diyor_market_logo.png" style="height: 50px; width:150"/>
+            </div>
+            <div class="w-100"></div>
+            <i id="sidebar-toggler" class="fa-solid"></i>
+        </div>
+
+        <div class="profile-wrapper">
+            <i class="fa-solid fa-user"></i>
+            <div class="titles d-flex flex-column ps-3">
+                <h6 class="mb-0">Diyor Market</h6>
+                <span class="text-muted">John Doe</span>
+            </div>
+        </div>
+
+        <ejs-menu id="menu"
+                  items="menuItems"
+                  orientation="Vertical"
+                  hamburgerMode></ejs-menu>
+    </e-content-template>
+</ejs-sidebar>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        dockBar = document.getElementById('sidebar').ej2_instances[0];
+        document.getElementById('sidebar-toggler').onclick = function () {
+            dockBar.toggle();
+        };
+    });
+
+</script>
