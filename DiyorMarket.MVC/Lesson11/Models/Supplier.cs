@@ -10,15 +10,15 @@ namespace Lesson11.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(255, ErrorMessage = "Supplier's FirstName is required.")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         [MaxLength(255)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Please, provide valid phone number.")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         [Required]
-        public string Company { get; set; }
+        public string? Company { get; set; }
 
-        public virtual ICollection<Supply> Supplies { get; set; }
+        public virtual ICollection<Supply>? Supplies { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Lesson11.Models
 
         public int SaleId { get; set; }
         [ForeignKey(nameof(SaleId))]
-        public Sale Sale { get; set; }
+        public Sale? Sale { get; set; }
 
         public int ProductId { get; set; }
         [ForeignKey(nameof(ProductId))]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }

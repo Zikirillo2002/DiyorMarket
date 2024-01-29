@@ -12,8 +12,8 @@ namespace Lesson11.Models
 
         public int CustomerId { get; set; }
         [ForeignKey(nameof(CustomerId))]
-        public Customer Customer { get; set; }
+        public Customer? Customer { get; set; }
 
-        public virtual ICollection<SaleItem> SaleItems { get; set; }
+        public virtual ICollection<SaleItem>? SaleItems { get; set; }
     }
 }
