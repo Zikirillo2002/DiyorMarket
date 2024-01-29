@@ -12,8 +12,8 @@ namespace Lesson11.Controllers
             _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
         }
 
-        public IActionResult Index()
-        {
+          public IActionResult Index()
+          {
             var result = _categoryDataStore.GetCategories();
 
             if (result is null)
@@ -21,14 +21,9 @@ namespace Lesson11.Controllers
                 return NotFound();
             }
 
-            ViewBag.CategoriesCount = result.Data.Count();
-            ViewBag.CurrentPage = result.PageNumber;
-            ViewBag.PageSize = result.PageSize;
-            ViewBag.HasNext = result.HasNextPage;
-            ViewBag.HasPrevious = result.HasPreviousPage;
-            ViewBag.TotalPages = result.TotalPages;
+            this.SetViewBagProperties(result);
 
             return View(result.Data);
-        }
+          }
     }
 }
