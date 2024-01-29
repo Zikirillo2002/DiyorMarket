@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 
 namespace Lesson11.Stores.Customers
 {
-    public class CusomerDataStore : ICustomerDataStore
+    public class CustomerDataStore : ICustomerDataStore
     {
         private readonly ApiClient _api;
-        public CusomerDataStore()
+        public CustomerDataStore()
         {
             _api = new ApiClient();
         }
