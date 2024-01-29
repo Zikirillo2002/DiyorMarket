@@ -1,4 +1,7 @@
+using Lesson11.Extensions;
 using Lesson11.Stores.Categories;
+using Lesson11.Stores.Customers;
+using Lesson11.Stores.Products;
 
 namespace Lesson11
 {
@@ -11,7 +14,8 @@ namespace Lesson11
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<ICategoryDataStore, CategoryDataStore>();
+            builder.Services.ConfigureDataStores();
+
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2VlhhQlJCfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn9Sd0xjWHpacHFdRGNY");
 
             var app = builder.Build();
