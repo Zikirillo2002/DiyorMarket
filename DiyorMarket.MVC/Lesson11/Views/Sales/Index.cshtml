@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Lesson11.Models.Sale>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Categories @ViewBag.Sales.Count</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-light">
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th class="text-light">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="text-light">
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-white">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td class="text-white">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="text-white">
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
