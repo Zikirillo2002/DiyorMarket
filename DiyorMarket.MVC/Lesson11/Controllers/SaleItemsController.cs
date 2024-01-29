@@ -21,12 +21,7 @@ namespace Lesson11.Controllers
                 return NotFound();
             }
 
-            ViewBag.SaleItemsCount = result.Data.Count();
-            ViewBag.CurrentPage = result.PageNumber;
-            ViewBag.PageSize = result.PageSize;
-            ViewBag.HasNext = result.HasNextPage;
-            ViewBag.HasPrevious = result.HasPreviousPage;
-            ViewBag.TotalPages = result.TotalPages;
+            this.SetViewBagProperties(result);
 
             return View(result.Data);
         }
