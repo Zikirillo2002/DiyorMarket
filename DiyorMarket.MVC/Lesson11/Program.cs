@@ -1,5 +1,4 @@
 using Lesson11.Stores.Categories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lesson11
 {
@@ -17,7 +16,7 @@ namespace Lesson11
 
             var app = builder.Build();
 
-                        // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");

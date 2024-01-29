@@ -15,10 +15,10 @@ namespace Lesson11.Models
 
         public int ProductId { get; set; }
         [ForeignKey(nameof(ProductId))]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
 
         public int SupplyId { get; set; }
         [ForeignKey(nameof(SupplyId))]
-        public Supply Supply { get; set; }
+        public Supply? Supply { get; set; }
     }
 }
