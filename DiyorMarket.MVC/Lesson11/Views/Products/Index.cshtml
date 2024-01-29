@@ -1,10 +1,29 @@
-﻿@model IEnumerable<Lesson11.Models.Product>
+@model IEnumerable<Lesson11.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
 }
 
+
 <h1>Index</h1>
+
+	<div class="px-4 pb-4">
+		<ejs-grid id="products-list"
+				  dataSource="@ViewBag.Products"
+				  gridLines="Vertical"
+				  allowSorting="true">
+			<e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+			<e-grid-columns>
+				<e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
+				<e-grid-column headerText="Название" field="Name" typeof="text"></e-grid-column>
+				<e-grid-column headerText="Описание" field="Description" typeof="text"></e-grid-column>
+				<e-grid-column headerText="Приходная цена" field="SupplyPrice" typeof="text"></e-grid-column>
+				<e-grid-column headerText="Продажная цена" field="SalePrice" typeof="text"></e-grid-column>
+				<e-grid-column headerText="Категория Id" field="CategoryId" typeof="date"></e-grid-column>
+			</e-grid-columns>
+		</ejs-grid>
+	</div>
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>
