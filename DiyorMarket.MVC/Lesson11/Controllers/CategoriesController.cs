@@ -12,14 +12,17 @@ namespace Lesson11.Controllers
             _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
         }
 
-        public IActionResult Index()
-        {
+          public IActionResult Index()
+          {
             var result = _categoryDataStore.GetCategories();
 
             if (result is null)
             {
                 return NotFound();
             }
+
+
+            this.SetViewBagProperties(result);
 
             ViewBag.CategoriesCount = result.Data?.Count();
             ViewBag.CurrentPage = result.PageNumber;
@@ -28,7 +31,8 @@ namespace Lesson11.Controllers
             ViewBag.HasPrevious = result.HasPreviousPage;
             ViewBag.TotalPages = result.TotalPages;
 
+
             return View(result.Data);
-        }
+          }
     }
 }

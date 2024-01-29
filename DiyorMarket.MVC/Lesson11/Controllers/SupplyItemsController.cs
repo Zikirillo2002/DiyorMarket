@@ -21,6 +21,7 @@ namespace Lesson11.Controllers
                 return NotFound();
             }
 
+            this.SetViewBagProperties(result);
             ViewBag.SupplyItemsCount = result.Data?.Count();
             ViewBag.CurrentPage = result.PageNumber;
             ViewBag.PageSize = result.PageSize;
