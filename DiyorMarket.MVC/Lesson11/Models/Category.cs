@@ -12,9 +12,9 @@ namespace Lesson11.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(255, ErrorMessage = "Category name is required")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [JsonIgnore]
         [IgnoreDataMember]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
     }
 }

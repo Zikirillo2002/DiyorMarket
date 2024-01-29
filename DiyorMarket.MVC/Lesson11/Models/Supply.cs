@@ -12,8 +12,8 @@ namespace Lesson11.Models
 
         public int SupplierId { get; set; }
         [ForeignKey(nameof(SupplierId))]
-        public Supplier Supplier { get; set; }
+        public Supplier? Supplier { get; set; }
 
-        public virtual ICollection<SupplyItem> SupplyItems { get; set; }
+        public virtual ICollection<SupplyItem>? SupplyItems { get; set; }
     }
 }
