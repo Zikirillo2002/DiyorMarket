@@ -23,13 +23,6 @@ namespace Lesson11.Controllers
 
             this.SetViewBagProperties(result);
 
-            ViewBag.CustomersCount = result.Data?.Count();
-            ViewBag.CurrentPage = result.PageNumber;
-            ViewBag.PageSize = result.PageSize;
-            ViewBag.HasNext = result.HasNextPage;
-            ViewBag.HasPrevious = result.HasPreviousPage;
-            ViewBag.TotalPages = result.TotalPages;
-
             return View(result.Data);
         }
     }
