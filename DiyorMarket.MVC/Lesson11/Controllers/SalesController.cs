@@ -22,6 +22,7 @@ namespace Lesson11.Controllers
             }
 
             this.SetViewBagProperties(result);
+
             ViewBag.SalesCount = result.Data?.Count();
             ViewBag.CurrentPage = result.PageNumber;
             ViewBag.PageSize = result.PageSize;
