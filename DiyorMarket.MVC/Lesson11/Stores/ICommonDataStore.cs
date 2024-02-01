@@ -20,7 +20,6 @@ namespace Lesson11.Stores
         public ISupplyDataStore Supplies { get; }
         public ISupplyItemDataStore SupplyItems { get; }
         public ISupplierDataStore Suppliers { get; }
-        public IInformationsDataStore Informations { get; }
 
         public int SaveChanges();
     }

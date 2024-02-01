@@ -1,30 +1,27 @@
-﻿using Lesson11.Stores.Products;
-using Lesson11.Stores.SaleItems;
+﻿using Lesson11.Stores;
+using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lesson11.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly IProductDataStore _productDataStore;
+        private readonly ICommonDataStore _commonDataStore;
 
-        public ProductsController(IProductDataStore productDataStore)
+        public ProductsController(ICommonDataStore commonDataStore)
         {
-            _productDataStore = productDataStore ?? throw new ArgumentNullException(nameof(productDataStore));
+            _commonDataStore = commonDataStore ?? throw new ArgumentNullException(nameof(productDataStore));
         }
 
         public IActionResult Index()
         {
-            var result = _productDataStore.GetProducts();
+            var products = _commonDataStore.Products.GetProducts();
 
-            if (result is null)
-            {
-                return NotFound();
-            }
+            ViewBag.Products = products.Data;
 
-            this.SetViewBagProperties(result);
-
-            return View(result.Data);
+            return View();
         }
     }
 }

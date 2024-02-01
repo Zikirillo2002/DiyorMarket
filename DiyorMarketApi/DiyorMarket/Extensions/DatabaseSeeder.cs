@@ -157,7 +157,7 @@ namespace DiyorMarket.Extensions
                 {
                     var randomProduct = _faker.PickRandom(products);
 
-                    var quantity = new Random().Next(1, 50);
+                    var quantity = new Random().Next(10, 40);
 
                     saleItems.Add(new SaleItem()
                     {
@@ -227,7 +227,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var supply in supplies)
             {
-                int supplyItemsCount = new Random().Next(1, 20);
+                int supplyItemsCount = new Random().Next(30, 50);
 
                 for (int i = 0; i < supplyItemsCount; i++)
                 {
@@ -240,7 +240,7 @@ namespace DiyorMarket.Extensions
                         ProductId = randomProduct.Id,
                         SupplyId = supply.Id,
                         Quantity = quantity,
-                        UnitPrice = randomProduct.Price
+                        UnitPrice = randomProduct.Price*(decimal)0.8
                     });
                 }
             }

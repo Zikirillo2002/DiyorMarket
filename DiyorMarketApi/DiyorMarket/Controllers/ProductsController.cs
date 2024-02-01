@@ -15,7 +15,7 @@ namespace DiyorMarketApi.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -91,7 +91,7 @@ namespace DiyorMarketApi.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
-                Price = product.Price,
+                Price = product.SalePrice,
                 CategoryId = product.CategoryId,
             };
 

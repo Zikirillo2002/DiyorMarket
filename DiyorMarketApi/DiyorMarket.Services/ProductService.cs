@@ -67,9 +67,9 @@ namespace DiyorMarket.Services
                     _ => query.OrderBy(x => x.Name),
                 };
             }
-
+            
             var products = query.ToPaginatedList(productResourceParameters.PageSize, productResourceParameters.PageNumber);
-            // var products = query.ToList();
+            
             var productDtos = _mapper.Map<List<ProductDto>>(products);
 
             var paginatedResult = new PaginatedList<ProductDto>(productDtos, products.TotalCount, products.CurrentPage, products.PageSize);

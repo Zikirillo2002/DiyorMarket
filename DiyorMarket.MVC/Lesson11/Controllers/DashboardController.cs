@@ -1,9 +1,6 @@
-﻿using Lesson11.Stores;
-using Lesson11.Stores.Dashboard;
-using Lesson11.Stores.Information;
+﻿using Lesson11.Stores.Dashboard;
 using Lesson11.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lesson11.Controllers
 {
@@ -16,9 +13,9 @@ namespace Lesson11.Controllers
             _store = store;
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index()
         {
-            var dashboard = _store.GetDashboard(sea);
+            var dashboard = _store.GetDashboard();
 
             if (dashboard is null)
             {
