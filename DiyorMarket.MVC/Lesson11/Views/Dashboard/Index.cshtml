@@ -6,7 +6,7 @@
             </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Общее</span>
-                <h1 class="display-6 fw-bold">@ViewBag.SummaryCount</h1>
+                <h1 class="display-6 fw-bold">@ViewBag.Summary</h1>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
             </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Продажи</span>
-                <h1 class="display-6 fw-bold">@ViewBag.Sales.Count</h1>
+                <h1 class="display-6 fw-bold">@ViewBag.SalesCount</h1>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#1a222b">
                 <e-accumulation-series-collection>
                     <e-accumulation-series dataSource="@ViewBag.SalesByCategory"
-                                           xName="CategoryName" yName="SalesCount"
+                                           xName="Category" yName="SalesCount"
                                            innerRadius="60%" legendShape="Circle"
                                            palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})>
                         <e-accumulationseries-datalabel name="formattedAmount" visible></e-accumulationseries-datalabel>
@@ -78,10 +78,10 @@
                     <e-chartarea-border width="0"></e-chartarea-border>
                 </e-chart-chartarea>
                 <e-series-collection>
-                    <e-series dataSource="@ViewBag.SplineChartData" xName="day" width="3"
-                              yName="income" name="Продажи" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
-                    <e-series dataSource="@ViewBag.SplineChartData" xName="day" width="3"
-                              yName="expense" name="Поставки" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                    <e-series dataSource="@ViewBag.SplineChartData" xName="Month" width="3"
+                              yName="Income" name="Продажи" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                    <e-series dataSource="@ViewBag.SplineChartData" xName="Month" width="3"
+                              yName="Expense" name="Поставки" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
                 </e-series-collection>
                 <e-chart-legendsettings position="Top" alignment="Far" toggleVisibility="false">
                     <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
@@ -94,24 +94,25 @@
 
 @*Recent Transactions and More*@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="widget">
             <div class="p-4">
-                <h5 class="fw-bold">Recent Transactions</h5>
+                <h5 class="fw-bold">Недавние транзакции</h5>
             </div>
             <div class="px-4 pb-4">
                 <ejs-grid id="recent-transactions"
-                          dataSource="@ViewBag.RecentTransactions" gridLines="None">
+                          dataSource="@ViewBag.Transactions" gridLines="None">
                     <e-grid-columns>
-                        <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
-                        <e-grid-column headerText="Date" field="Date" type="date" format="MMM-dd-yy"></e-grid-column>
-                        <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Right"></e-grid-column>
+                        <e-grid-column headerText="Id" field="Id"></e-grid-column>
+                        <e-grid-column headerText="Type" field="Type"></e-grid-column>
+                        <e-grid-column headerText="Date" field="Date" type="date" format="MMM-dd-yy-HH-mm"></e-grid-column>
+                        <e-grid-column headerText="Amount" field="Amount" textAlign="Right"></e-grid-column>
                     </e-grid-columns>
                 </ejs-grid>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="widget h-100">
             <div class="d-flex justify-content-center align-items-center h-100">
                 <span><i class="fa-solid fa-plus fa-2xl"></i> Widget</span>

@@ -1,5 +1,6 @@
 ﻿using Lesson11.Stores.Categories;
 using Lesson11.Stores.Customers;
+using Lesson11.Stores.Information;
 using Lesson11.Stores.Products;
 using Lesson11.Stores.SaleItems;
 using Lesson11.Stores.Sales;
@@ -19,6 +20,7 @@ namespace Lesson11.Stores
         public ISupplyDataStore Supplies { get; }
         public ISupplyItemDataStore SupplyItems { get; }
         public ISupplierDataStore Suppliers { get; }
+        public IInformationsDataStore Informations { get; }
 
         public int SaveChanges();
     }

@@ -3,8 +3,11 @@ using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.Infrastructure.Persistence.Repositories;
 using DiyorMarket.Services;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Serilog;
+using System.Buffers;
 
 namespace DiyorMarket.Extensions
 {
@@ -30,6 +33,13 @@ namespace DiyorMarket.Extensions
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<ISupplyService, SupplyService>();
             services.AddScoped<ISupplyItemService, SupplyItemService>();
+            services.AddScoped<IDashboardService, DashboardService>();
+
+            services.AddControllers()
+              .AddNewtonsoftJson(options =>
+                  options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore
+               );
 
             return services;
         }

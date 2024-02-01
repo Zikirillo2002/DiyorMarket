@@ -31,7 +31,7 @@ namespace DiyorMarket.Extensions
             List<string> categoryNames = new();
             List<Category> categories = new();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 25; i++)
             {
                 var categoryName = _faker.Commerce
                     .Categories(1)
@@ -69,7 +69,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var category in categories)
             {
-                var productsCount = new Random().Next(10, 100);
+                var productsCount = new Random().Next(5, 10);
 
                 for (int i = 0; i < productsCount; i++)
                 {
@@ -104,7 +104,7 @@ namespace DiyorMarket.Extensions
             if (context.Customers.Any()) return;
             List<Customer> customers = new List<Customer>();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 customers.Add(new Customer()
                 {
@@ -126,7 +126,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var customer in customers)
             {
-                int salesCount = new Random().Next(50, 100);
+                int salesCount = new Random().Next(5, 10);
                 for (int i = 0; i < salesCount; i++)
                 {
                     sales.Add(new Sale()
@@ -151,7 +151,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var sale in sales)
             {
-                int saleItemsCount = new Random().Next(5, 50);
+                int saleItemsCount = new Random().Next(5, 10);
 
                 for (int i = 0; i < saleItemsCount; i++)
                 {
@@ -178,7 +178,7 @@ namespace DiyorMarket.Extensions
             if (context.Suppliers.Any()) return;
             List<Supplier> suppliers = new List<Supplier>();
 
-            for (int i = 0; i < 125; i++)
+            for (int i = 0; i < 50; i++)
             {
                 suppliers.Add(new Supplier()
                 {
@@ -202,7 +202,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var supplier in suppliers)
             {
-                int suppliesCount = new Random().Next(5, 50);
+                int suppliesCount = new Random().Next(5, 10);
                 for (int i = 0; i < suppliesCount; i++)
                 {
                     supplies.Add(new Supply()
@@ -233,7 +233,7 @@ namespace DiyorMarket.Extensions
                 {
                     var randomProduct = _faker.PickRandom(products);
 
-                    var quantity = new Random().Next(1, 50);
+                    var quantity = new Random().Next(5, 10);
 
                     supplyItems.Add(new SupplyItem()
                     {
