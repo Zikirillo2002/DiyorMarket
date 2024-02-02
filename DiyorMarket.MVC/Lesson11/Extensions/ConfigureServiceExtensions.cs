@@ -1,7 +1,6 @@
 ﻿using Lesson11.Stores.Categories;
 using Lesson11.Stores.Customers;
 using Lesson11.Stores.Dashboard;
-using Lesson11.Stores.Information;
 using Lesson11.Stores.Products;
 using Lesson11.Stores.SaleItems;
 using Lesson11.Stores.Sales;
@@ -25,7 +24,6 @@ namespace Lesson11.Extensions
             services.AddScoped<ISupplierDataStore, SupplierDataStore>();
             services.AddScoped<ISupplyDataStore, SupplyDataStore>();
             services.AddScoped<ISupplyItemDataStore, SupplyItemDataStore>();
-            services.AddScoped<IInformationsDataStore, InformationDataStore>();
             services.AddScoped<IDashboardStore, DashboardStore>();
 
             return services;

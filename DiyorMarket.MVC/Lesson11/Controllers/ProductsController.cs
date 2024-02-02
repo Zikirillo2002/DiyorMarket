@@ -1,23 +1,21 @@
-﻿using Lesson11.Stores;
+﻿using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lesson11.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ICommonDataStore _commonDataStore;
+        private readonly IProductDataStore _productDataStore;
 
-        public ProductsController(ICommonDataStore commonDataStore)
+        public ProductsController(IProductDataStore productDataStore)
         {
-            _commonDataStore = commonDataStore ?? throw new ArgumentNullException(nameof(productDataStore));
+            _productDataStore = productDataStore ?? throw new ArgumentNullException(nameof(productDataStore));
         }
 
         public IActionResult Index()
         {
-            var products = _commonDataStore.Products.GetProducts();
+            var products = _productDataStore.GetProducts();
 
             ViewBag.Products = products.Data;
 

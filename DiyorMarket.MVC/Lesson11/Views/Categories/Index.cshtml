@@ -1,41 +1,28 @@
-﻿@model IEnumerable<Lesson11.Models.Category>
+﻿<form asp-controller="Categories" asp-action="Index">
+    <p>
+        Search by name: <input type="text" name="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <div class="align-self-end mb-3">
+            <a class="btn btn-success " asp-action="Create">
+                Create Category
+            </a>
+        </div>
+    </div>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Categories @ViewBag.CategoriesCount</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td class="text-white">
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-                <td class="text-white">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                @Html.ActionLink("Details", "Details", new { item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { item.Id })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="px-4 pb-4">
+        <ejs-grid id="categories-list"
+                  dataSource="@ViewBag.Categories"
+                  gridLines="Vertical"
+                  allowSorting="true">
+            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Category Name" field="Name" typeof="text"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>

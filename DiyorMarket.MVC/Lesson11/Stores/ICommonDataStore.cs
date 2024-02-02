@@ -1,6 +1,5 @@
 ﻿using Lesson11.Stores.Categories;
 using Lesson11.Stores.Customers;
-using Lesson11.Stores.Information;
 using Lesson11.Stores.Products;
 using Lesson11.Stores.SaleItems;
 using Lesson11.Stores.Sales;

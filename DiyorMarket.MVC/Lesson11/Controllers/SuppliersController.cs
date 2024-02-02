@@ -14,16 +14,11 @@ namespace Lesson11.Controllers
 
         public IActionResult Index()
         {
-            var result = _supplierDataStore.GetSuppliers();
+            var suppliers = _supplierDataStore.GetSuppliers();
 
-            if (result is null)
-            {
-                return NotFound();
-            }
+            ViewBag.Suppliers = suppliers.Data;
 
-            this.SetViewBagProperties(result);
-
-            return View(result.Data);
+            return View();
         }
     }
 }

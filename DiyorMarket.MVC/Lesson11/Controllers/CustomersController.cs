@@ -14,16 +14,11 @@ namespace Lesson11.Controllers
 
         public IActionResult Index()
         {
-            var result = _customerDataStore.GetCustomers();
+            var customers = _customerDataStore.GetCustomers();
 
-            if (result is null)
-            {
-                return NotFound();
-            }
+            ViewBag.Customers = customers.Data;
 
-            this.SetViewBagProperties(result);
-
-            return View(result.Data);
+            return View();
         }
     }
 }
