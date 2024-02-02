@@ -1,48 +1,43 @@
-﻿@model IEnumerable<Supply>
-@{
-    ViewData["Title"] = "Index";
-}
+﻿<form asp-controller="Supplies" asp-action="Index">
+    <p>
+        Search by name: <input type="text" name="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <div class="align-self-end">
+            <form class="mt-3" asp-controller="sales" method="get" asp-action="Index">
+                <p>
+                    <select id="select" asp-items="@ViewBag.Suppliers">
+                        <option selected="true" disabled="disabled">
+                            Выбрать Поставщика
+                        </option>
+                    </select>
+                </p>
+            </form>
+        </div>
 
-<h1>Supplies</h1>
+        <div class="align-self-end mb-3">
+            <a class="btn btn-success " asp-action="Create">
+                Create Supply
+            </a>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.SupplierId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.SupplierId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="px-4 pb-4">
+        <ejs-grid id="products-list"
+                  dataSource="@ViewBag.Sales"
+                  gridLines="Vertical"
+                  allowSorting="true">
+            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Sale Date" field="Date" typeof="text"></e-grid-column>
+                <e-grid-column headerText="SupplierId" field="SupplierId" typeof="text"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
 

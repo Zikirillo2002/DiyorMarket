@@ -1,60 +1,31 @@
-﻿@model IEnumerable<Supplier>
-@{
-    ViewData["Title"] = "Index";
-}
+﻿<form asp-controller="Suppliers" asp-action="Index">
+    <p>
+        Search by name: <input type="text" name="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <div class="align-self-end mb-3">
+            <a class="btn btn-success " asp-action="Create">
+                Create Supplier
+            </a>
+        </div>
+    </div>
 
-<h1>Suppliers</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th class="text-light">
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td class="text-white">
-                    @Html.DisplayFor(modelItem => item.Company)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+    <div class="px-4 pb-4">
+        <ejs-grid id="categories-list"
+                  dataSource="@ViewBag.Suppliers"
+                  gridLines="Vertical"
+                  allowSorting="true">
+            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Firstname" field="FirstName" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Lastname" field="LastName" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Company" field="Company" typeof="text"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
