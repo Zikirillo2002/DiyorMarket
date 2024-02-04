@@ -2,6 +2,7 @@
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers
 {
@@ -19,11 +20,17 @@ namespace Lesson11.Controllers
         public IActionResult Index(string? searchString, int? categoryId)
         {
             var products = _productDataStore.GetProducts(searchString, categoryId);
-            var categories = _categoryDataStore.GetCategories();
+            var categories = _categoryDataStore.GetCategories().Data.ToList();
+            categories.Insert(0, new Category
+            {
+                Id = 0,
+                Name = "All"
+            });
 
-            ViewBag.Categories = categories.Data;
-
+            ViewBag.Categories = categories;
+            ViewBag.SelectedCategory = categoryId ?? categories[0].Id;
             ViewBag.Products = products.Data;
+            ViewBag.SearchString = searchString;
 
             return View();
         }
