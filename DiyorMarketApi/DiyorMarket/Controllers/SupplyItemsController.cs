@@ -14,7 +14,7 @@ namespace DiyorMarket.Controllers
 {
     [Route("api/supplyItems")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class SupplyItemsController : Controller
     {
         private readonly ISupplyItemService _supplyItemService;

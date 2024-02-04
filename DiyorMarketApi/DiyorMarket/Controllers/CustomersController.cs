@@ -14,7 +14,7 @@ namespace DiyorMarket.Controllers
 {
     [Route("api/customers")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CustomersController : Controller
     {
         private readonly ICustomerService _customerService;
