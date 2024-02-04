@@ -1,50 +1,51 @@
-﻿<form asp-controller="Products" asp-action="Index">
-    <div class="d-flex m-3">
-        <p>
-            <div class="col-xs-4 col-sm-4 col-lg-4">
-                <ejs-textbox id="outlined" 
-                            cssClass="e-outline" 
-                            placeholder="Search products..." 
-                            name="searchString"
-                            floatLabelType="Auto"
-                value="@ViewBag.SearchString"></ejs-textbox>
-            </div>
-            <input type="submit" value="Search" />
-
-            <form asp-controller="products" method="get" asp-action="Index">
-                <div class="col-xs-3 col-sm-3 col-lg-3">
-                    <ejs-dropdownlist id="category" dataSource="@ViewBag.Categories"
-                                      placeholder="Select Category" allowFiltering="true" name="categoryId" value="@ViewBag.SelectedCategory">
-                        <e-dropdownlist-fields value="Id" text="Name"></e-dropdownlist-fields>
-                    </ejs-dropdownlist>
+﻿<div class="container mt-4">
+    <form asp-controller="Products" asp-action="Index" class="mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search products..." name="searchString" value="@ViewBag.SearchString">
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-            </form>
-        </p>
-        
-        <div>
-            <a class="btn btn-success " asp-action="Create">
-                Create Product
-            </a>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <select class="form-control" name="categoryId">
+                        <option value="" selected disabled>Select Category</option>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 text-right">
+                <a class="btn btn-success" asp-action="Create">
+                    <i class="bi bi-plus"></i> Create Product
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-12">
+            <ejs-grid id="products-list"
+                      dataSource="@ViewBag.Products"
+                      gridLines="Vertical"
+                      allowPaging="true"
+                      allowSorting="true">
+                <e-grid-pagesettings pageSize="15"></e-grid-pagesettings>
+                <e-grid-columns>
+                    <e-grid-column headerText="ID" field="Id" typeof="text" width="70"></e-grid-column>
+                    <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
+                    <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
+                    <e-grid-column headerText="Sale Price" field="SalePrice" typeof="number" format="C2"></e-grid-column>
+                    <e-grid-column headerText="Supply Price" field="SupplyPrice" typeof="number" format="C2"></e-grid-column>
+                    <e-grid-column headerText="Category" field="CategoryId" typeof="text"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
         </div>
     </div>
-</form>
-<div class="row">
-    <div class="px-4 pb-4">
-        <ejs-grid id="products-list"
-                  dataSource="@ViewBag.Products"
-                  gridLines="Vertical" allowPaging="true"
-                  allowSorting="true">
-            <e-grid-pagesettings pageSize="15"></e-grid-pagesettings>
-            <e-grid-columns>
-                <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Sale Price" field="SalePrice" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Supply Price" field="SupplyPrice" typeof="text"></e-grid-column>
-                <e-grid-column headerText="CategoryId" field="CategoryId" typeof="text"></e-grid-column>
-            </e-grid-columns>
-        </ejs-grid>
-    </div>
 </div>
-
-
