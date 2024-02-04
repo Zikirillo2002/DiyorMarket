@@ -4,8 +4,7 @@ namespace DiyorMarket.Domain.DTOs.Customer
 {
     public record CustomerDto(
         int Id,
-        string FirstName,
-        string LastName,
+        string FullName,
         string PhoneNumber,
         ICollection<SaleDto> Sales);
 }

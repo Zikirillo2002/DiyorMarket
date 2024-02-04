@@ -17,6 +17,9 @@ namespace Lesson11.Controllers
             var categories = _categoryDataStore.GetCategories();
 
             ViewBag.Categories = categories.Data;
+            ViewBag.PageSize = categories.PageSize;
+            ViewBag.PageCount = categories.TotalPages;
+            ViewBag.CurrentPage = categories.PageNumber;
 
             return View();
           }

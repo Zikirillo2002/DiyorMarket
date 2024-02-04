@@ -15,7 +15,7 @@
         {
             var request = new HttpRequestMessage(HttpMethod.Get, _client.BaseAddress?.AbsolutePath + "/" + url);
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjQxMjMiLCJuYW1lIjoiQW52YXIiLCJuYmYiOjE3MDY4NjQwNTUsImV4cCI6MTcwNjk1MDQ1NSwiaXNzIjoiYW52YXItYXBpIiwiYXVkIjoiYW52YXItbW9iaWxlIn0.XHPue1N2XyHGHQi66JVpxqdPH13EGGrCpbHLw7Wrt4Q");
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjQxMjMiLCJuYW1lIjoiQW52YXIiLCJuYmYiOjE3MDY5NTUwNjIsImV4cCI6MTcwNzA0MTQ2MiwiaXNzIjoiYW52YXItYXBpIiwiYXVkIjoiYW52YXItbW9iaWxlIn0.mU5T3CUH4KwDJZWPt-zneZEBoe4LZe2abBPYxHvYrCI");
             var response = _client.Send(request);
 
             return response;
