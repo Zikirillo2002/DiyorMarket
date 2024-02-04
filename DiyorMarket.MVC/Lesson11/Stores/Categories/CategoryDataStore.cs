@@ -44,9 +44,9 @@ namespace Lesson11.Stores.Categories
             return result;
         }
 
-        public Category? CreateCategory(Category category)
+        public Category? CreateCategory(Category name)
         {
-            var json = JsonConvert.SerializeObject(category);
+            var json = JsonConvert.SerializeObject(name);
             var response = _api.Post("categories", json);
 
             if (!response.IsSuccessStatusCode)

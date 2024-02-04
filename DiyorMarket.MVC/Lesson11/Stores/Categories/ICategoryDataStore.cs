@@ -7,7 +7,7 @@ namespace Lesson11.Stores.Categories
     {
         public GetCategoryResponse? GetCategories();
         public Category? GetCategory(int id);
-        public Category? CreateCategory(Category category);
+        public Category? CreateCategory(Category name);
         public Category? UpdateCategory(Category category);
         public void DeleteCategory(int id);
     }

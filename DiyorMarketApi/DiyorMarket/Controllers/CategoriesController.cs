@@ -54,9 +54,9 @@ namespace DiyorMarketApi.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] CategoryForCreateDto category)
         {
-            _categoryService.CreateCategory(category);
+            var createdCategory = _categoryService.CreateCategory(category);
 
-            return StatusCode(201);
+            return CreatedAtAction(nameof(Get), new { createdCategory.Id }, createdCategory);
         }
 
         [HttpPut("{id}")]

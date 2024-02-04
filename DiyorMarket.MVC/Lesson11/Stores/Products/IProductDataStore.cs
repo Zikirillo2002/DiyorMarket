@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Products
 {
     public interface IProductDataStore
     {
-        public GetProductResponse? GetProducts();
+        public GetProductResponse? GetProducts(string? searchString, int? categoryId);
         public Product? GetProduct(int id);
         public Product? CreateProduct(Product category);
         public Product? UpdateProduct(Product category);
