@@ -11,12 +11,8 @@ namespace Lesson11.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(255)]
-        [DisplayName("First Name")]
-        public string? FirstName { get; set; }
-
-        [MaxLength(255)]
-        [DisplayName("Last Name")]
-        public string? LastName { get; set; }
+        [DisplayName("Full Name")]
+        public string? FullName { get; set; }
 
         [Required]
         [Phone]
