@@ -12,13 +12,17 @@ namespace Lesson11.Controllers
             _customerDataStore = customerDataStore ?? throw new ArgumentNullException(nameof(customerDataStore));
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchString)
         {
-            var customers = _customerDataStore.GetCustomers();
+            var customers = _customerDataStore.GetCustomers(searchString);
 
             ViewBag.Customers = customers.Data;
+			ViewBag.PageSize = customers.PageSize;
+			ViewBag.PageCount = customers.TotalPages;
+			ViewBag.CurrentPage = customers.PageNumber;
+			ViewBag.SearchString = searchString;
 
-            return View();
+			return View();
         }
     }
 }

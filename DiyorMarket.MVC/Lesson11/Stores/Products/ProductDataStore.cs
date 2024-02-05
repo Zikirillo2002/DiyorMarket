@@ -31,7 +31,6 @@ namespace Lesson11.Stores.Products
 
             var response = _api.Get("products?" + query.ToString());
 
-
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Could not fetch products.");

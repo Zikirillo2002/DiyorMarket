@@ -20,7 +20,7 @@ namespace Lesson11.Controllers
         public IActionResult Index(string? searchString, int? categoryId)
         {
             var products = _productDataStore.GetProducts(searchString, categoryId);
-            var categories = _categoryDataStore.GetCategories().Data.ToList();
+            var categories = _categoryDataStore.GetCategories(searchString).Data.ToList();
             categories.Insert(0, new Category
             {
                 Id = 0,

@@ -12,13 +12,17 @@ namespace Lesson11.Controllers
             _supplierDataStore = supplierDataStore ?? throw new ArgumentNullException(nameof(supplierDataStore));
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchString)
         {
-            var suppliers = _supplierDataStore.GetSuppliers();
+            var suppliers = _supplierDataStore.GetSuppliers(searchString);
 
             ViewBag.Suppliers = suppliers.Data;
+			ViewBag.PageSize = suppliers.PageSize;
+			ViewBag.PageCount = suppliers.TotalPages;
+			ViewBag.CurrentPage = suppliers.PageNumber;
+			ViewBag.SearchString = searchString;
 
-            return View();
+			return View();
         }
     }
 }

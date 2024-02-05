@@ -2,83 +2,91 @@
 using Lesson11.Response;
 using Lesson11.Services;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Lesson11.Stores.Suppliers
 {
-    public class SupplierDataStore : ISupplierDataStore
-    {
-        private readonly ApiClient _api;
+	public class SupplierDataStore : ISupplierDataStore
+	{
+		private readonly ApiClient _api;
 
-        public SupplierDataStore()
-        {
-            _api = new ApiClient();
-        }
-        public GetSupplierResponse? GetSuppliers()
-        {
-            var response = _api.Get("suppliers");
+		public SupplierDataStore()
+		{
+			_api = new ApiClient();
+		}
+		public GetSupplierResponse? GetSuppliers(string? searchString)
+		{
+			StringBuilder query = new("");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Could not fetch suppliers.");
-            }
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				query.Append($"searchString={searchString}");
+			}
 
-            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var result = JsonConvert.DeserializeObject<GetSupplierResponse>(json);
+			var response = _api.Get("suppliers?" + query.ToString());
 
-            return result;
-        }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception("Could not fetch suppliers.");
+			}
 
-        public Supplier? GetSupplier(int id)
-        {
-            var response = _api.Get($"suppliers/{id}");
+			var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			var result = JsonConvert.DeserializeObject<GetSupplierResponse>(json);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Could not fetch suppliers with id: {id}.");
-            }
+			return result;
+		}
 
-            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var result = JsonConvert.DeserializeObject<Supplier>(json);
+		public Supplier? GetSupplier(int id)
+		{
+			var response = _api.Get($"suppliers/{id}");
 
-            return result;
-        }
-        public Supplier? CreateSupplier(Supplier category)
-        {
-            var json = JsonConvert.SerializeObject(category);
-            var response = _api.Post("suppliers", json);
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception($"Could not fetch suppliers with id: {id}.");
+			}
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Error creating suppliers.");
-            }
+			var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			var result = JsonConvert.DeserializeObject<Supplier>(json);
 
-            var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			return result;
+		}
+		public Supplier? CreateSupplier(Supplier category)
+		{
+			var json = JsonConvert.SerializeObject(category);
+			var response = _api.Post("suppliers", json);
 
-            return JsonConvert.DeserializeObject<Supplier>(jsonResponse);
-        }
-        public Supplier? UpdateSupplier(Supplier category)
-        {
-            var json = JsonConvert.SerializeObject(category);
-            var response = _api.Put("suppliers", json);
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception("Error creating suppliers.");
+			}
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Error updating suppliers.");
-            }
+			var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			return JsonConvert.DeserializeObject<Supplier>(jsonResponse);
+		}
+		public Supplier? UpdateSupplier(Supplier category)
+		{
+			var json = JsonConvert.SerializeObject(category);
+			var response = _api.Put("suppliers", json);
 
-            return JsonConvert.DeserializeObject<Supplier>(jsonResponse);
-        }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception("Error updating suppliers.");
+			}
 
-        public void DeleteSupplier(int id)
-        {
-            var response = _api.Delete($"suppliers/{id}");
+			var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Could not delete suppliers with id: {id}.");
-            }
-        }
-    }
+			return JsonConvert.DeserializeObject<Supplier>(jsonResponse);
+		}
+
+		public void DeleteSupplier(int id)
+		{
+			var response = _api.Delete($"suppliers/{id}");
+
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception($"Could not delete suppliers with id: {id}.");
+			}
+		}
+	}
 }

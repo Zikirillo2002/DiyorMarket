@@ -2,86 +2,94 @@
 using Lesson11.Response;
 using Lesson11.Services;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Lesson11.Stores.Customers
 {
-    public class CustomerDataStore : ICustomerDataStore
-    {
-        private readonly ApiClient _api;
-        public CustomerDataStore()
-        {
-            _api = new ApiClient();
-        }
+	public class CustomerDataStore : ICustomerDataStore
+	{
+		private readonly ApiClient _api;
+		public CustomerDataStore()
+		{
+			_api = new ApiClient();
+		}
 
-        public GetCustomerResponse? GetCustomers()
-        {
-            var response = _api.Get("customers");
+		public GetCustomerResponse? GetCustomers(string? searchString)
+		{
+			StringBuilder query = new("");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Could not fetch customers.");
-            }
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				query.Append($"searchString={searchString}");
+			}
 
-            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var result = JsonConvert.DeserializeObject<GetCustomerResponse>(json);
+			var response = _api.Get("customers?" + query.ToString());
 
-            return result;
-        }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception("Could not fetch customers.");
+			}
 
-        public Customer? GetCustomer(int id)
-        {
-            var response = _api.Get($"customers/{id}");
+			var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			var result = JsonConvert.DeserializeObject<GetCustomerResponse>(json);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Could not fetch customers with id: {id}.");
-            }
+			return result;
+		}
 
-            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var result = JsonConvert.DeserializeObject<Customer>(json);
+		public Customer? GetCustomer(int id)
+		{
+			var response = _api.Get($"customers/{id}");
 
-            return result;
-        }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception($"Could not fetch customers with id: {id}.");
+			}
 
-        public Customer? CreateCustomer(Customer customer)
-        {
-            var json = JsonConvert.SerializeObject(customer);
-            var response = _api.Post("customers", json);
+			var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			var result = JsonConvert.DeserializeObject<Customer>(json);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Error creating customer.");
-            }
+			return result;
+		}
 
-            var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+		public Customer? CreateCustomer(Customer customer)
+		{
+			var json = JsonConvert.SerializeObject(customer);
+			var response = _api.Post("customers", json);
 
-            return JsonConvert.DeserializeObject<Customer>(jsonResponse);
-        }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception("Error creating customer.");
+			}
 
-        public Customer? UpdateCustomer(Customer category)
-        {
-            var json = JsonConvert.SerializeObject(category);
-            var response = _api.Put("customers", json);
+			var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Error updating customers.");
-            }
+			return JsonConvert.DeserializeObject<Customer>(jsonResponse);
+		}
 
-            var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+		public Customer? UpdateCustomer(Customer category)
+		{
+			var json = JsonConvert.SerializeObject(category);
+			var response = _api.Put("customers", json);
 
-            return JsonConvert.DeserializeObject<Customer>(jsonResponse);
-        }
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception("Error updating customers.");
+			}
 
-        public void DeleteCustomer(int id)
-        {
-            var response = _api.Delete($"customers/{id}");
+			var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Could not delete customers with id: {id}.");
-            }
-        }
+			return JsonConvert.DeserializeObject<Customer>(jsonResponse);
+		}
 
-    }
+		public void DeleteCustomer(int id)
+		{
+			var response = _api.Delete($"customers/{id}");
+
+			if (!response.IsSuccessStatusCode)
+			{
+				throw new Exception($"Could not delete customers with id: {id}.");
+			}
+		}
+
+	}
 }

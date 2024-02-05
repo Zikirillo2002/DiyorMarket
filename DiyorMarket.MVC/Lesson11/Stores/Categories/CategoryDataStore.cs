@@ -2,6 +2,7 @@
 using Lesson11.Response;
 using Lesson11.Services;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Lesson11.Stores.Categories
 {
@@ -14,9 +15,16 @@ namespace Lesson11.Stores.Categories
             _api = new ApiClient();
         }
 
-        public GetCategoryResponse? GetCategories()
+        public GetCategoryResponse? GetCategories(string? searchString)
         {
-            var response = _api.Get("categories");
+			StringBuilder query = new("");
+
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				query.Append($"searchString={searchString}");
+			}
+
+			var response = _api.Get("categories?" + query.ToString());
 
             if (!response.IsSuccessStatusCode)
             {
@@ -29,7 +37,7 @@ namespace Lesson11.Stores.Categories
             return result;
         }
 
-        public Category? GetCategory(int id)
+		public Category? GetCategory(int id)
         {
             var response = _api.Get($"categories/{id}");
 

@@ -16,32 +16,36 @@ namespace Lesson11.Controllers
             _customersDataStore = customersDataStore ?? throw new ArgumentNullException(nameof(customersDataStore)); ;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchString)
         {
-            var sales = _saleDataStore.GetSales();
+            var sales = _saleDataStore.GetSales(searchString);
 
             ViewBag.Sales = sales.Data;
+			ViewBag.PageSize = sales.PageSize;
+			ViewBag.PageCount = sales.TotalPages;
+			ViewBag.CurrentPage = sales.PageNumber;
+			ViewBag.SearchString = searchString;
 
-            return View();
+			return View();
         }
 
-        public IActionResult Create()
-        {
-            var customers = _customersDataStore.GetCustomers();
+        //public IActionResult Create()
+        //{
+        //    var customers = _customersDataStore.GetCustomers();
 
-            ViewBag.Customers = customers.Data;
+        //    ViewBag.Customers = customers.Data;
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        [HttpPost]
-        public IActionResult Create(SaleViewModel saleToCreate)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            return View();
-        }
+        //[HttpPost]
+        //public IActionResult Create(SaleViewModel saleToCreate)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return View();
+        //}
     }
 }

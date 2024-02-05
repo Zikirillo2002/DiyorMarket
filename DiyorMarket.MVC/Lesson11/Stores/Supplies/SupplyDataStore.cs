@@ -2,6 +2,7 @@
 using Lesson11.Response;
 using Lesson11.Services;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Lesson11.Stores.Supplies
 {
@@ -14,9 +15,16 @@ namespace Lesson11.Stores.Supplies
             _api = new ApiClient(); 
         }
 
-        public GetSupplyResponse? GetSupplies()
+        public GetSupplyResponse? GetSupplies(string? searchString)
         {
-            var response = _api.Get("supplies");
+			StringBuilder query = new("");
+
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				query.Append($"searchString={searchString}");
+			}
+           
+			var response = _api.Get("supplies?" + query.ToString());
 
             if (!response.IsSuccessStatusCode)
             {

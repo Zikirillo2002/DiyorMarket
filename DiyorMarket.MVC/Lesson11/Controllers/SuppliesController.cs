@@ -12,18 +12,17 @@ namespace Lesson11.Controllers
             _supplyDataStore = supplyDataStore ?? throw new ArgumentNullException(nameof(supplyDataStore));
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchString)
         {
-            var result = _supplyDataStore.GetSupplies();
+            var result = _supplyDataStore.GetSupplies(searchString);
 
-            if (result is null)
-            {
-                return NotFound();
-            }
+            ViewBag.Supplies = result.Data;
+			ViewBag.PageSize = result.PageSize;
+			ViewBag.PageCount = result.TotalPages;
+			ViewBag.CurrentPage = result.PageNumber;
+			ViewBag.SearchString = searchString;
 
-            this.SetViewBagProperties(result);
-
-            return View(result.Data);
+			return View(result.Data);
         }
     }
 }
