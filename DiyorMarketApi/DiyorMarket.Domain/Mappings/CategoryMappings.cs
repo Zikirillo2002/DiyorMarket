@@ -14,6 +14,7 @@ namespace DiyorMarket.Domain.Mappings
             CreateMap<CategoryForCreateDto, Category>();
             CreateMap<Category, CategoryForCreateDto>();
             CreateMap<CategoryForUpdateDto, Category>();
+            CreateMap<Category, CategoryForUpdateDto>();
         }
     }
 }

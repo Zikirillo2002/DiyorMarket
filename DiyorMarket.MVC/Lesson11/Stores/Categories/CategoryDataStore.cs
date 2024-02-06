@@ -70,7 +70,7 @@ namespace Lesson11.Stores.Categories
         public Category? UpdateCategory(Category category)
         {
             var json = JsonConvert.SerializeObject(category);
-            var response = _api.Put("categories", json);
+            var response = _api.Put($"categories/{category.Id}", json);
 
             if (!response.IsSuccessStatusCode)
             {
