@@ -36,7 +36,7 @@
         {
             var request = new HttpRequestMessage(HttpMethod.Put, _client.BaseAddress?.AbsolutePath + "/" + url)
             {
-                Content = new StringContent(data)
+                Content = new StringContent(data, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"))
             };
             var response = _client.Send(request);
 

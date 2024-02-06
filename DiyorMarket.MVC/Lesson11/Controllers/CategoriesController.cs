@@ -1,6 +1,8 @@
-﻿using Lesson11.Models;
+﻿using Bogus.DataSets;
+using Lesson11.Models;
 using Lesson11.Stores.Categories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lesson11.Controllers
 {
@@ -52,6 +54,31 @@ namespace Lesson11.Controllers
             var category = _categoryDataStore.GetCategory(id);
 
             return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, string name)
+        {
+            _categoryDataStore.UpdateCategory(new Category()
+            {
+                Id = id,
+                Name = name
+            });
+
+            return RedirectToAction("Details",new {id});
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var category = _categoryDataStore.GetCategory(id);
+            return View(category);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _categoryDataStore.DeleteCategory(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

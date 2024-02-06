@@ -86,12 +86,16 @@ namespace DiyorMarket.Services
             return categoryDto;
         }
 
-        public void UpdateCategory(CategoryForUpdateDto categoryToUpdate)
+        public CategoryDto UpdateCategory(CategoryForUpdateDto categoryToUpdate)
         {
             var categoryEntity = _mapper.Map<Category>(categoryToUpdate);
 
             _context.Categories.Update(categoryEntity);
             _context.SaveChanges();
+
+            var updatedCategoryDto = _mapper.Map<CategoryDto>(categoryEntity);
+
+            return updatedCategoryDto;
         }
 
         public void DeleteCategory(int id)
