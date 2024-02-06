@@ -4,5 +4,5 @@
         string FirstName,
         string LastName,
         string PhoneNumber,
-        string Company);
+        string? Company);
 }

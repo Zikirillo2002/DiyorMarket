@@ -50,9 +50,9 @@ namespace DiyorMarket.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] SaleForCreateDto sale)
         {
-            _saleService.CreateSale(sale);
+            var createSale = _saleService.CreateSale(sale);
 
-            return StatusCode(201);
+            return CreatedAtAction(nameof(Get), new { createSale.Id }, createSale);
         }
 
         [HttpPut("{id}")]

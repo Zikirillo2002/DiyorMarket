@@ -1,4 +1,5 @@
-﻿using Lesson11.Stores.Suppliers;
+﻿using Lesson11.Models;
+using Lesson11.Stores.Suppliers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
@@ -23,6 +24,42 @@ namespace Lesson11.Controllers
 			ViewBag.SearchString = searchString;
 
 			return View();
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Supplier supplier)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = _supplierDataStore.CreateSupplier(new Supplier
+            {
+                FirstName = supplier.FirstName,
+                LastName = supplier.LastName,
+                PhoneNumber = supplier.PhoneNumber,
+                Company = supplier.Company  
+            });
+
+            if (result is null)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Details", new { id = result.Id });
+        }
+
+        public IActionResult Details(int id)
+        {
+            var supplier = _supplierDataStore.GetSupplier(id);
+
+            return View(supplier);
         }
     }
 }

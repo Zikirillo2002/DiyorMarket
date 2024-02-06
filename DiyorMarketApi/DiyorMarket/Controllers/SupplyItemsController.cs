@@ -48,9 +48,9 @@ namespace DiyorMarket.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] SupplyItemForCreateDto supplyItem)
         {
-            _supplyItemService.CreateSupplyItem(supplyItem);
+            var createSupplyItem = _supplyItemService.CreateSupplyItem(supplyItem);
 
-            return StatusCode(201);
+            return CreatedAtAction(nameof(Get), new { createSupplyItem.Id }, createSupplyItem);
         }
 
         [HttpPut("{id}")]

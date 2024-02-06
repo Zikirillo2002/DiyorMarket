@@ -10,7 +10,8 @@ namespace DiyorMarket.Domain.Mappings
         public SaleMappings()
         {
             CreateMap<SaleDto, Sale>();
-            CreateMap<Sale, SaleDto>();
+            CreateMap<Sale, SaleDto>()
+                .ForMember(d => d.TotalDue, opt => opt.MapFrom(src => src.SaleItems.Sum(item => item.Quantity * item.UnitPrice)));
             CreateMap<SaleForCreateDto, Sale>();
             CreateMap<SaleForUpdateDto, Sale>();
         }

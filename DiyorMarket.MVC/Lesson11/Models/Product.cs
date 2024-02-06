@@ -17,8 +17,11 @@ namespace Lesson11.Models
         public decimal SalePrice { get; set; }
         [Required]
         public decimal SupplyPrice { get; set; }
+		[Required]
+        [DataType(DataType.Date)]
+        public DateTime ExpireDate { get; set; }
 
-        public int CategoryId { get; set; }
+		public int CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category? Category { get; set; }
 

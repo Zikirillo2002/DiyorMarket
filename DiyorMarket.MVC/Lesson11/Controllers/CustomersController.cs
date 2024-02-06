@@ -1,4 +1,5 @@
-﻿using Lesson11.Stores.Customers;
+﻿using Lesson11.Models;
+using Lesson11.Stores.Customers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
@@ -17,12 +18,48 @@ namespace Lesson11.Controllers
             var customers = _customerDataStore.GetCustomers(searchString);
 
             ViewBag.Customers = customers.Data;
-			ViewBag.PageSize = customers.PageSize;
-			ViewBag.PageCount = customers.TotalPages;
-			ViewBag.CurrentPage = customers.PageNumber;
-			ViewBag.SearchString = searchString;
+            ViewBag.PageSize = customers.PageSize;
+            ViewBag.PageCount = customers.TotalPages;
+            ViewBag.CurrentPage = customers.PageNumber;
+            ViewBag.SearchString = searchString;
 
-			return View();
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(string? firstName, string? lastName, string? phoneNumber)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var fullName = $"{firstName} {lastName}";
+
+            var result = _customerDataStore.CreateCustomer(new Customer
+            {
+                FullName = fullName,
+                PhoneNumber = phoneNumber,
+                 
+            });
+
+            if (result is null)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Details", new { id = result.Id });
+        }
+
+        public IActionResult Details(int id)
+        {
+            var customer = _customerDataStore.GetCustomer(id);
+
+            return View(customer);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Lesson11.Models
     public class Customer
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         [MaxLength(255)]
         [DisplayName("Full Name")]
