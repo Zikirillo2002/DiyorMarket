@@ -60,7 +60,7 @@ namespace Lesson11.Stores.Products
         public Product? CreateProduct(Product product)
         {
             var json = JsonConvert.SerializeObject(product);
-            var response = _api.Post("customers", json);
+            var response = _api.Post("products", json);
 
             if (!response.IsSuccessStatusCode)
             {

@@ -49,9 +49,9 @@ namespace DiyorMarket.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] CustomerForCreateDto customer)
         {
-            _customerService.CreateCustomer(customer);
+            var createCustomer = _customerService.CreateCustomer(customer);
 
-            return StatusCode(201);
+            return CreatedAtAction(nameof(Get), new { createCustomer.Id }, createCustomer);
         }
 
         [HttpPut("{id}")]

@@ -34,20 +34,44 @@ namespace Lesson11.Controllers
 
             return View();
         }
-        public ActionResult Create()
+
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public IActionResult Create(Product product)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            return View();
+			var result = _productDataStore.CreateProduct(new Product
+            {
+                Name = product.Name,
+                Description = product.Description,
+                SalePrice = product.SalePrice,
+                SupplyPrice = product.SupplyPrice,
+				ExpireDate = product.ExpireDate,
+				CategoryId = product.CategoryId 
+            });
+
+			if (result is null)
+			{
+				return BadRequest();
+			}
+
+			return RedirectToAction("Details", new { id = result.Id});
+		}
+
+        public IActionResult Details(int id)
+        {
+            var product = _productDataStore.GetProduct(id);
+
+			return View(product);
         }
-    }
+
+	}
 }

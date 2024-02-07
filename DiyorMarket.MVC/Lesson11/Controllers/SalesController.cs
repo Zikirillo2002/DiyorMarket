@@ -1,4 +1,5 @@
-﻿using Lesson11.Stores.Customers;
+﻿using Lesson11.Models;
+using Lesson11.Stores.Customers;
 using Lesson11.Stores.Sales;
 using Lesson11.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -29,23 +30,38 @@ namespace Lesson11.Controllers
 			return View();
         }
 
-        //public IActionResult Create()
-        //{
-        //    var customers = _customersDataStore.GetCustomers();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //    ViewBag.Customers = customers.Data;
+        [HttpPost]
+        public IActionResult Create(DateTime dateTime, int customerId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
-        //    return View();
-        //}
+            var result = _saleDataStore.CreateSale(new Sale
+            {
+                Date = dateTime,
+                CustomerId = customerId
+            });
 
-        //[HttpPost]
-        //public IActionResult Create(SaleViewModel saleToCreate)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    return View();
-        //}
+            if (result is null)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Details", new { id = result.Id });
+        }
+
+        public IActionResult Details(int id)
+        {
+            var sale = _saleDataStore.GetSale(id);
+
+            return View(sale);
+        }
     }
 }

@@ -61,8 +61,8 @@ namespace Lesson11.Stores.Customers
 				throw new Exception("Error creating customer.");
 			}
 
-			var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
+            var jsonResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            
 			return JsonConvert.DeserializeObject<Customer>(jsonResponse);
 		}
 
