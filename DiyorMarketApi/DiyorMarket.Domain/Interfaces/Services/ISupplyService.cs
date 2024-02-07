@@ -13,7 +13,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ISupplyService
     {
-        GetSupplyResponse GetSupplies(SupplyResourceParameters supplyResourceParameters);
+        GetBaseResponse<SupplyDto> GetSupplies(SupplyResourceParameters supplyResourceParameters);
         SupplyDto? GetSupplyById(int id);
         SupplyDto CreateSupply(SupplyForCreateDto supplyToCreate);
         void UpdateSupply(SupplyForUpdateDto supplyToUpdate);

@@ -1,6 +1,6 @@
 ﻿namespace DiyorMarket.Domain.Responses
 {
-    public abstract class GetBaseResponse<T>
+    public class GetBaseResponse<T>
     {
         public IEnumerable<T> Data { get; set; }
         public int PageNumber { get; set; }

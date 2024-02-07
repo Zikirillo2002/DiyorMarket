@@ -8,6 +8,8 @@ namespace Lesson11.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public int CustomerId { get; set; }

@@ -2,6 +2,7 @@ using DiyorMarket.Extensions;
 using DiyorMarket.Middlewares;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using System.Text;
 
@@ -10,7 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 
 builder.Services.AddControllers()
-                .AddNewtonsoftJson()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                })
                 .AddXmlSerializerFormatters();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -43,14 +48,14 @@ using (var scope = app.Services.CreateScope())
     builder.Services.SeedDatabase(services);
 }
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -4,18 +4,27 @@
     {
         private const string baseUrl = "https://localhost:7258/api";
         private readonly HttpClient _client = new();
+        private readonly string _apiToken;
 
-        public ApiClient() 
+        public ApiClient()
         {
             _client.BaseAddress = new Uri(baseUrl);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
+            _apiToken = string.Empty;
+        }
+
+        public ApiClient(string apiToken)
+            : this()
+        {
+
+            _apiToken = apiToken;
         }
 
         public HttpResponseMessage Get(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, _client.BaseAddress?.AbsolutePath + "/" + url);
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjQxMjMiLCJuYW1lIjoiQW52YXIiLCJuYmYiOjE3MDY5NTUwNjIsImV4cCI6MTcwNzA0MTQ2MiwiaXNzIjoiYW52YXItYXBpIiwiYXVkIjoiYW52YXItbW9iaWxlIn0.mU5T3CUH4KwDJZWPt-zneZEBoe4LZe2abBPYxHvYrCI");
+                _apiToken);
             var response = _client.Send(request);
 
             return response;
