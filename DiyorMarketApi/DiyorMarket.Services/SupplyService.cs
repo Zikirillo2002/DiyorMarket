@@ -7,6 +7,7 @@ using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Data.Common;
 
@@ -23,9 +24,12 @@ namespace DiyorMarket.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public GetSupplyResponse GetSupplies(SupplyResourceParameters supplyResourceParameters)
+        public GetBaseResponse<SupplyDto> GetSupplies(SupplyResourceParameters supplyResourceParameters)
         {
-            var query = _context.Supplies.AsQueryable();
+            var query = _context.Supplies
+                    .IgnoreAutoIncludes()
+                    .AsNoTracking()
+                    .AsQueryable();
 
             if (supplyResourceParameters.SupplierId is not null)
             {
@@ -46,21 +50,16 @@ namespace DiyorMarket.Services
 
             var supplies = query.ToPaginatedList(supplyResourceParameters.PageSize, supplyResourceParameters.PageNumber);
 
-            var supplyDtos = _mapper.Map<List<SupplyDto>>(supplies);
-
-            var paginatedResult =  new PaginatedList<SupplyDto>(supplyDtos, supplies.TotalCount, supplies.CurrentPage, supplies.PageSize);
-
-            var result = new GetSupplyResponse()
+            foreach (var supply in supplies)
             {
-                Data = paginatedResult.ToList(),
-                HasNextPage = paginatedResult.HasNext,
-                HasPreviousPage = paginatedResult.HasPrevious,
-                PageNumber = paginatedResult.CurrentPage,
-                PageSize = paginatedResult.PageSize,
-                TotalPages = paginatedResult.TotalPages
-            };
+                supply.Supplier = _context.Suppliers.FirstOrDefault(x => x.Id == supply.SupplierId);
+            }
 
-            return result;
+            var supplyDtos = _mapper.Map<IEnumerable<SupplyDto>>(supplies);
+
+            var paginatedResult = new PaginatedList<SupplyDto>(supplyDtos.ToList(), supplies.TotalCount, supplies.CurrentPage, supplies.PageSize);
+
+            return paginatedResult.ToResponse();
         }
 
         public SupplyDto? GetSupplyById(int id)

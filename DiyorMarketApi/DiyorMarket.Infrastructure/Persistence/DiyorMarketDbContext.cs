@@ -19,6 +19,7 @@ namespace DiyorMarket.Infrastructure.Persistence
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Supply> Supplies { get; set; }
         public virtual DbSet<SupplyItem> SupplyItems { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public DiyorMarketDbContext(DbContextOptions<DiyorMarketDbContext> options)
             : base(options)

@@ -27,13 +27,13 @@
 
     <div class="px-4 pb-4">
         <ejs-grid id="products-list"
-                  dataSource="@ViewBag.Sales"
+                  dataSource="@ViewBag.Supplies"
                   gridLines="Vertical"
                   allowSorting="true">
             <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Sale Date" field="Date" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Sale Date" field="SupplyDate" typeof="text"></e-grid-column>
                 <e-grid-column headerText="SupplierId" field="SupplierId" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
