@@ -68,9 +68,9 @@ namespace DiyorMarketApi.Controllers
                     $"Route id: {id} does not match with parameter id: {category.Id}.");
             }
 
-            _categoryService.UpdateCategory(category);
+            var updatedCategory = _categoryService.UpdateCategory(category);
 
-            return NoContent();
+            return Ok(updatedCategory);
         }
 
         [HttpDelete("{id}")]

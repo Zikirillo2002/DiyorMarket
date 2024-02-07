@@ -15,17 +15,21 @@
 
     <div class="px-4 pb-4">
         <ejs-grid id="categories-list"
-                  dataSource="@ViewBag.Categories"
-                  gridLines="Vertical"
-                  allowSorting="true"
-                  allowPaging="true">
-            <e-grid-pagesettings pageCount="5"
-                                 pageSize="15"
-                currentPage="@ViewBag.CurrentPage"></e-grid-pagesettings>
+          dataSource="@ViewBag.Categories"
+          gridLines="Vertical"
+          allowSorting="true"
+          allowPaging="true">
+            <e-grid-pagesettings pageCount="5" pageSize="15" currentPage="@ViewBag.CurrentPage"></e-grid-pagesettings>
             <e-grid-columns>
-                <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
                 <e-grid-column headerText="Category Name" field="Name" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
 </div>
+
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="categories/Details/${Id}">${Id}</a>
+    </div>
+</script>
