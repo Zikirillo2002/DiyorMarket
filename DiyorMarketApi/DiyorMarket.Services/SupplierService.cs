@@ -96,12 +96,16 @@ namespace DiyorMarket.Services
             return supplierDto;
         }
 
-        public void UpdateSupplier(SupplierForUpdateDto supplierToUpdate)
+        public SupplierDto UpdateSupplier(SupplierForUpdateDto supplierToUpdate)
         {
             var supplierEntity = _mapper.Map<Supplier>(supplierToUpdate);
 
             _context.Suppliers.Update(supplierEntity);
             _context.SaveChanges();
+
+            var supplierDto = _mapper.Map<SupplierDto>(supplierEntity);
+
+            return supplierDto;
         }
 
         public void DeleteSupplier(int id)

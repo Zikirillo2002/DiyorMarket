@@ -61,5 +61,32 @@ namespace Lesson11.Controllers
 
             return View(supplier);
         }
+        [HttpPost]
+        public IActionResult Edit(Supplier supplier)
+        {
+            _supplierDataStore.UpdateSupplier(new Supplier()
+            {
+                Id=supplier.Id,
+                FirstName=supplier.FirstName,
+                LastName=supplier.LastName,
+                PhoneNumber=supplier.PhoneNumber,
+                Company=supplier.Company
+            });
+
+            return RedirectToAction("Details", new { supplier.Id });
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var supplier = _supplierDataStore.GetSupplier(id);
+            return View(supplier);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _supplierDataStore.DeleteSupplier(id);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
