@@ -1,10 +1,8 @@
 ﻿using DiyorMarket.Domain.DTOs.Supplier;
 using DiyorMarket.Domain.Interfaces.Services;
-using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace DiyorMarket.Controllers
 {
@@ -58,9 +56,9 @@ namespace DiyorMarket.Controllers
                     $"Route id: {id} does not match with parameter id: {supplier.Id}.");
             }
 
-            _supplierService.UpdateSupplier(supplier);
+            var updatedSupplier = _supplierService.UpdateSupplier(supplier);
 
-            return NoContent();
+            return Ok(updatedSupplier);
         }
 
         [HttpDelete("{id}")]

@@ -10,7 +10,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
         GetSupplierResponse GetSuppliers(SupplierResourceParameters supplierResourceParameters);
         SupplierDto? GetSupplierById(int id);
         SupplierDto CreateSupplier(SupplierForCreateDto supplierToCreate);
-        void UpdateSupplier(SupplierForUpdateDto supplierToUpdate);
+        SupplierDto UpdateSupplier(SupplierForUpdateDto supplierToUpdate);
         void DeleteSupplier(int id);
     }
 }
