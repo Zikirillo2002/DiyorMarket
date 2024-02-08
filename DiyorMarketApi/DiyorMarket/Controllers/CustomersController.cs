@@ -63,9 +63,9 @@ namespace DiyorMarket.Controllers
                     $"Route id: {id} does not match with parameter id: {customer.Id}.");
             }
 
-            _customerService.UpdateCustomer(customer);
+            var updateCastomer = _customerService.UpdateCustomer(customer);
 
-            return NoContent();
+            return Ok(updateCastomer);
         }
 
         [HttpDelete("{id}")]
