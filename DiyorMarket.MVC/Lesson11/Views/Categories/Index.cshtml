@@ -17,29 +17,47 @@
         <ejs-grid id="categories-list"
           dataSource="@ViewBag.Categories"
           gridLines="Vertical"
-          allowSorting="true">
+          allowSorting="true"
+          allowPaging="true">
+            <e-grid-pagesettings pageSize=@ViewBag.PageSize></e-grid-pagesettings>
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
                 <e-grid-column headerText="Category Name" field="Name" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
+        <div class="d-flex">
+            @if (ViewBag.HasPreviousPage)
+            {
+                <a class="btn btn-outline-primary rounded-left mr-auto p-2" href="@Url.Action("Index", new { pageNumber = 1})">&lt;&lt;</a>
+            }
+
+            @if (ViewBag.HasPreviousPage)
+            {
+                <a class="btn btn-outline-primary rounded-0 mr-auto p-2" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">&lt;</a>
+            }
+
+            <button type="button" class="btn btn-primary btn-lg rounded-0 mr-auto p-2" disabled>@ViewBag.CurrentPage</button>
+
+            @if (ViewBag.HasNextPage)
+            {
+                <a class="btn btn-outline-primary rounded-0 mr-auto p-2" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">&gt;</a>
+            }
+
+            @if (ViewBag.HasNextPage)
+            {
+                <a class="btn btn-outline-primary rounded-right mr-auto p-2" href="@Url.Action("Index", new { pageNumber = ViewBag.PageCount })">&gt;&gt;</a>
+            }
+
+            <p class="p-2 h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
+        </div>
     </div>
 </div>
-<div>
-    @if (ViewBag.HasPreviousPage)
-    {
-        <a class="btn btn-outline-danger" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">Previous</a>
-    }
 
-    @for (int i = 1; i <= ViewBag.TotalPages; i++)
-    {
-        <a href="@Url.Action("Index", new { pageNumber = i})">@i</a>
-    }
 
-    @if (ViewBag.HasNextPage)
-    {
-        <a class="btn btn-outline-success" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">Next</a>
-    }
+<div class="d-flex">
+    <div class="p-2">Flex item</div>
+    <div class="p-2">Flex item</div>
+    <div class="ml-auto p-2">Flex item</div>
 </div>
 
 <script id="template" type="text/x-template">

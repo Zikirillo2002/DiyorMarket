@@ -31,6 +31,7 @@ public class PaginatedList<T> : List<T> where T : class
             HasPreviousPage = HasPrevious,
             PageNumber = CurrentPage,
             PageSize = PageSize,
-            TotalPages = TotalPages
+            TotalPages = TotalPages,
+            TotalCount = TotalCount
         };
 }

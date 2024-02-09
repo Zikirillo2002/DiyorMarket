@@ -53,7 +53,8 @@ namespace DiyorMarket.Services
                 HasPreviousPage = paginatedResult.HasPrevious,
                 PageNumber = paginatedResult.CurrentPage,
                 PageSize = paginatedResult.PageSize,
-                TotalPages = paginatedResult.TotalPages
+                TotalPages = paginatedResult.TotalPages,
+                TotalCount = paginatedResult.TotalCount
             };
 
             return result;
