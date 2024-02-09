@@ -1,5 +1,4 @@
-﻿using DiyorMarket.Domain.DTOs.Customer;
-using DiyorMarket.Domain.DTOs.SaleItem;
+﻿using DiyorMarket.Domain.DTOs.SaleItem;
 
 namespace DiyorMarket.Domain.DTOs.Sale
 {
@@ -10,14 +9,4 @@ namespace DiyorMarket.Domain.DTOs.Sale
         decimal TotalDue,
         ICollection<SaleItemDto> SaleItems);
 
-    //public class SaleDto
-    //{
-    //    public int Id;
-    //    public DateTime SaleDate;
-    //    public CustomerDto Customer;
-    //    public decimal TotalDue;
-    //    public ICollection<SaleItemDto> SaleItems;
-    //}
-
-
-}
+ }

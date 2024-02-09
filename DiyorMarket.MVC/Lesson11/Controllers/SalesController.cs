@@ -1,7 +1,6 @@
 ﻿using Lesson11.Models;
 using Lesson11.Stores.Customers;
 using Lesson11.Stores.Sales;
-using Lesson11.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
