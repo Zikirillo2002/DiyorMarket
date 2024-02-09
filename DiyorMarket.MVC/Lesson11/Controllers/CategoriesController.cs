@@ -24,6 +24,7 @@ namespace Lesson11.Controllers
             ViewBag.Categories = categories.Data;
             ViewBag.PageSize = categories.PageSize;
             ViewBag.PageCount = categories.TotalPages;
+            ViewBag.TotalCount = categories.TotalCount;
             ViewBag.CurrentPage = categories.PageNumber;
             ViewBag.HasPreviousPage = categories.HasPreviousPage;
             ViewBag.HasNextPage = categories.HasNextPage;
