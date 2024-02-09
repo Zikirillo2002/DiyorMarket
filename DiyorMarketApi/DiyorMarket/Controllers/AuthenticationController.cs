@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DiyorMarket.Controllers
 {
-    [Route("auth")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -68,6 +68,10 @@ namespace DiyorMarket.Controllers
                 Name = request.Name,
                 Phone = request.Phone
             };
+
+            _context.Users.Add(user);
+
+            _context.SaveChanges();
 
             var securityKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes("anvarSekretKalitSozMalades"));

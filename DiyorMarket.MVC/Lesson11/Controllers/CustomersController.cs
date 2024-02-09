@@ -26,6 +26,13 @@ namespace Lesson11.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            var customer = _customerDataStore.GetCustomer(id);
+
+            return View(customer);
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -54,11 +61,34 @@ namespace Lesson11.Controllers
             return RedirectToAction("Details", new { id = result.Id });
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Edit(int id)
         {
             var customer = _customerDataStore.GetCustomer(id);
-
             return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, string? firstName, string? lastName, string? phoneNumber)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var fullName = $"{firstName} {lastName}";
+
+            var result = _customerDataStore.UpdateCustomer(new Customer
+            {
+                Id = id,
+                FullName = fullName,
+                PhoneNumber = phoneNumber,
+            });
+
+            if (result is null)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Details", new { id = result.Id });
         }
     }
 }
