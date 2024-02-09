@@ -7,7 +7,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ICustomerService
     {
-        GetCustomerResponse GetCustomers(CustomerResourceParameters customerResourceParameters);
+        GetBaseResponse<CustomerDto> GetCustomers(CustomerResourceParameters customerResourceParameters);
         CustomerDto? GetCustomerById(int id);
         CustomerDto CreateCustomer(CustomerForCreateDto customerToCreate);
         CustomerDto UpdateCustomer(CustomerForUpdateDto customerToUpdate);

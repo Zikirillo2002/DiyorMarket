@@ -7,7 +7,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface IProductService
     {
-        GetProductResponse GetProducts(ProductResourceParameters productResourceParameters);
+        GetBaseResponse<ProductDto> GetProducts(ProductResourceParameters productResourceParameters);
         ProductDto? GetProductById(int id);
         ProductDto CreateProduct(ProductForCreateDto productToCreate);
         void UpdateProduct(ProductForUpdateDto productToUpdate);

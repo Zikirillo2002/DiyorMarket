@@ -16,7 +16,7 @@ namespace Lesson11.Stores.Sales
             _api = new ApiClient();
         }
 
-        public GetSaleResponse? GetSales(string? searchString, int pageNumber)
+        public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber)
         {
 			StringBuilder query = new("");
 
@@ -24,6 +24,11 @@ namespace Lesson11.Stores.Sales
 			{
 				query.Append($"searchString={searchString}&");
 			}
+
+            if(customerId != null)
+            {
+                query.Append($"customerId={customerId}&");
+            }
 
             if (pageNumber != 0)
             {

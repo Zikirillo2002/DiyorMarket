@@ -15,7 +15,7 @@ namespace Lesson11.Stores.Products
             _api = new ApiClient();
         }
 
-        public GetProductResponse? GetProducts(string? searchString, int? categoryId)
+        public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber)
         {
             StringBuilder query = new("");
 
@@ -26,7 +26,12 @@ namespace Lesson11.Stores.Products
 
             if (categoryId != null)
             {
-                query.Append($"categoryId={categoryId}");
+                query.Append($"categoryId={categoryId}&");
+            }
+
+            if(pageNumber != 0)
+            {
+                query.Append($"pageNumber={pageNumber}");
             }
 
             var response = _api.Get("products?" + query.ToString());

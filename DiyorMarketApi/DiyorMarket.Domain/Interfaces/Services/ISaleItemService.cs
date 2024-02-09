@@ -13,7 +13,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ISaleItemService
     {
-        GetSaleItemResponse GetSaleItems(SaleItemResourceParameters saleItemResourceParameters);
+        GetBaseResponse<SaleItemDto> GetSaleItems(SaleItemResourceParameters saleItemResourceParameters);
         SaleItemDto? GetSaleItemById(int id);
         SaleItemDto CreateSaleItem(SaleItemForCreateDto saleItemToCreate);
         void UpdateSaleItem(SaleItemForUpdateDto saleItemToUpdate);

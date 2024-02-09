@@ -21,24 +21,17 @@ namespace DiyorMarket.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public GetSaleResponse GetSales(SaleResourceParameters saleResourceParameters)
+        public GetBaseResponse<SaleDto> GetSales(SaleResourceParameters saleResourceParameters)
         {
             var query = GetFiltrSaleResParameters(saleResourceParameters);
 
             var sales = query.ToPaginatedList(saleResourceParameters.PageSize, saleResourceParameters.PageNumber);
-
-            //foreach (var sale in sales)
-            //{
-            //    sale.Customer = _context.Customers.FirstOrDefault(x => x.Id == sale.CustomerId);
-            //}
             
             var saleDtos = _mapper.Map<List<SaleDto>>(sales);
 
             var paginatedResult =  new PaginatedList<SaleDto>(saleDtos, sales.TotalCount, sales.CurrentPage, sales.PageSize);
 
-            var result = GetResponse(paginatedResult);
-
-            return result;
+            return paginatedResult.ToResponse();
         }
 
         public SaleDto? GetSaleById(int id)
@@ -117,19 +110,5 @@ namespace DiyorMarket.Services
             return query;
         }
 
-        private GetSaleResponse GetResponse(PaginatedList<SaleDto> paginated)
-        {
-            var result = new GetSaleResponse()
-            {
-                Data = paginated.ToList(),
-                HasNextPage = paginated.HasNext,
-                HasPreviousPage = paginated.HasPrevious,
-                PageNumber = paginated.CurrentPage,
-                PageSize = paginated.PageSize,
-                TotalPages = paginated.TotalPages
-            };
-
-            return result;
-        }
     }
 }

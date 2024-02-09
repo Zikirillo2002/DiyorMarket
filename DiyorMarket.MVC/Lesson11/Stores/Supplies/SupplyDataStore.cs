@@ -15,16 +15,26 @@ namespace Lesson11.Stores.Supplies
             _api = new ApiClient(); 
         }
 
-        public GetSupplyResponse? GetSupplies(string? searchString)
+        public GetSupplyResponse? GetSupplies(string? searchString, int? supplierId, int pageNumber)
         {
 			StringBuilder query = new("");
 
-			if (!string.IsNullOrEmpty(searchString))
-			{
-				query.Append($"searchString={searchString}");
-			}
-           
-			var response = _api.Get("supplies?" + query.ToString());
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                query.Append($"searchString={searchString}&");
+            }
+
+            if (supplierId != null)
+            {
+                query.Append($"categoryId={supplierId}&");
+            }
+
+            if (pageNumber != 0)
+            {
+                query.Append($"pageNumber={pageNumber}");
+            }
+
+            var response = _api.Get("supplies?" + query.ToString());
 
             if (!response.IsSuccessStatusCode)
             {

@@ -13,15 +13,19 @@ namespace Lesson11.Controllers
             _supplierDataStore = supplierDataStore ?? throw new ArgumentNullException(nameof(supplierDataStore));
         }
 
-        public IActionResult Index(string? searchString)
+        public IActionResult Index(string? searchString, int pageNumber)
         {
-            var suppliers = _supplierDataStore.GetSuppliers(searchString);
+            var suppliers = _supplierDataStore.GetSuppliers(searchString, pageNumber);
 
             ViewBag.Suppliers = suppliers.Data;
             ViewBag.PageSize = suppliers.PageSize;
             ViewBag.PageCount = suppliers.TotalPages;
+            ViewBag.TotalCount = suppliers.TotalCount;
             ViewBag.CurrentPage = suppliers.PageNumber;
+            ViewBag.HasPreviousPage = suppliers.HasPreviousPage;
+            ViewBag.HasNextPage = suppliers.HasNextPage;
             ViewBag.SearchString = searchString;
+
 
             return View();
         }

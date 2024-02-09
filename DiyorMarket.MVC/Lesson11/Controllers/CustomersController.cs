@@ -20,7 +20,10 @@ namespace Lesson11.Controllers
             ViewBag.Customers = customers.Data;
             ViewBag.PageSize = customers.PageSize;
             ViewBag.PageCount = customers.TotalPages;
+            ViewBag.TotalCount = customers.TotalCount;
             ViewBag.CurrentPage = customers.PageNumber;
+            ViewBag.HasPreviousPage = customers.HasPreviousPage;
+            ViewBag.HasNextPage = customers.HasNextPage;
             ViewBag.SearchString = searchString;
 
             return View();
