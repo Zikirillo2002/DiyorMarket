@@ -88,12 +88,16 @@ namespace DiyorMarket.Services
             return customerDto;
         }
 
-        public void UpdateCustomer(CustomerForUpdateDto customerToUpdate)
+        public CustomerDto UpdateCustomer(CustomerForUpdateDto customerToUpdate)
         {
             var customerEntity = _mapper.Map<Customer>(customerToUpdate);
 
             _context.Customers.Update(customerEntity);
             _context.SaveChanges();
+
+            var customerDto = _mapper.Map<CustomerDto>(customerEntity);
+
+            return customerDto;
         }
 
         public void DeleteCustomer(int id)

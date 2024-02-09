@@ -2,7 +2,6 @@
 {
     public record CustomerForUpdateDto(
         int Id,
-        string FirstName,
-        string LastName,
+        string FullName,
         string PhoneNumber);
 }

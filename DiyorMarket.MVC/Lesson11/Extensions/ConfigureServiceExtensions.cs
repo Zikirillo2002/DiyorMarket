@@ -7,6 +7,7 @@ using Lesson11.Stores.Sales;
 using Lesson11.Stores.Suppliers;
 using Lesson11.Stores.Supplies;
 using Lesson11.Stores.SupplyItems;
+using Lesson11.Stores.User;
 using Newtonsoft.Json;
 using System.Buffers;
 
@@ -25,6 +26,7 @@ namespace Lesson11.Extensions
             services.AddScoped<ISupplyDataStore, SupplyDataStore>();
             services.AddScoped<ISupplyItemDataStore, SupplyItemDataStore>();
             services.AddScoped<IDashboardStore, DashboardStore>();
+            services.AddScoped<IUserDataStore, UserDataStore>();
 
             return services;
         }

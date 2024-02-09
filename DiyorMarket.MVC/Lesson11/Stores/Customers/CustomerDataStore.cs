@@ -74,7 +74,7 @@ namespace Lesson11.Stores.Customers
 		public Customer? UpdateCustomer(Customer category)
 		{
 			var json = JsonConvert.SerializeObject(category);
-			var response = _api.Put("customers", json);
+			var response = _api.Put($"customers/{category.Id}", json);
 
 			if (!response.IsSuccessStatusCode)
 			{
