@@ -13,15 +13,18 @@ namespace Lesson11.Controllers
             _supplyDataStore = supplyDataStore ?? throw new ArgumentNullException(nameof(supplyDataStore));
         }
 
-        public IActionResult Index(string? searchString)
+        public IActionResult Index(string? searchString, int supplierId, int pageNumber)
         {
-            var result = _supplyDataStore.GetSupplies(searchString);
+            var result = _supplyDataStore.GetSupplies(searchString, supplierId, pageNumber);
             var suplier = result.Data.Select(x => x.Supplier).ToList();
 
             ViewBag.Supplies = result.Data;
             ViewBag.PageSize = result.PageSize;
             ViewBag.PageCount = result.TotalPages;
+            ViewBag.TotalCount = result.TotalCount;
             ViewBag.CurrentPage = result.PageNumber;
+            ViewBag.HasPreviousPage = result.HasPreviousPage;
+            ViewBag.HasNextPage = result.HasNextPage;
             ViewBag.SearchString = searchString;
 
             return View(result.Data);

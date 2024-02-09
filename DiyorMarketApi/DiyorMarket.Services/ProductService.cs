@@ -6,7 +6,6 @@ using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.ResourceParameters;
-using Microsoft.Extensions.Logging;
 
 namespace DiyorMarket.Services
 {
@@ -21,7 +20,7 @@ namespace DiyorMarket.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public GetProductResponse GetProducts(ProductResourceParameters productResourceParameters)
+        public GetBaseResponse<ProductDto> GetProducts(ProductResourceParameters productResourceParameters)
         {
             var query = _context.Products.AsQueryable();
 
@@ -77,19 +76,9 @@ namespace DiyorMarket.Services
             
             var productDtos = _mapper.Map<List<ProductDto>>(products);
 
-            var paginatedResult = new PaginatedList<ProductDto>(productDtos, products.TotalCount, products.CurrentPage, products.PageSize);
+            var paginatedResult = new PaginatedList<ProductDto>(productDtos.ToList(), products.TotalCount, products.CurrentPage, products.PageSize);
 
-            var result = new GetProductResponse()
-            {
-                Data = paginatedResult.ToList(),
-                HasNextPage = paginatedResult.HasNext,
-                HasPreviousPage = paginatedResult.HasPrevious,
-                PageNumber = paginatedResult.CurrentPage,
-                PageSize = paginatedResult.PageSize,
-                TotalPages = paginatedResult.TotalPages
-            };
-
-            return result;
+            return paginatedResult.ToResponse();
 
         }
 

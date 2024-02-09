@@ -14,13 +14,17 @@ namespace Lesson11.Stores.Suppliers
         {
             _api = new ApiClient();
         }
-        public GetSupplierResponse? GetSuppliers(string? searchString)
+        public GetSupplierResponse? GetSuppliers(string? searchString, int pageNumber)
         {
             StringBuilder query = new("");
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                query.Append($"searchString={searchString}");
+                query.Append($"searchString={searchString}&");
+            }
+            if (pageNumber != 0) 
+            {
+                query.Append($"pageNumber={pageNumber}");
             }
 
             var response = _api.Get("suppliers?" + query.ToString());

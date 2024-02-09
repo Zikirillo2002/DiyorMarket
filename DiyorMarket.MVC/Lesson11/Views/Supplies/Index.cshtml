@@ -30,7 +30,6 @@
                   dataSource="@ViewBag.Supplies"
                   gridLines="Vertical"
                   allowSorting="true">
-            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
                 <e-grid-column headerText="Sale Date" field="SupplyDate" typeof="text"></e-grid-column>
@@ -38,6 +37,36 @@
             </e-grid-columns>
         </ejs-grid>
     </div>
+
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            @if (ViewBag.HasPreviousPage)
+            {
+                <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1})">&lt;&lt;</a>
+            }
+
+            @if (ViewBag.HasPreviousPage)
+            {
+                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">&lt;</a>
+            }
+
+            <button type="button" class="btn btn-primary btn-lg rounded-0" disabled>@ViewBag.CurrentPage</button>
+
+            @if (ViewBag.HasNextPage)
+            {
+                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">&gt;</a>
+            }
+
+            @if (ViewBag.HasNextPage)
+            {
+                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.PageCount })">&gt;&gt;</a>
+            }
+        </div>
+        <div class="p-2">
+            <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
+        </div>
+    </div>
+
 </div>
 
 

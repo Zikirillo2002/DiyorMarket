@@ -7,7 +7,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ISupplierService
     {
-        GetSupplierResponse GetSuppliers(SupplierResourceParameters supplierResourceParameters);
+        GetBaseResponse<SupplierDto> GetSuppliers(SupplierResourceParameters supplierResourceParameters);
         SupplierDto? GetSupplierById(int id);
         SupplierDto CreateSupplier(SupplierForCreateDto supplierToCreate);
         SupplierDto UpdateSupplier(SupplierForUpdateDto supplierToUpdate);

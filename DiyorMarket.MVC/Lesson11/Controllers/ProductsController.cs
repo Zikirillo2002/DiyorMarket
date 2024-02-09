@@ -17,9 +17,9 @@ namespace Lesson11.Controllers
             _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
         }
 
-        public IActionResult Index(string? searchString, int? categoryId)
+        public IActionResult Index(string? searchString, int? categoryId, int pageNumber)
         {
-            var products = _productDataStore.GetProducts(searchString, categoryId);
+            var products = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
             var categories = _categoryDataStore.GetCategories(searchString, 1).Data.ToList();
             categories.Insert(0, new Category
             {
@@ -30,6 +30,12 @@ namespace Lesson11.Controllers
             ViewBag.Categories = categories;
             ViewBag.SelectedCategory = categoryId ?? categories[0].Id;
             ViewBag.Products = products.Data;
+            ViewBag.PageSize = products.PageSize;
+            ViewBag.PageCount = products.TotalPages;
+            ViewBag.TotalCount = products.TotalCount;
+            ViewBag.CurrentPage = products.PageNumber;
+            ViewBag.HasPreviousPage = products.HasPreviousPage;
+            ViewBag.HasNextPage = products.HasNextPage;
             ViewBag.SearchString = searchString;
 
             return View();
