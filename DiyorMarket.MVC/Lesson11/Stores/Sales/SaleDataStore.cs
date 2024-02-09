@@ -1,6 +1,7 @@
 ﻿using Lesson11.Models;
 using Lesson11.Response;
 using Lesson11.Services;
+using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -15,16 +16,21 @@ namespace Lesson11.Stores.Sales
             _api = new ApiClient();
         }
 
-        public GetSaleResponse? GetSales(string? searchString)
+        public GetSaleResponse? GetSales(string? searchString, int pageNumber)
         {
 			StringBuilder query = new("");
 
 			if (!string.IsNullOrEmpty(searchString))
 			{
-				query.Append($"searchString={searchString}");
+				query.Append($"searchString={searchString}&");
 			}
 
-			var response = _api.Get("sales?" + query.ToString());
+            if (pageNumber != 0)
+            {
+                query.Append($"pageNumber={pageNumber}");
+            }
+
+            var response = _api.Get("sales?" + query.ToString());
 
             if (!response.IsSuccessStatusCode)
             {

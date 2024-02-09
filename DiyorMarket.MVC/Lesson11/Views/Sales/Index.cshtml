@@ -9,10 +9,12 @@
         <div class="align-self-end">
             <form class="mt-3" asp-controller="sales" method="get" asp-action="Index">
                 <p>
-                    <select id="select" asp-items="@ViewBag.Customers">
-                        <option selected="true" disabled="disabled">
-                            Выбрать Покупателя
-                        </option>
+                    <select class="form-control" name="customerId">
+                        <option value="" selected disabled>Select Customer</option>
+                        @foreach (var customer in ViewBag.Customers)
+                        {
+                            <option value="@customer.Id">@customer.FullName</option>
+                        }
                     </select>
                 </p>
             </form>
@@ -30,11 +32,12 @@
                   dataSource="@ViewBag.Sales"
                   gridLines="Vertical"
                   allowSorting="true">
-            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-pagesettings pageSize="15"></e-grid-pagesettings>
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Sale Date" field="Date" typeof="text"></e-grid-column>
-                <e-grid-column headerText="CustomerId" field="CustomerId" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Sale Date" field="SaleDate" format="dd/MM/yyyy, HH:mm:ss" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Total price" field="TotalDue" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Customer" field="Customer.FullName" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>

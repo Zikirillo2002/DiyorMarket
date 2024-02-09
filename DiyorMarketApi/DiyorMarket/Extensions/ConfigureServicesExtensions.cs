@@ -61,7 +61,7 @@ namespace DiyorMarket.Extensions
             var builder = WebApplication.CreateBuilder();
 
             services.AddDbContext<DiyorMarketDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DiyorMaeketConection")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DiyorMarketConection")));
 
             return services;
         }

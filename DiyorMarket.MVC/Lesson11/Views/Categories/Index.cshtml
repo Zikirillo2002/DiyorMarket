@@ -17,15 +17,15 @@
         <ejs-grid id="categories-list"
           dataSource="@ViewBag.Categories"
           gridLines="Vertical"
-          allowSorting="true"
-          allowPaging="true">
-            <e-grid-pagesettings pageSize=@ViewBag.PageSize></e-grid-pagesettings>
+          allowSorting="true">
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
                 <e-grid-column headerText="Category Name" field="Name" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
-        <div class="d-flex">
+
+        @* pages *@
+        <div class="d-flex-flex">  
             @if (ViewBag.HasPreviousPage)
             {
                 <a class="btn btn-outline-primary rounded-left mr-auto p-2" href="@Url.Action("Index", new { pageNumber = 1})">&lt;&lt;</a>
@@ -49,16 +49,10 @@
             }
 
             <p class="p-2 h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
-        </div>
+        </div>  
     </div>
 </div>
 
-
-<div class="d-flex">
-    <div class="p-2">Flex item</div>
-    <div class="p-2">Flex item</div>
-    <div class="ml-auto p-2">Flex item</div>
-</div>
 
 <script id="template" type="text/x-template">
     <div>

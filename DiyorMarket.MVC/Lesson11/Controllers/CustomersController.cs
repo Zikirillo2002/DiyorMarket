@@ -13,9 +13,9 @@ namespace Lesson11.Controllers
             _customerDataStore = customerDataStore ?? throw new ArgumentNullException(nameof(customerDataStore));
         }
 
-        public IActionResult Index(string? searchString)
+        public IActionResult Index(string? searchString, int pageNumber)
         {
-            var customers = _customerDataStore.GetCustomers(searchString);
+            var customers = _customerDataStore.GetCustomers(searchString,pageNumber);
 
             ViewBag.Customers = customers.Data;
             ViewBag.PageSize = customers.PageSize;

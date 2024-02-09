@@ -1,4 +1,5 @@
-﻿using DiyorMarket.Domain.DTOs.SaleItem;
+﻿using DiyorMarket.Domain.DTOs.Category;
+using DiyorMarket.Domain.DTOs.SaleItem;
 using DiyorMarket.Domain.DTOs.SupplyItem;
 
 namespace DiyorMarket.Domain.DTOs.Product
@@ -11,12 +12,8 @@ namespace DiyorMarket.Domain.DTOs.Product
         public decimal SalePrice { get; init; }
         public decimal SupplyPrice { get; init; }
         public DateTime ExpireDate { get; init; }
-        public int CategoryId { get; init; }
+        public CategoryDto Category { get; init; }
         public ICollection<SaleItemDto> SaleItems { get; init; }
         public ICollection<SupplyItemDto> SupplyItems { get; init; }
-
-        //public ProductDto(int id, string name, string description, decimal salePrice, decimal supplyPrice, DateTime expireDate, int categoryId, ICollection<SaleItemDto>? saleItems, ICollection<SupplyItemDto>? supplyItems)
-        //{
-        //}
     }
 }
