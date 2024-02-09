@@ -69,6 +69,11 @@ namespace DiyorMarket.Services
             }
             
             var products = query.ToPaginatedList(productResourceParameters.PageSize, productResourceParameters.PageNumber);
+
+            foreach (var product in products)
+            {
+                product.Category = _context.Categories.FirstOrDefault(x => x.Id == product.CategoryId);
+            }
             
             var productDtos = _mapper.Map<List<ProductDto>>(products);
 

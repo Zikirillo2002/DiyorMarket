@@ -17,11 +17,19 @@ namespace Lesson11.Controllers
             _customersDataStore = customersDataStore ?? throw new ArgumentNullException(nameof(customersDataStore)); ;
         }
 
-        public IActionResult Index(string? searchString)
+        public IActionResult Index(string? searchString, int pageNumber)
         {
-            var sales = _saleDataStore.GetSales(searchString);
+            var sales = _saleDataStore.GetSales(searchString,pageNumber);
+            var customers = GetAllCustomers(searchString);
+
+            foreach(var sale in sales.Data.ToList())
+            {
+                sale.Customer = customers.FirstOrDefault(x => x.Id == sale.CustomerId);
+            }
+            
 
             ViewBag.Sales = sales.Data;
+            ViewBag.Customers = customers;
 			ViewBag.PageSize = sales.PageSize;
 			ViewBag.PageCount = sales.TotalPages;
 			ViewBag.CurrentPage = sales.PageNumber;
@@ -45,7 +53,7 @@ namespace Lesson11.Controllers
 
             var result = _saleDataStore.CreateSale(new Sale
             {
-                Date = dateTime,
+                SaleDate = dateTime,
                 CustomerId = customerId
             });
 
@@ -62,6 +70,22 @@ namespace Lesson11.Controllers
             var sale = _saleDataStore.GetSale(id);
 
             return View(sale);
+        }
+
+        private List<Customer> GetAllCustomers(string? searchString)
+        {
+            int number = 1;
+            var customerResponse = _customersDataStore.GetCustomers(searchString, number);
+            var customers = customerResponse.Data.ToList();
+
+
+            while (customerResponse.HasNextPage)
+            {
+                customerResponse = _customersDataStore.GetCustomers(searchString, ++number);
+                customers.AddRange(customerResponse.Data.ToList());
+            }
+
+            return customers;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Lesson11.Controllers
         public IActionResult Index(string? searchString)
         {
             var result = _supplyDataStore.GetSupplies(searchString);
+            var suplier = result.Data.Select(x => x.Supplier).ToList();
 
             ViewBag.Supplies = result.Data;
             ViewBag.PageSize = result.PageSize;

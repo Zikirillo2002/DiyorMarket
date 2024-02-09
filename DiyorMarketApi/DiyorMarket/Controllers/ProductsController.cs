@@ -92,7 +92,7 @@ namespace DiyorMarketApi.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.SalePrice,
-                CategoryId = product.CategoryId,
+                CategoryId = product.Category.Id,
             };
 
             jsonPatch.ApplyTo(productToPatch, ModelState);

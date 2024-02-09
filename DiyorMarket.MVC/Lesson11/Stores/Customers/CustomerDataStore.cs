@@ -14,14 +14,19 @@ namespace Lesson11.Stores.Customers
 			_api = new ApiClient();
 		}
 
-		public GetCustomerResponse? GetCustomers(string? searchString)
+		public GetCustomerResponse? GetCustomers(string? searchString, int pageNumber)
 		{
 			StringBuilder query = new("");
 
 			if (!string.IsNullOrEmpty(searchString))
 			{
-				query.Append($"searchString={searchString}");
+				query.Append($"searchString={searchString}&");
 			}
+
+			if(pageNumber != 0)
+			{
+                query.Append($"pageNumber={pageNumber}&");
+            }
 
 			var response = _api.Get("customers?" + query.ToString());
 

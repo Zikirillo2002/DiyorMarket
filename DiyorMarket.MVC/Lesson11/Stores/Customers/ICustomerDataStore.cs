@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Customers
 {
     public interface ICustomerDataStore
     {
-        public GetCustomerResponse? GetCustomers(string? searchString);
+        public GetCustomerResponse? GetCustomers(string? searchString, int pageNumber);
         public Customer? GetCustomer(int id);
         public Customer? CreateCustomer(Customer category);
         public Customer? UpdateCustomer(Customer category);
