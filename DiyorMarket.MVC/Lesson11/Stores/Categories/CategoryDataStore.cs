@@ -15,16 +15,22 @@ namespace Lesson11.Stores.Categories
             _api = new ApiClient();
         }
 
-        public GetCategoryResponse? GetCategories(string? searchString)
+        public GetCategoryResponse? GetCategories(string? searchString, int? pageNumber)
         {
 			StringBuilder query = new("");
 
 			if (!string.IsNullOrEmpty(searchString))
 			{
-				query.Append($"searchString={searchString}");
+				query.Append($"?searchString={searchString}");
 			}
 
-			var response = _api.Get("categories?" + query.ToString());
+                
+            if (pageNumber != null)
+            {
+                query.Append($"?pageNumber={pageNumber}");
+            }
+
+            var response = _api.Get("categories/" + query.ToString());
 
             if (!response.IsSuccessStatusCode)
             {

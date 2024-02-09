@@ -17,15 +17,29 @@
         <ejs-grid id="categories-list"
           dataSource="@ViewBag.Categories"
           gridLines="Vertical"
-          allowSorting="true"
-          allowPaging="true">
-            <e-grid-pagesettings pageCount="5" pageSize="15" currentPage="@ViewBag.CurrentPage"></e-grid-pagesettings>
+          allowSorting="true">
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
                 <e-grid-column headerText="Category Name" field="Name" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
+</div>
+<div>
+    @if (ViewBag.HasPreviousPage)
+    {
+        <a class="btn btn-outline-danger" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">Previous</a>
+    }
+
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <a href="@Url.Action("Index", new { pageNumber = i})">@i</a>
+    }
+
+    @if (ViewBag.HasNextPage)
+    {
+        <a class="btn btn-outline-success" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">Next</a>
+    }
 </div>
 
 <script id="template" type="text/x-template">
