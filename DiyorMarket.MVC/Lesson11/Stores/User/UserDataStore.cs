@@ -8,9 +8,9 @@ namespace Lesson11.Stores.User
     public class UserDataStore : IUserDataStore
     {
         private readonly ApiClient _apiClient;
-        public UserDataStore(ApiClient apiClient)
+        public UserDataStore()
         {
-            _apiClient = apiClient;
+            _apiClient = new ApiClient();
         }
 
         public bool AuthenticateLogin(UserLogin loginViewModel)

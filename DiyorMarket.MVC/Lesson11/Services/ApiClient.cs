@@ -16,7 +16,6 @@
         public ApiClient(string apiToken)
             : this()
         {
-
             _apiToken = apiToken;
         }
 

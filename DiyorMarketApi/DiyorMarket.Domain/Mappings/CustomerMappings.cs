@@ -12,16 +12,21 @@ namespace DiyorMarket.Domain.Mappings
                 .ForCtorParam(nameof(CustomerDto.FullName),
                     opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
             CreateMap<CustomerDto, Customer>();
-            CreateMap<CustomerForUpdateDto, Customer>();
+
+            CreateMap<CustomerForUpdateDto, Customer>()
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ParseFullName(src.FullName).firstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ParseFullName(src.FullName).lastName));
+
             CreateMap<CustomerForCreateDto, Customer>()
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ParseFullName(src.FullName).firstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ParseFullName(src.FullName).lastName));
 
-            CreateMap<Customer, CustomerForCreateDto>()
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
-            //.ForCtorParam(nameof(CustomerForCreateDto.FullName),
-            //    opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
-            CreateMap<Customer, CustomerForUpdateDto>();
+
+            //CreateMap<Customer, CustomerForCreateDto>()
+            //    .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+            ////.ForCtorParam(nameof(CustomerForCreateDto.FullName),
+            ////    opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+            //CreateMap<Customer, CustomerForUpdateDto>();
 
 
         }

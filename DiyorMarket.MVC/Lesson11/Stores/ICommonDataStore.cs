@@ -6,6 +6,7 @@ using Lesson11.Stores.Sales;
 using Lesson11.Stores.Suppliers;
 using Lesson11.Stores.Supplies;
 using Lesson11.Stores.SupplyItems;
+using Lesson11.Stores.User;
 
 namespace Lesson11.Stores
 {
@@ -19,6 +20,7 @@ namespace Lesson11.Stores
         public ISupplyDataStore Supplies { get; }
         public ISupplyItemDataStore SupplyItems { get; }
         public ISupplierDataStore Suppliers { get; }
+        public IUserDataStore Users { get; }
 
         public int SaveChanges();
     }
