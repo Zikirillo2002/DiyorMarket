@@ -18,12 +18,12 @@ namespace Lesson11.Controllers
             var suppliers = _supplierDataStore.GetSuppliers(searchString);
 
             ViewBag.Suppliers = suppliers.Data;
-			ViewBag.PageSize = suppliers.PageSize;
-			ViewBag.PageCount = suppliers.TotalPages;
-			ViewBag.CurrentPage = suppliers.PageNumber;
-			ViewBag.SearchString = searchString;
+            ViewBag.PageSize = suppliers.PageSize;
+            ViewBag.PageCount = suppliers.TotalPages;
+            ViewBag.CurrentPage = suppliers.PageNumber;
+            ViewBag.SearchString = searchString;
 
-			return View();
+            return View();
         }
 
         public IActionResult Create()
@@ -44,7 +44,7 @@ namespace Lesson11.Controllers
                 FirstName = supplier.FirstName,
                 LastName = supplier.LastName,
                 PhoneNumber = supplier.PhoneNumber,
-                Company = supplier.Company  
+                Company = supplier.Company
             });
 
             if (result is null)
@@ -66,11 +66,11 @@ namespace Lesson11.Controllers
         {
             _supplierDataStore.UpdateSupplier(new Supplier()
             {
-                Id=supplier.Id,
-                FirstName=supplier.FirstName,
-                LastName=supplier.LastName,
-                PhoneNumber=supplier.PhoneNumber,
-                Company=supplier.Company
+                Id = supplier.Id,
+                FirstName = supplier.FirstName,
+                LastName = supplier.LastName,
+                PhoneNumber = supplier.PhoneNumber,
+                Company = supplier.Company
             });
 
             return RedirectToAction("Details", new { supplier.Id });

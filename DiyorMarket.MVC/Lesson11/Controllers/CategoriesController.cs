@@ -15,14 +15,18 @@ namespace Lesson11.Controllers
             _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
         }
 
-        public IActionResult Index(string? searchString)
+        public IActionResult Index(string searchString, int? pageNumber)
         {
-            var categories = _categoryDataStore.GetCategories(searchString);
+            //int page = string.IsNullOrWhiteSpace(pageNumber) ? 1 : int.Parse(pageNumber);
+
+            var categories = _categoryDataStore.GetCategories(searchString, pageNumber);
 
             ViewBag.Categories = categories.Data;
             ViewBag.PageSize = categories.PageSize;
             ViewBag.PageCount = categories.TotalPages;
             ViewBag.CurrentPage = categories.PageNumber;
+            ViewBag.HasPreviousPage = categories.HasPreviousPage;
+            ViewBag.HasNextPage = categories.HasNextPage;
             ViewBag.SearchString = searchString;
 
             return View();

@@ -1,5 +1,6 @@
 ﻿using DiyorMarket.Domain.Common;
 using DiyorMarket.Domain.Responses;
+using static System.Net.WebRequestMethods;
 
 namespace DiyorMarket.Domain.Pagniation;
 
@@ -18,7 +19,7 @@ public class PaginatedList<T> : List<T> where T : class
         PageSize = pageSize;
         CurrentPage = pageNumber;
         TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-
+            
         AddRange(items);
     }
 
