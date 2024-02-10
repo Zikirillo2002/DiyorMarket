@@ -1,0 +1,122 @@
+﻿@model Lesson11.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+@section scripts {
+    <script>
+        function togglePasswordVisibility(passwordId, iconId) {
+            var passwordInput = document.getElementById(passwordId);
+            var passwordIcon = document.getElementById(iconId);
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordIcon.classList.remove("fa-eye-slash");
+                passwordIcon.classList.add("fa-eye");
+            } else {
+                passwordInput.type = "password";
+                passwordIcon.classList.remove("fa-eye");
+                passwordIcon.classList.add("fa-eye-slash");
+            }
+        }
+    </script>
+}
+
+<section class="h-100 gradient-form">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                            <div class="card-body p-md-5 mx-md-4">
+                                <div class="text-center">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                                         style="width: 185px;" alt="logo">
+                                    <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                                </div>
+                                <form asp-action="Register" method="post">
+                                    <div class="form-outline mb-4">
+                                        <input type="text" asp-for="FullName" class="form-control"
+                                               placeholder="Enter your name" />
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <input type="text" asp-for="Login" class="form-control"
+                                               placeholder="Enter login" />
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <input type="text" asp-for="Phone" class="form-control"
+                                               placeholder="Enter your phone" />
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <div class="input-group">
+                                            <input type="password" asp-for="Password" class="form-control"
+                                                   placeholder="Password" id="password" />
+                                            <span class="input-group-text" onclick="togglePasswordVisibility('password', 'password-icon')">
+                                                <i id="password-icon" class="fa-solid fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <div class="input-group">
+                                            <input type="password" asp-for="RepeatPassword" class="form-control"
+                                                   placeholder="Repeat Password" id="repeat-password" />
+                                            <span class="input-group-text" onclick="togglePasswordVisibility('repeat-password', 'repeat-password-icon')">
+                                                <i id="repeat-password-icon" class="fa-solid fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button type="submit" class="btn btn-primary w-50 mb-5">Register</button>
+                                    </div>
+                                </form>
+                                <p>Do you have an account? <a href="@Url.Action("Login", "Auth")">Log in</a></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2" style="background-color: #333; color: white;">
+                            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                <h4 class="mb-4">We are more than just a company</h4>
+                                <p class="small mb-0">
+                                    Your custom content goes here.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@* <form asp-action="Register" method="post" class="align-items-center">
+    <div class="form-group">
+        <label for="exampleInputFullName">Full Name</label>
+        <input asp-for="FullName" class="form-control w-50 mb-3" id="exampleInputFullName" placeholder="Enter full name">
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPhone">Phone</label>
+        <input asp-for="Phone" class="form-control w-50 mb-3" id="exampleInputPhone" placeholder="Enter phone number">
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail">Email address</label>
+        <input asp-for="Login" class="form-control w-50 mb-3" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword">Password</label>
+        <input asp-for="Password" type="password" class="form-control w-50 mb-3" id="exampleInputPassword" placeholder="Password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputRepeatPassword">RepeatPassword</label>
+        <input asp-for="RepeatPassword" type="password" class="form-control w-50 mb-3" id="exampleInputRepeatPassword" placeholder="RepeatPassword">
+        <span asp-validation-for="RepeatPassword" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary w-25 mb-5">Register</button>
+</form> *@
