@@ -20,7 +20,7 @@ namespace DiyorMarket.Domain.ResourceParameters
 
         public int PageNumber { get; set; } = 1;
 
-        private int _pageSize = 15;
+        private int _pageSize = 10;
         public int PageSize
         {
             get => _pageSize;

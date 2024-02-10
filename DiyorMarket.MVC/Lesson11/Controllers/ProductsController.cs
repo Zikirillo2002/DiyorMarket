@@ -20,7 +20,7 @@ namespace Lesson11.Controllers
         public IActionResult Index(string? searchString, int? categoryId, int pageNumber)
         {
             var products = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
-            var categories = _categoryDataStore.GetCategories(searchString, 1).Data.ToList();
+            var categories = GetAllCategories(searchString);
             categories.Insert(0, new Category
             {
                 Id = 0,
@@ -79,5 +79,21 @@ namespace Lesson11.Controllers
 			return View(product);
         }
 
-	}
+        private List<Category> GetAllCategories(string? searchString)
+        {
+            int number = 1;
+            var categoryResponse = _categoryDataStore.GetCategories(searchString, number);
+            var categories = categoryResponse.Data.ToList();
+
+
+            while (categoryResponse.HasNextPage)
+            {
+                categoryResponse = _categoryDataStore.GetCategories(searchString, ++number);
+                categories.AddRange(categoryResponse.Data.ToList());
+            }
+
+            return categories;
+        }
+
+    }
 }
