@@ -7,6 +7,7 @@ using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiyorMarket.Services
 {
@@ -24,7 +25,7 @@ namespace DiyorMarket.Services
 
         public GetBaseResponse<CategoryDto> GetCategories(CategoryResourceParameters categoryResourceParameters)
         {
-            var query = _context.Categories.AsQueryable();
+            var query = _context.Categories.Include(s=>s.Products).IgnoreAutoIncludes().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(categoryResourceParameters.SearchString))
             {
