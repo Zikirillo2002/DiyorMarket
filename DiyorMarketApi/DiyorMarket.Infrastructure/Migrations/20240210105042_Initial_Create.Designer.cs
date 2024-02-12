@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiyorMarket.Infrastructure.Migrations
 {
     [DbContext(typeof(DiyorMarketDbContext))]
-    [Migration("20240209104110_New migration for HP-Pavilion")]
-    partial class NewmigrationforHPPavilion
+    [Migration("20240210105042_Initial_Create")]
+    partial class Initial_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
