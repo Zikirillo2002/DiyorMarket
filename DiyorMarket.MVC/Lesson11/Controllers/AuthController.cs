@@ -14,17 +14,18 @@ namespace Lesson11.Controllers
             _userDataStore = userDataStore ?? throw new ArgumentNullException(nameof(userDataStore));
         }
 
-        public IActionResult Login()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel loginViewModel)
+        public IActionResult Index(LoginViewModel loginViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(errors);
             }
 
             var user = new UserLogin
@@ -35,11 +36,14 @@ namespace Lesson11.Controllers
 
             if (!_userDataStore.AuthenticateLogin(user))
             {
-                return BadRequest("Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                var error = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(error);
             }
 
             return RedirectToAction("Index", "Dashboard");
         }
+
 
         public IActionResult Register()
         {
@@ -51,11 +55,13 @@ namespace Lesson11.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(errors);
             }
 
             if (registerViewModel.Password != registerViewModel.RepeatPassword)
             {
+                ModelState.AddModelError(string.Empty, "The password does not match.");
                 return BadRequest("The password does not match.");
             }
 
@@ -69,6 +75,7 @@ namespace Lesson11.Controllers
 
             if (!_userDataStore.RegisterLogin(user))
             {
+                ModelState.AddModelError(string.Empty, "Invalid register attempt.");
                 return BadRequest("Invalid register attempt.");
             }
 
