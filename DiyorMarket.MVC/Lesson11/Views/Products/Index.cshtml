@@ -43,7 +43,7 @@
                       gridLines="Vertical"
                       allowSorting="true">
                 <e-grid-columns>
-                    <e-grid-column headerText="ID" field="Id" typeof="text" width="70"></e-grid-column>
+                    <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
                     <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
                     <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
                     <e-grid-column headerText="Sale Price" field="SalePrice" typeof="number" format="C2"></e-grid-column>
@@ -82,5 +82,9 @@
             <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
         </div>
     </div>
-
 </div>
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="products/Details/${Id}">${Id}</a>
+    </div>
+</script>

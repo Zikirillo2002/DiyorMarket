@@ -63,5 +63,30 @@ namespace Lesson11.Controllers
 
             return View(createSupply);
         }
+
+        [HttpPost]
+        public IActionResult Edit(int id, DateTime supplyDate, int supplierId)
+        {
+            _supplyDataStore.UpdateSupply(new Supply
+            {
+                Id = id,
+                SupplyDate = supplyDate,
+                SupplierId = supplierId,
+            });
+
+            return RedirectToAction("Details", new { id = id });
+        }
+        public IActionResult Edit(int id)
+        {
+            var supply = _supplyDataStore.GetSupply(id);
+            return View(supply);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _supplyDataStore.DeleteSupply(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }
