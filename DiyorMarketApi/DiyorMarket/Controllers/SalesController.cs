@@ -1,13 +1,8 @@
-﻿using DiyorMarket.Domain.DTOs.Customer;
-using DiyorMarket.Domain.DTOs.Product;
-using DiyorMarket.Domain.DTOs.Sale;
-using DiyorMarket.Domain.DTOs.SaleItem;
+﻿using DiyorMarket.Domain.DTOs.Sale;
 using DiyorMarket.Domain.Interfaces.Services;
-using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace DiyorMarket.Controllers
 {
