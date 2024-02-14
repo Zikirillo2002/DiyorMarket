@@ -39,10 +39,10 @@ public class DashboardService : IDashboardService
     private Summary GetSummary()
     {
         var salesItems = _context.SaleItems
-            .Where(x => x.Sale.SaleDate.Month > DateTime.Now.AddMonths(-2).Month)
+            .Where(x => x.Sale.SaleDate.Month >= DateTime.Now.AddMonths(-2).Month)
             .AsNoTracking();
         var supplyItems = _context.SupplyItems
-            .Where(x => x.Supply.SupplyDate.Month > DateTime.Now.AddMonths(-2).Month)
+            .Where(x => x.Supply.SupplyDate.Month >= DateTime.Now.AddMonths(-2).Month)
             .AsNoTracking();
 
         var salesTotal = salesItems.Sum(si => si.Quantity * si.UnitPrice);
