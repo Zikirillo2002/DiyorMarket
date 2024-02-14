@@ -71,7 +71,7 @@ namespace Lesson11.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, string? firstName, string? lastName, string? phoneNumber)
+        public IActionResult Edit( string? firstName, string? lastName, string? phoneNumber)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +81,6 @@ namespace Lesson11.Controllers
 
             var result = _customerDataStore.UpdateCustomer(new Customer
             {
-                Id = id,
                 FullName = fullName,
                 PhoneNumber = phoneNumber,
             });
@@ -92,6 +91,13 @@ namespace Lesson11.Controllers
             }
 
             return RedirectToAction("Details", new { id = result.Id });
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _customerDataStore.DeleteCustomer(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
