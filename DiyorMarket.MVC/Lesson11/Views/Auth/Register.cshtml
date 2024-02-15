@@ -5,14 +5,79 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>We are The Lotus Team</title>
+
     <style>
-        .text-danger {
-            font-size: x-small;
+        /* Общие стили из вашего login page */
+        body {
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .card {
+            opacity: 0.9;
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5));
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 40px 60px;
         }
 
         .form-outline {
-            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group-text {
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            border-color: #fff;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+                color: #000;
+            }
+
+        .btn-outline-danger {
+            background-color: transparent;
+            border-color: #fff;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-danger:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+                color: #000;
+            }
+
+        /* Дополнительные стили для register page */
+        .gradient-form {
+            background: linear-gradient(to right, #666, #333); /* Пример градиента, замените на ваш фон */
         }
 
         .field-validation-error {
@@ -37,6 +102,11 @@
                 box-shadow: 0 0 8px rgba(220, 53, 69, 0.8);
             }
     </style>
+
+    <!-- Ваши скрипты -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 </head>
 
 <body>
@@ -45,66 +115,54 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
-                        <div class="row g-0">
-                            <div class="col-lg-6">
-                                <div class="card-body p-md-5 mx-md-4">
-                                    <div class="text-center">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                                             style="width: 185px;" alt="logo">
-                                        <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                        <div class="card-body p-md-5 mx-md-4">
+                            <div class="text-center">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                                     style="width: 185px;" alt="logo">
+                                <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                            </div>
+                            <form asp-action="Register" method="post">
+                                <p>Please register your account</p>
+                                <div class="form-outline mb-4">
+                                    <input type="text" asp-for="FullName" class="form-control"
+                                           placeholder="Enter your name" />
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" asp-for="Login" class="form-control"
+                                           placeholder="Enter login" />
+                                    <span asp-validation-for="Login" class="text-danger"></span>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" asp-for="Phone" class="form-control"
+                                           placeholder="Enter your phone" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <div class="input-group">
+                                        <input type="password" asp-for="Password" class="form-control"
+                                               placeholder="Password" id="password" />
+                                        <span class="input-group-text" onclick="togglePasswordVisibility('password', 'password-icon')">
+                                            <i id="password-icon" class="fa-solid fa-eye-slash"></i>
+                                        </span>
                                     </div>
-                                    <form asp-action="Register" method="post">
-                                        <p>Please register your account</p>
-                                        <div class="form-outline mb-4">
-                                            <input type="text" asp-for="FullName" class="form-control"
-                                                   placeholder="Enter your name" />
-                                            <span asp-validation-for="FullName" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-outline mb-4">
-                                            <input type="text" asp-for="Login" class="form-control"
-                                                   placeholder="Enter login" />
-                                            <span asp-validation-for="Login" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-outline mb-4">
-                                            <input type="text" asp-for="Phone" class="form-control"
-                                                   placeholder="Enter your phone" />
-                                            <span asp-validation-for="Phone" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-outline mb-4">
-                                            <div class="input-group">
-                                                <input type="password" asp-for="Password" class="form-control"
-                                                       placeholder="Password" id="password" />
-                                                <span class="input-group-text" onclick="togglePasswordVisibility('password', 'password-icon')">
-                                                    <i id="password-icon" class="fa-solid fa-eye-slash"></i>
-                                                </span>
-                                            </div>
-                                            <span asp-validation-for="Password" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-outline mb-4">
-                                            <div class="input-group">
-                                                <input type="password" asp-for="RepeatPassword" class="form-control"
-                                                       placeholder="Repeat Password" id="repeat-password" />
-                                                <span class="input-group-text" onclick="togglePasswordVisibility('repeat-password', 'repeat-password-icon')">
-                                                    <i id="repeat-password-icon" class="fa-solid fa-eye-slash"></i>
-                                                </span>
-                                            </div>
-                                            <span asp-validation-for="RepeatPassword" class="text-danger"></span>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button type="submit" class="btn btn-primary w-50 mb-5">Register</button>
-                                        </div>
-                                    </form>
-                                    <p>Already have an account? <a href="@Url.Action("Index", "Auth")">Log in</a></p>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2" style="background-color: #333; color: white;">
-                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                    <h4 class="mb-4">We are more than just a company</h4>
-                                    <p class="small mb-0">
-                                        Your custom content goes here.
-                                    </p>
+                                <div class="form-outline mb-4">
+                                    <div class="input-group">
+                                        <input type="password" asp-for="RepeatPassword" class="form-control"
+                                               placeholder="Repeat Password" id="repeat-password" />
+                                        <span class="input-group-text" onclick="togglePasswordVisibility('repeat-password', 'repeat-password-icon')">
+                                            <i id="repeat-password-icon" class="fa-solid fa-eye-slash"></i>
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="RepeatPassword" class="text-danger"></span>
                                 </div>
-                            </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <button type="submit" class="btn btn-primary w-50 mb-5">Register</button>
+                                </div>
+                            </form>
+                            <p>Already have an account? <a href="@Url.Action("Index", "Auth")">Log in</a></p>
                         </div>
                     </div>
                 </div>
@@ -112,27 +170,23 @@
         </div>
     </section>
 
-    @section scripts {
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <!-- Ваши скрипты -->
+    <script>
+        function togglePasswordVisibility(passwordId, iconId) {
+            var passwordInput = $("#" + passwordId);
+            var passwordIcon = $("#" + iconId);
 
-        <script>
-            function togglePasswordVisibility(passwordId, iconId) {
-                var passwordInput = $("#password");
-                var passwordIcon = $("#password-icon");
+            if (passwordInput.attr("type") === "password") {
+                passwordInput.attr("type", "text");
+                passwordIcon.removeClass("fa-eye-slash").addClass("fa-eye");
 
-                if (passwordInput.attr("type") === "password") {
-                    passwordInput.attr("type", "text");
-                    passwordIcon.removeClass("fa-eye-slash").addClass("fa-eye");
-
-                    passwordInput.removeClass("input-validation-error");
-                    $("span[data-valmsg-for='Password']").empty();
-                } else {
-                    passwordInput.attr("type", "password");
-                    passwordIcon.removeClass("fa-eye").addClass("fa-eye-slash");
-                }
+                passwordInput.removeClass("input-validation-error");
+                $("span[data-valmsg-for='" + passwordId + "']").empty();
+            } else {
+                passwordInput.attr("type", "password");
+                passwordIcon.removeClass("fa-eye").addClass("fa-eye-slash");
             }
-        </script>
-    }
+        }
+    </script>
 </body>
+</html>
