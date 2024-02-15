@@ -20,15 +20,23 @@ namespace Lesson11.Controllers
         public IActionResult Index(string? searchString, int? categoryId, int pageNumber)
         {
             var products = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
-            var categories = GetAllCategories(searchString);
+            var categories = GetAllCategories();
+
             categories.Insert(0, new Category
             {
                 Id = 0,
                 Name = "All"
             });
 
+            var selectCategory = categories[0];
+
+            if (categoryId != null)
+            {
+                 selectCategory = categories.FirstOrDefault(x => x.Id == categoryId);
+            }
+
             ViewBag.Categories = categories;
-            ViewBag.SelectedCategory = categoryId ?? categories[0].Id;
+            ViewBag.SelectedCategory = selectCategory;
             ViewBag.Products = products.Data;
             ViewBag.PageSize = products.PageSize;
             ViewBag.PageCount = products.TotalPages;
@@ -79,16 +87,16 @@ namespace Lesson11.Controllers
 			return View(product);
         }
 
-        private List<Category> GetAllCategories(string? searchString)
+        private List<Category> GetAllCategories()
         {
             int number = 1;
-            var categoryResponse = _categoryDataStore.GetCategories(searchString, number);
+            var categoryResponse = _categoryDataStore.GetCategories(null, number);
             var categories = categoryResponse.Data.ToList();
 
 
-            while (categoryResponse.HasNextPage)
+            for(int i = 1; i <= categoryResponse.TotalPages; i++)
             {
-                categoryResponse = _categoryDataStore.GetCategories(searchString, ++number);
+                categoryResponse = _categoryDataStore.GetCategories(null, ++number);
                 categories.AddRange(categoryResponse.Data.ToList());
             }
 

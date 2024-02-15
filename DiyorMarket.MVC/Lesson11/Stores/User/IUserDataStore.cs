@@ -6,7 +6,7 @@ namespace Lesson11.Stores.User
 {
     public interface IUserDataStore
     {
-        public bool AuthenticateLogin(UserLogin user);
-        public bool RegisterLogin(UserLogin user);
+        public (bool, string) AuthenticateLogin(UserLogin user);
+        public (bool, string) RegisterLogin(UserLogin user);
     }
 }

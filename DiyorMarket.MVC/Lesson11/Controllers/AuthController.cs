@@ -14,7 +14,7 @@ namespace Lesson11.Controllers
             _userDataStore = userDataStore ?? throw new ArgumentNullException(nameof(userDataStore));
         }
 
-        public IActionResult Login()
+        public IActionResult Index()
         {
             return View();
         }
@@ -33,7 +33,7 @@ namespace Lesson11.Controllers
                 Login = loginViewModel.Login,
             };
 
-            if (!_userDataStore.AuthenticateLogin(user))
+            if (!_userDataStore.AuthenticateLogin(user).Item1)
             {
                 return BadRequest("Invalid login attempt.");
             }
@@ -67,7 +67,7 @@ namespace Lesson11.Controllers
                 Phone = registerViewModel.Phone
             };
 
-            if (!_userDataStore.RegisterLogin(user))
+            if (!_userDataStore.RegisterLogin(user).Item1)
             {
                 return BadRequest("Invalid register attempt.");
             }

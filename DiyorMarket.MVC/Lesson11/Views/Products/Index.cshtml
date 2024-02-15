@@ -17,12 +17,17 @@
             <div class="col-md-4">
                 <div class="input-group">
                     <select class="form-control" name="categoryId">
-                        <option value="" selected disabled>All Category</option>
+                        <option value="" selected disabled>@ViewBag.SelectedCategory.Name</option>
                         @foreach (var category in ViewBag.Categories)
                         {
                             <option value="@category.Id" selected="@(category.Id == ViewBag.categoryId)">
                                 @category.Name
                             </option>
+                        }
+                        @if (ViewBag.categoryId == null)
+                        {
+                            @* ViewBag.categoryId = ViewBag.SelectedCategory.Id; *@
+                            <option value="" selected="@(ViewBag.SelectedCategory.Id)"></option>
                         }
                     </select>
                 </div>

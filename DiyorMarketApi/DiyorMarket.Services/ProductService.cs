@@ -24,7 +24,7 @@ namespace DiyorMarket.Services
         {
             var query = _context.Products.AsQueryable();
 
-            if (productResourceParameters.CategoryId is not null)
+            if (productResourceParameters.CategoryId is not null && productResourceParameters.CategoryId != 0)
             {
                 query = query.Where(x => x.CategoryId == productResourceParameters.CategoryId);
             }
