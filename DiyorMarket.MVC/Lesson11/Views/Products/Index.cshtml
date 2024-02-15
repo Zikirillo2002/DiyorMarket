@@ -1,45 +1,44 @@
 ﻿<div class="container mt-4">
     <form asp-controller="Products" asp-action="Index" class="mb-4">
+        <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
         <div class="row align-items-center">
-            @* search *@
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search products..."
-                        name="searchString" value="@ViewBag.SearchString">
-                    <div class="input-group-append mx-lg-5">
-                        <button type="submit" value="Search" class="btn btn-outline-primary">
-                            Filtr<i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>  
-            @* filtr *@
-            <div class="col-md-4">
-                <div class="input-group">
-                    <select class="form-control" name="categoryId">
-                        <option value="" selected disabled>@ViewBag.SelectedCategory.Name</option>
-                        @foreach (var category in ViewBag.Categories)
-                        {
-                            <option value="@category.Id" selected="@(category.Id == ViewBag.categoryId)">
-                                @category.Name
-                            </option>
-                        }
-                        @if (ViewBag.categoryId == null)
-                        {
-                            @* ViewBag.categoryId = ViewBag.SelectedCategory.Id; *@
-                            <option value="" selected="@(ViewBag.SelectedCategory.Id)"></option>
-                        }
-                    </select>
-                </div>
-            </div>
-
-  
             @* create *@
             <div class="col-md-2 text-right">
                 <a class="btn btn-success " asp-action="Create">
                     Create Product
                 </a>
-            </div>  
+            </div>
+
+            <div class="d-flex justify-content-between">
+                @* search *@
+                <div class="col-md-6 mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search products..."
+                               name="searchString" value="@ViewBag.SearchString">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fa fa-search"></i> Filter
+                    </button>
+                </div>
+
+                @* filtr *@
+                <div class="col-md-4 mb-3">
+                    <div class="input-group">
+                        <select class="form-control" name="categoryId">
+                            <option value="" selected disabled>@ViewBag.SelectedCategory.Name</option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.Id" selected="@(category.Id == ViewBag.categoryId)">
+                                    @category.Name
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 

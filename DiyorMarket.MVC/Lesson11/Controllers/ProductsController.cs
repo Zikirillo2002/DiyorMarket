@@ -17,9 +17,15 @@ namespace Lesson11.Controllers
             _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
         }
 
-        public IActionResult Index(string? searchString, int? categoryId, int pageNumber)
+        public IActionResult Index(string? searchString, int? categoryId, int pageNumber, int? prevCategoryId)
         {
-            var products = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
+            if (categoryId == null && prevCategoryId != null)
+            {
+                categoryId = prevCategoryId;
+            }
+
+            var filteredProducts = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
+
             var categories = GetAllCategories();
 
             categories.Insert(0, new Category
@@ -30,24 +36,27 @@ namespace Lesson11.Controllers
 
             var selectCategory = categories[0];
 
-            if (categoryId != null)
+            if (categoryId.HasValue && categoryId != 0)
             {
-                 selectCategory = categories.FirstOrDefault(x => x.Id == categoryId);
+                selectCategory = categories.FirstOrDefault(x => x.Id == categoryId);
             }
 
-            ViewBag.Categories = categories;
+            ViewBag.Products = filteredProducts.Data;
             ViewBag.SelectedCategory = selectCategory;
-            ViewBag.Products = products.Data;
-            ViewBag.PageSize = products.PageSize;
-            ViewBag.PageCount = products.TotalPages;
-            ViewBag.TotalCount = products.TotalCount;
-            ViewBag.CurrentPage = products.PageNumber;
-            ViewBag.HasPreviousPage = products.HasPreviousPage;
-            ViewBag.HasNextPage = products.HasNextPage;
+
+            ViewBag.Categories = categories;
+            ViewBag.PageSize = filteredProducts.PageSize;
+            ViewBag.PageCount = filteredProducts.TotalPages;
+            ViewBag.TotalCount = filteredProducts.TotalCount;
+            ViewBag.CurrentPage = filteredProducts.PageNumber;
+            ViewBag.HasPreviousPage = filteredProducts.HasPreviousPage;
+            ViewBag.HasNextPage = filteredProducts.HasNextPage;
+            ViewBag.CurrentCategoryId = categoryId;
             ViewBag.SearchString = searchString;
 
             return View();
         }
+
 
         public IActionResult Create()
         {
