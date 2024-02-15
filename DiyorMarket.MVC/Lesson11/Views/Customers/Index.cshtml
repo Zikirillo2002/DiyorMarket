@@ -17,7 +17,8 @@
     <div class="px-4 pb-4">
         <ejs-grid id="categories-list"
                   dataSource="@ViewBag.Customers"
-                  gridLines="Vertical">
+                  gridLines="Vertical"
+                  allowSorting="true">
             <e-grid-columns>
                 <e-grid-column headerText="Id" field="Id" template="#template"  typeof="text"></e-grid-column>
                 <e-grid-column headerText="FullName" field="FullName"  typeof="text"></e-grid-column>
