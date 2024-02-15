@@ -25,7 +25,7 @@ namespace Lesson11.Controllers
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
-                return BadRequest(errors);
+                return BadRequest(new { Error = "Invalid model state", Errors = errors });
             }
 
             var user = new UserLogin
@@ -38,7 +38,7 @@ namespace Lesson11.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 var error = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
-                return BadRequest(error);
+                return BadRequest(new { Error = "Incorrect password", Errors = error });
             }
 
             return RedirectToAction("Index", "Dashboard");
