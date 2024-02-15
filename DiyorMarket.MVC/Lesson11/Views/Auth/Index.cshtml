@@ -13,24 +13,6 @@
     <title>We are The Lotus Team</title>
 
     <style>
-        /* Подсветка границы для неверных полей */
-        .input-validation-error {
-            border: 1px solid #dc3545 !important; /* Цвет границы поля при ошибке */
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5); /* Тень при фокусе на поле с ошибкой */
-        }
-
-        /* Подсветка границы для неверных полей */
-        .form-control.input-validation-error:focus {
-            border: 1px solid #dc3545 !important; /* Цвет границы при фокусе на поле с ошибкой */
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5); /* Тень при фокусе на поле с ошибкой */
-        }
-
-        .text-danger {
-            font-size: 12px; /* Размер шрифта для текста ошибки */
-            position: relative;
-            top: -10px;
-        }
-
         body {
             background: linear-gradient(to bottom right, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('your-background-image.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -41,31 +23,31 @@
         }
 
         .card {
-            opacity: 0.9;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.5));
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0.9; /* Прозрачность карточки */
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.5)); /* Градиентный фон карточки */
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Тень */
             border-radius: 20px;
         }
 
         .logo {
-            width: 150px;
-            margin-bottom: 20px;
+            width: 150px; /* Уменьшение размера логотипа */
+            margin-bottom: 20px; /* Увеличение отступа снизу */
         }
 
         h4 {
-            margin-bottom: 20px; 
+            margin-bottom: 20px; /* Увеличение отступа снизу для названия */
         }
 
         .card-body {
-            padding: 40px 60px;
+            padding: 40px 60px; /* Увеличение внутренних отступов для контента */
         }
 
         .form-outline {
-            margin-bottom: 20px; 
+            margin-bottom: 20px; /* Увеличение отступа между полями формы */
         }
 
         .input-group-text {
-            cursor: pointer;
+            cursor: pointer; /* Установка курсора в виде указателя */
         }
 
         .btn-primary {
@@ -75,10 +57,10 @@
             transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: #000;
-        }
+            .btn-primary:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+                color: #000;
+            }
 
         .btn-outline-danger {
             background-color: transparent;
@@ -87,10 +69,10 @@
             transition: all 0.3s ease;
         }
 
-        .btn-outline-danger:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: #000;
-        }
+            .btn-outline-danger:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+                color: #000;
+            }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -123,9 +105,8 @@
                                         </span>
                                     </div>
                                     <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary">Log in</button>
+                                </div><div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-dark" style="width: 300px; background-color: #3659e3; border-color: black;">Log in</button>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center pt-3">
                                     <p class="me-2">Don't have an account?</p>
@@ -156,6 +137,8 @@
                                         <img src="~/images/Telegram_logo_1.svg" alt="GitHub" width="32" height="32">
                                     </a>
                                 </div>
+
+
                             </form>
                         </div>
                     </div>
