@@ -1,0 +1,37 @@
+﻿@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+.icon-container {
+    text-align: center;
+}
+
+.icon {
+    font-size: 2rem;
+    color: white;
+    transition: color 0.3s;
+}
+
+    .icon:hover {
+        animation: shake 0.5s infinite;
+    }
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
