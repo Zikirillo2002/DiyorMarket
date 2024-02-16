@@ -89,5 +89,28 @@ namespace Lesson11.Controllers
 
             return customers;
         }
+        [HttpPost]
+        public IActionResult Edit(int id, DateTime saleDate, int customerId, decimal totalDue)
+        {
+            _saleDataStore.UpdateSale(new Sale
+            {
+                SaleDate = saleDate,
+                CustomerId = customerId,
+                TotalDue = totalDue
+            });
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var sale = _saleDataStore.GetSale(id);
+            return View(sale);
+        }
+        public IActionResult Delete(int id)
+        {
+            _saleDataStore.DeleteSale(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

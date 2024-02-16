@@ -52,7 +52,7 @@ namespace DiyorMarketApi.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] ProductForCreateDto product)
         {
-            var createdProduct =  _productService.CreateProduct(product);
+            var createdProduct = _productService.CreateProduct(product);
 
             return CreatedAtAction(nameof(Get), new { id = createdProduct.Id }, createdProduct);
         }

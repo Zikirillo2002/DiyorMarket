@@ -49,7 +49,6 @@
             {
                 <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1})">&lt;&lt;</a>
             }
-
             @if (ViewBag.HasPreviousPage)
             {
                 <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">&lt;</a>
@@ -70,6 +69,7 @@
         <div class="p-2">
             <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
         </div>
+
     </div>
 
     <script id="template" type="text/x-template">

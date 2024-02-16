@@ -17,16 +17,16 @@
             </div>
                  @* filtr *@
             <div class="col-md-4">
-            <div class="input-group">
-                <select class="form-control" name="customerId">
-                    <option value="" selected disabled>  All Customer </option>
-                    @foreach (var customer in ViewBag.Customers)
-                    {
-                        <option value="@customer.Id">@customer.FullName</option>
-                    }
-                </select>
+                <div class="input-group">
+                    <select class="form-control" name="customerId">
+                            <option value="" selected disabled>  All Customer </option>
+                        @foreach (var customer in ViewBag.Customers)
+                        {
+                            <option value="@customer.Id">@customer.FullName</option>
+                        }
+                    </select>
+                </div>
             </div>
-        </div>
 
             @* create *@
             <div class="col-md-2 text-right">
@@ -84,6 +84,12 @@
             <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
         </div>
     </div>
+
 </div>
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="sales/Details/${Id}">${Id}</a>
+    </div>
+</script>
 
 

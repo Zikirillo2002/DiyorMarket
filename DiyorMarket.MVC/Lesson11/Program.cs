@@ -1,7 +1,4 @@
 using Lesson11.Extensions;
-using Lesson11.Stores.Categories;
-using Lesson11.Stores.Customers;
-using Lesson11.Stores.Products;
 
 namespace Lesson11
 {

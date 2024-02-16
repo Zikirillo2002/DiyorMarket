@@ -1,13 +1,8 @@
-﻿using DiyorMarket.Domain.DTOs.Product;
-using DiyorMarket.Domain.DTOs.Supplier;
-using DiyorMarket.Domain.DTOs.Supply;
-using DiyorMarket.Domain.Entities;
+﻿using DiyorMarket.Domain.DTOs.Supply;
 using DiyorMarket.Domain.Interfaces.Services;
-using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace DiyorMarket.Controllers
 {
@@ -15,7 +10,7 @@ namespace DiyorMarket.Controllers
     [ApiController]
     //[Authorize]
     public class SuppliesController : Controller
-    {      
+    {
         private readonly ISupplyService _supplyService;
         public SuppliesController(ISupplyService supplyService)
         {

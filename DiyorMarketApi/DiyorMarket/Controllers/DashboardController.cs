@@ -1,6 +1,5 @@
 ﻿using DiyorMarket.Domain.DTOs.Dashboard;
 using DiyorMarket.Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiyorMarket.Controllers;

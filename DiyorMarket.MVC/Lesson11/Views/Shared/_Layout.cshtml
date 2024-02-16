@@ -21,10 +21,19 @@
         <nav class="navbar sticky-top">
             <div class="container-fluid py-2 px-4">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <div>
-                    <i class="fa-solid fa-bell"></i>
-                    <i class="fa-solid fa-message"></i>
-                    <i class="fa-solid fa-user"></i>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-bell fa-shake"></i>
+                    <a href="https://t.me/SUPERMARKET_13">
+                        <i class="fa-solid fa-message" style="color: white"></i>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #12161d; border-color: #12161d;">
+                            <i class="fa-solid fa-user" style="background-color: #12161d; color: white;"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" style="color: red" href="@Url.Action("Index", "Auth")">Log out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

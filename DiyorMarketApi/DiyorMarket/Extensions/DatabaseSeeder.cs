@@ -58,7 +58,6 @@ namespace DiyorMarket.Extensions
             context.Categories.AddRange(categories);
             context.SaveChanges();
         }
-
         public static void CreateProducts(DiyorMarketDbContext context)
         {
             if (context.Products.Any()) return;
@@ -91,7 +90,8 @@ namespace DiyorMarket.Extensions
                     {
                         Name = productName,
                         Description = _faker.Commerce.ProductDescription(),
-                        Price = _faker.Random.Decimal(10_000, 2_000_000),
+                        Price = _faker.Random.Decimal(10_000, 200_000),
+                        ExpireDate = _faker.Date.Between(DateTime.Now.AddYears(-3), DateTime.Now),
                         CategoryId = category.Id,
                     });
                 }
@@ -126,7 +126,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var customer in customers)
             {
-                int salesCount = new Random().Next(5, 10);
+                int salesCount = new Random().Next(3,5);
                 for (int i = 0; i < salesCount; i++)
                 {
                     sales.Add(new Sale()
@@ -157,7 +157,7 @@ namespace DiyorMarket.Extensions
                 {
                     var randomProduct = _faker.PickRandom(products);
 
-                    var quantity = new Random().Next(10, 40);
+                    var quantity = new Random().Next(10, 20);
 
                     saleItems.Add(new SaleItem()
                     {
@@ -202,7 +202,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var supplier in suppliers)
             {
-                int suppliesCount = new Random().Next(5, 10);
+                int suppliesCount = new Random().Next(10, 12);
                 for (int i = 0; i < suppliesCount; i++)
                 {
                     supplies.Add(new Supply()
@@ -227,7 +227,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var supply in supplies)
             {
-                int supplyItemsCount = new Random().Next(30, 50);
+                int supplyItemsCount = new Random().Next(20, 30);
 
                 for (int i = 0; i < supplyItemsCount; i++)
                 {
