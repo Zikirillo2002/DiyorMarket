@@ -22,6 +22,7 @@ namespace DiyorMarket.Extensions
             CreateSuppliers(context);
             CreateSupplies(context);
             CreateSupplyItems(context);
+            EditPriceForAllEntities(context);
         }
 
         private static void CreateCategories(DiyorMarketDbContext context)
@@ -140,7 +141,6 @@ namespace DiyorMarket.Extensions
             context.Sales.AddRange(sales);
             context.SaveChanges();
         }
-
         private static void CreateSaleItems(DiyorMarketDbContext context)
         {
             if (context.SaleItems.Any()) return;
@@ -172,7 +172,6 @@ namespace DiyorMarket.Extensions
             context.SaleItems.AddRange(saleItems);
             context.SaveChanges();
         }
-
         private static void CreateSuppliers(DiyorMarketDbContext context)
         {
             if (context.Suppliers.Any()) return;
@@ -192,7 +191,6 @@ namespace DiyorMarket.Extensions
             context.Suppliers.AddRange(suppliers);
             context.SaveChanges();
         }
-
         private static void CreateSupplies(DiyorMarketDbContext context)
         {
             if (context.Supplies.Any()) return;
@@ -216,7 +214,6 @@ namespace DiyorMarket.Extensions
             context.Supplies.AddRange(supplies);
             context.SaveChanges();
         }
-
         private static void CreateSupplyItems(DiyorMarketDbContext context)
         {
             if (context.SupplyItems.Any()) return;
@@ -248,5 +245,34 @@ namespace DiyorMarket.Extensions
             context.SupplyItems.AddRange(supplyItems);
             context.SaveChanges();
         }
+        private static void EditPriceForAllEntities(DiyorMarketDbContext context)
+        {
+            var products=context.Products.ToList();
+            if (products[1].Price >= 20_000)
+            {
+                foreach (var product in products)
+                {
+                    var price = product.Price / 12450;
+                    product.Price = price;
+                    context.Products.Update(product);
+                }
+                var saleitems = context.SaleItems.ToList();
+                foreach (var sale in saleitems)
+                {
+                    var price = sale.UnitPrice / 12450;
+                    sale.UnitPrice = price;
+                    context.SaleItems.Update(sale);
+                }
+                var supplyItem = context.SupplyItems.ToList();
+                foreach (var supply in supplyItem)
+                {
+                    var price = supply.UnitPrice / 12450;
+                    supply.UnitPrice = price;
+                    context.SupplyItems.Update(supply);
+                }
+                context.SaveChanges();
+            }
+        }
+
     }
 }
