@@ -5,7 +5,7 @@
                 <i class="fa-solid fa-file-lines fa-2xl fa-bounce"></i>
             </div>
             <div class="d-flex flex-column m-auto py-3">
-                <span class="lead">Общее</span>
+                <span class="lead">Total Revenue</span>
                 <h1 class="display-6 fw-bold">@ViewBag.Summary</h1>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 <i class="fa-solid fa-money-bill-trend-up fa-2xl fa-bounce"></i>
             </div>
             <div class="d-flex flex-column m-auto py-3">
-                <span class="lead">Продажи</span>
+                <span class="lead">Sales</span>
                 <h1 class="display-6 fw-bold">@ViewBag.SalesCount</h1>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 <i class="fa-solid fa-bolt fa-2xl fa-bounce"></i>
             </div>
             <div class="d-flex flex-column m-auto py-3">
-                <span class="lead">Поставки</span>
+                <span class="lead">Supplies</span>
                 <h1 class="display-6 fw-bold">@ViewBag.SuppliesCount</h1>
             </div>
         </div>
@@ -40,7 +40,7 @@
     <div class="col-md-4">
         <div class="widget chart">
             <div class="p-4">
-                <h5 class="fw-bold">Продажи по категориям</h5>
+                <h5 class="fw-bold">Sales by Categories</h5>
             </div>
             <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#1a222b">
                 <e-accumulation-series-collection>
@@ -61,7 +61,7 @@
     <div class="col-md-8">
         <div class="widget chart">
             <div class="p-4">
-                <h5 class="fw-bold">Поставки и Продажи</h5>
+                <h5 class="fw-bold">Supplies and Sales</h5>
             </div>
             <ejs-chart id="spline-chart" background="#1a222b"
                        palettes=@(new string[]{"#54ffa9","#ffe91a"})>
@@ -79,9 +79,9 @@
                 </e-chart-chartarea>
                 <e-series-collection>
                     <e-series dataSource="@ViewBag.SplineChartData" xName="Month" width="3"
-                              yName="Income" name="Продажи" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                              yName="Income" name="Sales" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
                     <e-series dataSource="@ViewBag.SplineChartData" xName="Month" width="3"
-                              yName="Expense" name="Поставки" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
+                              yName="Expense" name="Supplies" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline"></e-series>
                 </e-series-collection>
                 <e-chart-legendsettings position="Top" alignment="Far" toggleVisibility="false">
                     <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
@@ -97,7 +97,7 @@
     <div class="col-md-8">
         <div class="widget">
             <div class="p-4">
-                <h5 class="fw-bold">Недавние транзакции</h5>
+                <h5 class="fw-bold">Recent Transactions</h5>
             </div>
             <div class="px-4 pb-4">
                 <ejs-grid id="recent-transactions"
