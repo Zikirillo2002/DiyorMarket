@@ -126,7 +126,7 @@ namespace DiyorMarket.Extensions
 
             foreach (var customer in customers)
             {
-                int salesCount = new Random().Next(3,5);
+                int salesCount = new Random().Next(3,6);
                 for (int i = 0; i < salesCount; i++)
                 {
                     sales.Add(new Sale()
@@ -164,7 +164,7 @@ namespace DiyorMarket.Extensions
                         ProductId = randomProduct.Id,
                         SaleId = sale.Id,
                         Quantity = quantity,
-                        UnitPrice = randomProduct.Price,
+                        UnitPrice = randomProduct.Price*(decimal)1.25,
                     });
                 }
             }
