@@ -20,12 +20,12 @@ namespace Lesson11.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public IActionResult Index(LoginViewModel loginViewModel)
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
-                return BadRequest(errors);
+                return View(loginViewModel);
             }
 
             var user = new UserLogin
@@ -37,12 +37,13 @@ namespace Lesson11.Controllers
             if (!_userDataStore.AuthenticateLogin(user))
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                var error = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
-                return BadRequest(error);
+                ModelState.AddModelError("Password", "Incorrect password or login");
+                return View(loginViewModel); // Вернуть представление с ошибками
             }
 
             return RedirectToAction("Index", "Dashboard");
         }
+
 
 
         public IActionResult Register()

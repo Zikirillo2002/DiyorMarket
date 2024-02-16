@@ -13,7 +13,6 @@
     <title>We are The Lotus Team</title>
 
     <style>
-        /* Общие стили из вашего login page */
         body {
             background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('your-background-image.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -70,14 +69,12 @@
             transition: all 0.3s ease;
         }
 
-            .btn-outline-danger:hover {
-                background-color: rgba(255, 255, 255, 0.5);
-                color: #000;
-            }
-
-        /* Дополнительные стили для register page */
+        .btn-outline-danger:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+        }
         .gradient-form {
-            background: linear-gradient(to right, #666, #333); /* Пример градиента, замените на ваш фон */
+            background: linear-gradient(to right, #666, #333);
         }
 
         .field-validation-error {
@@ -103,7 +100,6 @@
             }
     </style>
 
-    <!-- Ваши скрипты -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
@@ -170,7 +166,6 @@
         </div>
     </section>
 
-    <!-- Ваши скрипты -->
     <script>
         function togglePasswordVisibility(passwordId, iconId) {
             var passwordInput = $("#" + passwordId);
