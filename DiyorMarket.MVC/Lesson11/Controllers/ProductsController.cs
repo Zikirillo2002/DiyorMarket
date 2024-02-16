@@ -17,26 +17,44 @@ public class ProductsController : Controller
         _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
     }
 
-    public IActionResult Index(string? searchString, int? categoryId, int pageNumber)
+    public IActionResult Index(string? searchString, int? categoryId, int pageNumber, int? prevCategoryId)
     {
-        var products = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
-        var categories = _categoryDataStore.GetCategories(searchString, 1).Data.ToList();
+        if (categoryId == null && prevCategoryId != null)
+        {
+            categoryId = prevCategoryId;
+        }
+
+        var filteredProducts = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
+
+        var categories = GetAllCategories();
+
         categories.Insert(0, new Category
         {
             Id = 0,
             Name = "All"
         });
 
+        var selectCategory = categories[0];
+
+        if (categoryId.HasValue && categoryId != 0)
+        {
+            selectCategory = categories.FirstOrDefault(x => x.Id == categoryId);
+        }
+
+        ViewBag.Products = filteredProducts.Data;
+        ViewBag.SelectedCategory = selectCategory;
+
         ViewBag.Categories = categories;
-        ViewBag.SelectedCategory = categoryId ?? categories[0].Id;
-        ViewBag.Products = products.Data;
-        ViewBag.PageSize = products.PageSize;
-        ViewBag.PageCount = products.TotalPages;
-        ViewBag.TotalCount = products.TotalCount;
-        ViewBag.CurrentPage = products.PageNumber;
-        ViewBag.HasPreviousPage = products.HasPreviousPage;
-        ViewBag.HasNextPage = products.HasNextPage;
+        ViewBag.PageSize = filteredProducts.PageSize;
+        ViewBag.PageCount = filteredProducts.TotalPages;
+        ViewBag.TotalCount = filteredProducts.TotalCount;
+        ViewBag.CurrentPage = filteredProducts.PageNumber;
+        ViewBag.HasPreviousPage = filteredProducts.HasPreviousPage;
+        ViewBag.HasNextPage = filteredProducts.HasNextPage;
+        ViewBag.CurrentCategoryId = categoryId;
         ViewBag.SearchString = searchString;
+
+
 
         return View();
     }
@@ -55,14 +73,14 @@ public class ProductsController : Controller
 			}
 
 			var result = _productDataStore.CreateProduct(new Product
-        {
-            Name = product.Name,
-            Description = product.Description,
-            SalePrice = product.SalePrice,
-            SupplyPrice = product.SupplyPrice,
-				ExpireDate = product.ExpireDate,
-				CategoryId = product.CategoryId 
-        });
+            {
+                Name = product.Name,
+                Description = product.Description,
+                SalePrice = product.SalePrice,
+                SupplyPrice = product.SupplyPrice,
+			    ExpireDate = product.ExpireDate,
+			    CategoryId = product.CategoryId 
+            });
 
 			if (result is null)
 			{
@@ -70,7 +88,7 @@ public class ProductsController : Controller
 			}
 
 			return RedirectToAction("Details", new { id = result.Id});
-		}
+    }
 
     public IActionResult Details(int id)
     {
@@ -78,14 +96,17 @@ public class ProductsController : Controller
 
 			return View(product);
     }
+
     public IActionResult Edit(int id)
     {
         var product = _productDataStore.GetProduct(id);
         
         return View(product);
     }
+
     [HttpPost]
-    public IActionResult Edit(int id, string name, string description, decimal salePrice, decimal supplyPrice, DateTime expireDate, int categoryId)
+    public IActionResult Edit(int id, string name, string description,
+        decimal salePrice, decimal supplyPrice, DateTime expireDate, int categoryId)
     {
         _productDataStore.UpdateProduct(new Product
         {
@@ -98,11 +119,30 @@ public class ProductsController : Controller
             CategoryId = categoryId
         });
 
-        return RedirectToAction("Details", new {id});
+        return RedirectToAction("Details", new { id });
     }
+
     public IActionResult Delete(int id)
     {
         _productDataStore.DeleteProduct(id);
         return RedirectToAction(nameof(Index));
     }
+
+    private List<Category> GetAllCategories()
+    {
+        int number = 1;
+        var categoryResponse = _categoryDataStore.GetCategories(null, number);
+        var categories = categoryResponse.Data.ToList();
+
+
+        for (int i = 1; i <= categoryResponse.TotalPages; i++)
+        {
+            categoryResponse = _categoryDataStore.GetCategories(null, ++number);
+            categories.AddRange(categoryResponse.Data.ToList());
+        }
+
+        return categories;
+    }
 }
+        
+    

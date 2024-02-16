@@ -1,4 +1,5 @@
 ﻿using Lesson11.Models;
+using Lesson11.Stores.Suppliers;
 using Lesson11.Stores.Supplies;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,18 +8,22 @@ namespace Lesson11.Controllers
     public class SuppliesController : Controller
     {
         private readonly ISupplyDataStore _supplyDataStore;
+        private readonly ISupplierDataStore _supplierDataStore;
 
-        public SuppliesController(ISupplyDataStore supplyDataStore)
+        public SuppliesController(ISupplyDataStore supplyDataStore,
+            ISupplierDataStore supplierDataStore)
         {
             _supplyDataStore = supplyDataStore ?? throw new ArgumentNullException(nameof(supplyDataStore));
+            _supplierDataStore = supplierDataStore ?? throw new ArgumentNullException(nameof(supplierDataStore));
         }
 
         public IActionResult Index(string? searchString, int supplierId, int pageNumber)
         {
             var result = _supplyDataStore.GetSupplies(searchString, supplierId, pageNumber);
-            var suplier = result.Data.Select(x => x.Supplier).ToList();
+            var supliers = GetAllSuppliers(searchString);
 
             ViewBag.Supplies = result.Data;
+            ViewBag.Suppliers = supliers;
             ViewBag.PageSize = result.PageSize;
             ViewBag.PageCount = result.TotalPages;
             ViewBag.TotalCount = result.TotalCount;
@@ -76,6 +81,7 @@ namespace Lesson11.Controllers
 
             return RedirectToAction("Details", new { id = id });
         }
+
         public IActionResult Edit(int id)
         {
             var supply = _supplyDataStore.GetSupply(id);
@@ -87,6 +93,22 @@ namespace Lesson11.Controllers
             _supplyDataStore.DeleteSupply(id);
 
             return RedirectToAction("Index");
+        }
+
+        private List<Supplier> GetAllSuppliers(string? searchString)
+        {
+            int number = 1;
+            var supplierResponse = _supplierDataStore.GetSuppliers(searchString, number);
+            var suppliers = supplierResponse.Data.ToList();
+
+
+            while (supplierResponse.HasNextPage)
+            {
+                supplierResponse = _supplierDataStore.GetSuppliers(searchString, ++number);
+                suppliers.AddRange(supplierResponse.Data.ToList());
+            }
+
+            return suppliers;
         }
     }
 }

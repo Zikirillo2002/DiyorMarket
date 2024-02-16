@@ -1,6 +1,7 @@
 ﻿using Lesson11.Models;
 using Lesson11.Response;
 using Lesson11.Services;
+using Lesson11.Stores.User;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -9,6 +10,9 @@ namespace Lesson11.Stores.Products
     public class ProductDataStore : IProductDataStore
     {
         private readonly ApiClient _api;
+        private readonly IUserDataStore _userDataStore;
+
+        
 
         public ProductDataStore()
         {

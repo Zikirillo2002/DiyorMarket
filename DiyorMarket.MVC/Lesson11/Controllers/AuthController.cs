@@ -1,7 +1,6 @@
 ﻿using Lesson11.Models;
 using Lesson11.Stores.User;
 using Lesson11.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
@@ -34,7 +33,7 @@ namespace Lesson11.Controllers
                 Login = loginViewModel.Login,
             };
 
-            if (!_userDataStore.AuthenticateLogin(user))
+            if (!_userDataStore.AuthenticateLogin(user).Item1)
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 ModelState.AddModelError("Password", "Incorrect password or login");
@@ -74,7 +73,7 @@ namespace Lesson11.Controllers
                 Phone = registerViewModel.Phone
             };
 
-            if (!_userDataStore.RegisterLogin(user))
+            if (!_userDataStore.RegisterLogin(user).Item1)
             {
                 ModelState.AddModelError(string.Empty, "Invalid register attempt.");
                 return BadRequest("Invalid register attempt.");

@@ -1,43 +1,60 @@
-﻿<form asp-controller="Supplies" asp-action="Index">
-    <p>
-        Search by name: <input type="text" name="SearchString" />
-        <input type="submit" value="Search" />
-    </p>
-</form>
-<div class="row">
-    <div class="d-flex justify-content-between">
-        <div class="align-self-end">
-            <form class="mt-3" asp-controller="sales" method="get" asp-action="Index">
-                <p>
-                    <select id="select" asp-items="@ViewBag.Suppliers">
-                        <option selected="true" disabled="disabled">
-                            Выбрать Поставщика
-                        </option>
+﻿<div class="container mt-4">
+
+    <form asp-controller="Supplies" asp-action="Index" class="mb-4">
+
+        <div class="row align-items-center">
+            @* search *@
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search supply..."
+                           name="searchString" value="@ViewBag.SearchString">
+                    <div class="input-group-append mx-lg-4">
+                        <button type="submit" value="Search" class="btn btn-outline-primary">
+                            Filtr<i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            @* filtr *@
+            <div class="col-md-4">
+                <div class="input-group">
+                    <select class="form-control" name="supplierId">
+                        <option value="" selected disabled>  All Suppliers </option>
+                        @foreach (var supplier in ViewBag.Suppliers)
+                        {
+                            <option value="@supplier.Id">@supplier.FirstName</option>
+                        }
                     </select>
-                </p>
-            </form>
-        </div>
+                </div>
+            </div>
 
-        <div class="align-self-end mb-3">
-            <a class="btn btn-success " asp-action="Create">
-                Create Supply
-            </a>
+            @* create *@
+            <div class="col-md-2 text-right">
+                <a class="btn btn-success " asp-action="Create">
+                    Create Supply
+                </a>
+            </div>
+
+        </div>
+    </form>
+
+    @* data grid *@
+    <div class="row">
+        <div class="col-12">
+            <ejs-grid id="products-list"
+                      dataSource="@ViewBag.Supplies"
+                      gridLines="Vertical"
+                      allowSorting="true">
+                <e-grid-columns>
+                    <e-grid-column headerText="Id" field="Id" typeof="text"></e-grid-column>
+                    <e-grid-column headerText="Sale Date" field="SupplyDate" format=" dd/MM/yyyy , HH:mm:ss" typeof="text"></e-grid-column>
+                    <e-grid-column headerText="SupplierId" field="Supplier.FirstName" typeof="text"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
         </div>
     </div>
 
-    <div class="px-4 pb-4">
-        <ejs-grid id="products-list"
-                  dataSource="@ViewBag.Supplies"
-                  gridLines="Vertical"
-                  allowSorting="true">
-            <e-grid-columns>
-                <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
-                <e-grid-column headerText="SupplyDate" field="SupplyDate" typeof="text"></e-grid-column>
-                <e-grid-column headerText="SupplierName" field="Supplier.FirstName" typeof="text"></e-grid-column>
-            </e-grid-columns>
-        </ejs-grid>
-    </div>
-
+    @* pagineted *@
     <div class="d-flex justify-content-between">
         <div class="p-2">
             @if (ViewBag.HasPreviousPage)
@@ -66,7 +83,9 @@
             <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
         </div>
     </div>
+
 </div>
+
 <script id="template" type="text/x-template">
     <div>
         <a rel='nofollow' href="supplies/Details/${Id}">${Id}</a>
