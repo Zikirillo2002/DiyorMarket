@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime SupplyDate { get; set; }
+        public decimal TotalDue { get; set; }
         public int SupplierId { get; set; }
         public Supplier? Supplier { get; set; }
 
