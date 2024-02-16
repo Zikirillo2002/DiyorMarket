@@ -1,9 +1,14 @@
-﻿<div class="row mb-4">
+﻿<html>
+<head>   
+   <link rel="stylesheet" href="~/css/Dashboard.css" asp-append-version="true" />
+</head>
+<body>
+<div class="row mb-4">
     <div class="col-md-4">
         <div class="d-flex flex-row widget summary total">
-            <div class="d-flex flex-column justify-content-center p-5">
-                <i class="fa-solid fa-file-lines fa-2xl fa-bounce"></i>
-            </div>
+                <div class="icon-container p-5" onmouseover="startBounce(this)" onmouseout="stopBounce(this)">
+                    <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+                </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Общее</span>
                 <h1 class="display-6 fw-bold">@ViewBag.Summary</h1>
@@ -13,9 +18,9 @@
 
     <div class="col-md-4">
         <div class="d-flex flex-row widget summary sales">
-            <div class="d-flex flex-column justify-content-center p-5">
-                <i class="fa-solid fa-money-bill-trend-up fa-2xl fa-bounce"></i>
-            </div>
+                <div class="icon-container p-5" onmouseover="startBounce(this)" onmouseout="stopBounce(this)">
+                    <i class="fa-solid fa-money-bill-trend-up fa-2xl"></i>
+                </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Продажи</span>
                 <h1 class="display-6 fw-bold">@ViewBag.SalesCount</h1>
@@ -25,9 +30,9 @@
 
     <div class="col-md-4">
         <div class="d-flex flex-row widget summary supplies">
-            <div class="d-flex flex-column justify-content-center p-5">
-                <i class="fa-solid fa-bolt fa-2xl fa-bounce"></i>
-            </div>
+                <div class="icon-container p-5" onmouseover="startBounce(this)" onmouseout="stopBounce(this)">
+                    <i class="fa-solid fa-bolt fa-2xl"></i>
+                </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Поставки</span>
                 <h1 class="display-6 fw-bold">@ViewBag.SuppliesCount</h1>
@@ -120,3 +125,14 @@
         </div>
     </div>
 </div>
+    <script>
+        function startBounce(element) {
+            element.querySelector('i').classList.add('fa-flip');
+        }
+
+        function stopBounce(element) {
+            element.querySelector('i').classList.remove('fa-flip');
+        }
+    </script>
+</body>
+</html>
