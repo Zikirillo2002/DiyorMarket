@@ -2,6 +2,7 @@
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Diagrams;
 using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers;
@@ -121,13 +122,6 @@ public class ProductsController : Controller
 
         return RedirectToAction("Details", new { id });
     }
-
-    public IActionResult Delete(int id)
-    {
-        _productDataStore.DeleteProduct(id);
-        return RedirectToAction(nameof(Index));
-    }
-
     private List<Category> GetAllCategories()
     {
         int number = 1;
@@ -143,6 +137,29 @@ public class ProductsController : Controller
 
         return categories;
     }
+    public IActionResult Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var product = _productDataStore.GetProduct((int)id);
+
+        if (product == null)
+        {
+            return NotFound(product);
+        }
+        return View(product);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public IActionResult Delete(int id)
+    {
+        _productDataStore.DeleteProduct(id);
+        return RedirectToAction(nameof(Index));
+    }
+
 }
         
     

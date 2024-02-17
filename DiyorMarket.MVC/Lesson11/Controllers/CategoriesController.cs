@@ -79,9 +79,26 @@ namespace Lesson11.Controllers
             var category = _categoryDataStore.GetCategory(id);
             return View(category);
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var category = _categoryDataStore.GetCategory((int)id);
+
+            if (category == null)
+            {
+                return NotFound(category);
+            }
+            return View(category);
+        }
+
+        [HttpPost, ActionName("Delete")]
         public IActionResult Delete(int id)
         {
+
             _categoryDataStore.DeleteCategory(id);
 
             return RedirectToAction(nameof(Index));

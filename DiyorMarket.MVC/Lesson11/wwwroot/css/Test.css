@@ -1,0 +1,78 @@
+﻿<style >
+/* CSS for Glowing Button */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #007bff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+    a:hover {
+        animation: glow 1s ease infinite alternate;
+    }
+
+    a span {
+        position: absolute;
+        display: block;
+        background: #ffffff;
+        width: 50%;
+        height: 50%;
+        opacity: 0.4;
+        animation: move 2s linear infinite;
+    }
+
+        a span:nth-child(1) {
+            top: 0;
+            left: 0;
+        }
+
+        a span:nth-child(2) {
+            top: 0;
+            right: 0;
+        }
+
+        a span:nth-child(3) {
+            bottom: 0;
+            left: 0;
+        }
+
+        a span:nth-child(4) {
+            bottom: 0;
+            right: 0;
+        }
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px 0 #007bff;
+    }
+
+    to {
+        box-shadow: 0 0 20px 10px #007bff;
+    }
+}
+
+@keyframes move {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        transform: translate(50%, 50%);
+    }
+}
+
+</style >

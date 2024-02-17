@@ -107,6 +107,23 @@ namespace Lesson11.Controllers
             var sale = _saleDataStore.GetSale(id);
             return View(sale);
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var sale = _saleDataStore.GetSale((int)id);
+
+            if (sale == null)
+            {
+                return NotFound(sale);
+            }
+            return View(sale);
+        }
+
+        [HttpPost, ActionName("Delete")]
         public IActionResult Delete(int id)
         {
             _saleDataStore.DeleteSale(id);

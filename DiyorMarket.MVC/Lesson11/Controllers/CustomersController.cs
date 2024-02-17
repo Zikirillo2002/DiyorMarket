@@ -92,9 +92,26 @@ namespace Lesson11.Controllers
 
             return RedirectToAction("Details", new { id = result.Id });
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var customer = _customerDataStore.GetCustomer((int)id);
+
+            if (customer == null)
+            {
+                return NotFound(customer);
+            }
+            return View(customer);
+        }
+
+        [HttpPost, ActionName("Delete")]
         public IActionResult Delete(int id)
         {
+
             _customerDataStore.DeleteCustomer(id);
 
             return RedirectToAction(nameof(Index));

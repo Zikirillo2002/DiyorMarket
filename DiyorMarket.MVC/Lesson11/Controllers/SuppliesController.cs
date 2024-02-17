@@ -87,14 +87,6 @@ namespace Lesson11.Controllers
             var supply = _supplyDataStore.GetSupply(id);
             return View(supply);
         }
-
-        public IActionResult Delete(int id)
-        {
-            _supplyDataStore.DeleteSupply(id);
-
-            return RedirectToAction("Index");
-        }
-
         private List<Supplier> GetAllSuppliers(string? searchString)
         {
             int number = 1;
@@ -109,6 +101,30 @@ namespace Lesson11.Controllers
             }
 
             return suppliers;
+        }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var supply = _supplyDataStore.GetSupply((int)id);
+
+            if (supply == null)
+            {
+                return NotFound(supply);
+            }
+            return View(supply);
+        }
+
+        [HttpPost, ActionName("Delete")]
+
+        public IActionResult Delete(int id)
+        {
+            _supplyDataStore.DeleteSupply(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
