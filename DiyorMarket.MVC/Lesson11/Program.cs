@@ -34,7 +34,7 @@ namespace Lesson11
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=dashboard}/{action=index}/{id?}");
+                pattern: "{controller=products}/{action=index}/{id?}");
 
             app.Run();
         }

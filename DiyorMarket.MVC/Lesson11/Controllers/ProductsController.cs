@@ -122,9 +122,27 @@ public class ProductsController : Controller
         return RedirectToAction("Details", new { id });
     }
 
+    public IActionResult Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var product = _productDataStore.GetProduct((int)id);
+
+        if (product == null)
+        {
+            return NotFound(product);
+        }
+        return View();
+    }
+
+    [HttpPost, ActionName("Delete")]
     public IActionResult Delete(int id)
     {
         _productDataStore.DeleteProduct(id);
+
         return RedirectToAction(nameof(Index));
     }
 

@@ -3,6 +3,7 @@ using Lesson11.Models;
 using Lesson11.Stores.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.EJ2.Charts;
 
 namespace Lesson11.Controllers
 {
@@ -79,12 +80,29 @@ namespace Lesson11.Controllers
             var category = _categoryDataStore.GetCategory(id);
             return View(category);
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var category = _categoryDataStore.GetCategory((int)id);
+
+            if (category == null)
+            {
+                return NotFound(category);
+            }
+            return View();
+        }
+
+        [HttpPost, ActionName("Delete")]
         public IActionResult Delete(int id)
         {
             _categoryDataStore.DeleteCategory(id);
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
