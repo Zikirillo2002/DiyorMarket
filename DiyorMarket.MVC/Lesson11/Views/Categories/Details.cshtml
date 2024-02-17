@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<head>
+    <link rel="stylesheet" href="~/css/animation.css" />
+</head>
 <h1>Details</h1>
 
 <div>
@@ -25,7 +27,27 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model?.Id">Delete</a> |
-    <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a class="btn btn-outline-info" asp-action="Index">Back to List</a>
+    <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-create btn-delete">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Delete
+    </a>
+
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-create btn-edit">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Edit
+    </a>
+
+    <a asp-action="Index" class="btn btn-create btn-back">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Back to List
+    </a>
 </div>
