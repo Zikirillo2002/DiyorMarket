@@ -93,12 +93,13 @@ namespace Lesson11.Controllers
             {
                 return NotFound(category);
             }
-            return View();
+            return View(category);
         }
 
         [HttpPost, ActionName("Delete")]
         public IActionResult Delete(int id)
         {
+
             _categoryDataStore.DeleteCategory(id);
 
             return RedirectToAction(nameof(Index));

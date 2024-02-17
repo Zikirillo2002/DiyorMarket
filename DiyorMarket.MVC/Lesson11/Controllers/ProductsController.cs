@@ -2,6 +2,7 @@
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Diagrams;
 using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers;
