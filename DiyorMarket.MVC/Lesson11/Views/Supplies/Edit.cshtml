@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<head>
+    <link rel="stylesheet" href="~/css/animation.css" />
+</head>
 <h1>Edit</h1>
 
 <h4>Supply</h4>
@@ -22,14 +24,24 @@
                 <input asp-for="SupplierId" class="form-control" />
                 <span asp-validation-for="SupplierId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="form-group">
+    <button type="submit" class="btn btn-create">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Save
+    </button>
+    <a asp-action="Index" class="btn btn-create btn-back">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Back to List
+    </a>
 </div>
 

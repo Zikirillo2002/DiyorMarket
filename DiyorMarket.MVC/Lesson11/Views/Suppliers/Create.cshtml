@@ -5,7 +5,9 @@
 }
 
 <h1>Create</h1>
-
+<head>
+    <link rel="stylesheet" href="~/css/animation.css" />
+</head>
 <h4>Supplier</h4>
 <hr />
 <div class="row">
@@ -33,14 +35,23 @@
                 <span asp-validation-for="Company" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" class="btn btn-create">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Create
+                </button>
+                <a asp-action="Index" class="btn btn-create btn-back">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Back to List
+                </a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

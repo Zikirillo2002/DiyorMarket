@@ -1,26 +1,41 @@
-﻿
+﻿<head>
+    <link rel="stylesheet" href="~/css/animation.css" />
+</head>
 <div class="container mt-4">
 
     <form asp-controller="Categories" asp-action="Index" class="mb-4">
 
         <div class="row align-items-center">
             @* search *@
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search category..."
-                           name="searchString" value="@ViewBag.SearchString">
-                    <div class="input-group-append mx-lg-4">
-                        <button type="submit" value="Search" class="btn btn-outline-primary">
-                            Filtr<i class="fa fa-search"></i>
-                        </button>
+            <div class="d-flex justify-content-between align-items-end">
+                <!-- Search input -->
+                <div class="col-md-6 mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search products..."
+                               name="searchString" value="@ViewBag.SearchString">
                     </div>
+                </div>
+
+                <!-- Filter button -->
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-create btn-back">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <i class="fa fa-search"></i> Filter
+                    </button>
                 </div>
             </div>
 
             @* create *@
             <div class="col-md-2 text-right">
-                <a class="btn btn-success " asp-action="Create">
-                    Create Category
+                <a asp-action="Create" class="btn btn-create position-fixed" style="top: 80px; right: 20px;">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Create
                 </a>
             </div>
 

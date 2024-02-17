@@ -10,7 +10,6 @@ namespace Lesson11
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
             builder.Services.ConfigureDataStores();
 
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2VlhhQlJCfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn9Sd0xjWHpacHFdRGNY");
