@@ -31,7 +31,7 @@ namespace Lesson11.Controllers
         {
             var summary = dashboard.Summary;
 
-            ViewBag.Summary = ConvertPrice(summary.Total);
+            ViewBag.Summary = summary.Total.ToString("0.00");
             ViewBag.SalesCount = summary.SalesCount;
             ViewBag.SuppliesCount = summary.SuppliesCount;
             ViewBag.SalesByCategory = dashboard.SalesByCategories;
@@ -41,9 +41,10 @@ namespace Lesson11.Controllers
 
         private static string ConvertPrice(decimal price)
         {
-            if (price / 1_000_000_000 > 0)
+            var updatedUSD = price * 12400;
+            if (updatedUSD / 1_000 > 0)
             {
-                return (price / 1_000_000_000).ToString("0.00") + " mlrd";
+                return (price / 1_000_000_000).ToString("0.00") + "$";
             }
 
             return price + " mln";

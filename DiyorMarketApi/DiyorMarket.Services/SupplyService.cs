@@ -27,6 +27,7 @@ namespace DiyorMarket.Services
         public GetBaseResponse<SupplyDto> GetSupplies(SupplyResourceParameters supplyResourceParameters)
         {
             var query = _context.Supplies
+                    .Include(x => x.SupplyItems)
                     .IgnoreAutoIncludes()
                     .AsNoTracking()
                     .AsQueryable();
