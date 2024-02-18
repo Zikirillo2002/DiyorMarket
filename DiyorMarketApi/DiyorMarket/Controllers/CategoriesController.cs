@@ -5,6 +5,7 @@ using DiyorMarket.Domain.DTOs.Product;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.ResourceParameters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -12,7 +13,7 @@ namespace DiyorMarketApi.Controllers
 {
     [Route("api/categories")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

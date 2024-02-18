@@ -10,9 +10,9 @@ namespace Lesson11.Stores.Sales
     {
         private readonly ApiClient _api;
 
-        public SaleDataStore()
+        public SaleDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber)

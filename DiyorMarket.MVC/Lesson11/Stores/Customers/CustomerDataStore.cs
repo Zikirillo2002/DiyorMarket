@@ -9,9 +9,9 @@ namespace Lesson11.Stores.Customers
     public class CustomerDataStore : ICustomerDataStore
     {
         private readonly ApiClient _api;
-        public CustomerDataStore()
+        public CustomerDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetCustomerResponse? GetCustomers(string? searchString, int pageNumber)

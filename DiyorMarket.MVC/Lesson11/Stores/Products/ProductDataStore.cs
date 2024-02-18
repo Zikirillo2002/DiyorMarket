@@ -12,11 +12,9 @@ namespace Lesson11.Stores.Products
         private readonly ApiClient _api;
         private readonly IUserDataStore _userDataStore;
 
-        
-
-        public ProductDataStore()
+        public ProductDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber)

@@ -1,30 +1,35 @@
-﻿namespace Lesson11.Services
+﻿using Lesson11.Exceptions;
+
+namespace Lesson11.Services
 {
     public class ApiClient
     {
         private const string baseUrl = "https://localhost:7258/api";
         private readonly HttpClient _client = new();
         private readonly string _apiToken;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public ApiClient()
+        public ApiClient(IHttpContextAccessor contextAccessor)
         {
             _client.BaseAddress = new Uri(baseUrl);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
             _apiToken = string.Empty;
-        }
-
-        public ApiClient(string apiToken)
-            : this()
-        {
-            _apiToken = apiToken;
+            _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
         }
 
         public HttpResponseMessage Get(string url)
         {
+            string token = string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Get, _client.BaseAddress?.AbsolutePath + "/" + url);
-            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",
-                _apiToken);
+            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue("", out token);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
             var response = _client.Send(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApiException(response.StatusCode, $"Error fetching url: {url}");
+            }
 
             return response;
         }
@@ -37,6 +42,11 @@
             };
             var response = _client.Send(request);
 
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApiException(response.StatusCode, $"Error fetching url: {url}");
+            }
+
             return response;
         }
 
@@ -48,6 +58,11 @@
             };
             var response = _client.Send(request);
 
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApiException(response.StatusCode, $"Error fetching url: {url}");
+            }
+
             return response;
         }
 
@@ -55,6 +70,11 @@
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, _client.BaseAddress?.AbsolutePath + "/" + url);
             var response = _client.Send(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApiException(response.StatusCode, $"Error fetching url: {url}");
+            }
 
             return response;
         }

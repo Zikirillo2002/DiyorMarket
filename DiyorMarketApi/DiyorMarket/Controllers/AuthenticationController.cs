@@ -1,6 +1,7 @@
 ﻿using DiyorMarket.Domain.Entities;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.LoginModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -48,7 +49,7 @@ namespace DiyorMarket.Controllers
                 "anvar-mobile",
                 claimsForToken,
                 DateTime.UtcNow,
-                DateTime.UtcNow.AddDays(30),
+                DateTime.UtcNow.AddSeconds(5),
                 signingCredentials);
 
             var token = new JwtSecurityTokenHandler()

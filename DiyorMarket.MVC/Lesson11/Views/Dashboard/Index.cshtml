@@ -11,7 +11,7 @@
                 </div>
                 <div class="d-flex flex-column m-auto py-3" id="revenueContainer" onclick="toggleRevenue()">
                     <span class="lead">Total Revenue</span>
-                    <h1 class="display-6 fw-bold" id="revenueValue" data-value="@ViewBag.Summary">@ViewBag.Summary.ToString("N2")</h1>
+                    <h1 class="display-6 fw-bold" id="revenueValue" data-value="@ViewBag.Summary">@String.Format("{0:N2}", ViewBag.Summary)</h1>
                 </div>
         </div>
     </div>
@@ -142,19 +142,15 @@
 
             if (!isNaN(originalValue)) {
                 if (isExpanded) {
-                    // Если уже раскрыто, сократить число
                     revenueValue.textContent = abbreviateNumber(originalValue);
                 } else {
-                    // Если не раскрыто, показать полное число
                     revenueValue.textContent = originalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 }
 
-                // Инвертировать флаг
                 isExpanded = !isExpanded;
             }
         }
 
-        // Функция для сокращения больших чисел
         function abbreviateNumber(value) {
             const abbreviations = ['k', 'mln', 'bln', 'trln'];
             let index = 0;
@@ -164,7 +160,7 @@
                 index++;
             }
 
-            return value.toFixed(2) + abbreviations[index];
+            return value.toFixed(2) + abbreviations[index - 1];
         }
     </script>
 </body>

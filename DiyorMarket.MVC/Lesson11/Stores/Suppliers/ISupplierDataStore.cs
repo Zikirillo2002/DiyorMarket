@@ -7,6 +7,7 @@ namespace Lesson11.Stores.Suppliers
     {
         public GetSupplierResponse? GetSuppliers(string? searchString,int pageNumber);
         public Supplier? GetSupplier(int id);
+        public Stream GetExportFile();
         public Supplier? CreateSupplier(Supplier category);
         public Supplier? UpdateSupplier(Supplier category);
         public void DeleteSupplier(int id);

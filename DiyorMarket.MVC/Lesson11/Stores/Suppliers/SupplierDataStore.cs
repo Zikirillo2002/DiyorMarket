@@ -10,9 +10,9 @@ namespace Lesson11.Stores.Suppliers
     {
         private readonly ApiClient _api;
 
-        public SupplierDataStore()
+        public SupplierDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
         public GetSupplierResponse? GetSuppliers(string? searchString, int pageNumber)
         {

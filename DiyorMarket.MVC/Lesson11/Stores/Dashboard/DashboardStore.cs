@@ -8,9 +8,9 @@ namespace Lesson11.Stores.Dashboard
     {
         private readonly ApiClient _client;
 
-        public DashboardStore()
+        public DashboardStore(ApiClient apiClient)
         {
-            _client = new ApiClient();
+            _client = apiClient;
         }
 
         public DashboardViewModel? GetDashboard()

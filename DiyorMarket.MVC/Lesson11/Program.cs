@@ -1,4 +1,5 @@
 using Lesson11.Extensions;
+using Lesson11.Filters;
 
 namespace Lesson11
 {
@@ -9,8 +10,11 @@ namespace Lesson11
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options => 
+                options.Filters.Add(new ApiExceptionFilter()));
             builder.Services.ConfigureDataStores();
+            builder.Services.ConfigureServices();
+            builder.Services.AddHttpContextAccessor();
 
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2VlhhQlJCfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn9Sd0xjWHpacHFdRGNY");
 

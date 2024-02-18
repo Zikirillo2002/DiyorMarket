@@ -15,10 +15,14 @@ namespace Lesson11.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Request.Cookies.TryGetValue("JwtToken", out _))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+
             return View();
         }
 
-        [HttpPost]
         [HttpPost]
         public IActionResult Index(LoginViewModel loginViewModel)
         {
@@ -33,14 +37,23 @@ namespace Lesson11.Controllers
                 Login = loginViewModel.Login,
             };
 
-            if (!_userDataStore.AuthenticateLogin(user).Item1)
+            var (success, token) = _userDataStore.AuthenticateLogin(user);
+
+            if (success)
             {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                ModelState.AddModelError("Password", "Incorrect password or login");
-                return View(loginViewModel); // Вернуть представление с ошибками
+                HttpContext.Response.Cookies.Append("", token, new CookieOptions
+                {
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    HttpOnly = true,
+                    IsEssential = true
+                });
+                return RedirectToAction("Index", "Dashboard");
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError("Password", "Incorrect password or login");
+            return View(loginViewModel);
         }
 
 

@@ -37,7 +37,8 @@ builder.Services.AddAuthentication("Bearer")
             ValidIssuer = "anvar-api",
             ValidAudience = "anvar-mobile",
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("anvarSekretKalitSozMalades"))
+                Encoding.UTF8.GetBytes("anvarSekretKalitSozMalades")),
+            ValidateLifetime = true,
         };
     });
 

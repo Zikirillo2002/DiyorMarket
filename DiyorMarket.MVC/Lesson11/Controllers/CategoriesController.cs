@@ -1,6 +1,8 @@
 using Bogus.DataSets;
 using ExcelDataReader;
 using Lesson11.Models;
+using Lesson11.Stores.Categories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
 {
@@ -10,7 +12,7 @@ namespace Lesson11.Controllers
 
         public CategoriesController(ICategoryDataStore categoryDataStore)
         {
-            _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
+            _categoryDataStore = categoryDataStore;
         }
 
         public IActionResult Index(string searchString, int? pageNumber)
