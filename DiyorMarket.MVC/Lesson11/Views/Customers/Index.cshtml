@@ -4,14 +4,17 @@
 <div class="container mt-4">
 
     <form asp-controller="Customers" asp-action="Index">
-        <div class="d-flex">
-            <input type="text" class="form-control p-1" style="width: 420px;">
-            <button type="submit" class="p-1" style="background: #6049A2;">
-                <i class="fa fa-search"></i> Search
-            </button>
+        <div class="input-group" style="width: 530px">
+            <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Search customer...">
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="background: #291dab; border: #291dab;">
+                    <button type="submit" style="background: #291dab; border: 2px solid #291dab; color: white">
+                        <i class="fa fa-search" style="color: white"></i> Search
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
-
 
 
 
@@ -32,8 +35,7 @@
         <div class="col-12">
             <ejs-grid id="customers-list"
                       dataSource="@ViewBag.Customers"
-                      gridLines="Vertical"
-                      allowSorting="true">
+                      gridLines="Vertical">
                 <e-grid-columns>
                     <e-grid-column headerText="Id" field="Id" template="#template" typeof="text"></e-grid-column>
                     <e-grid-column headerText="FullName" field="FullName" typeof="text"></e-grid-column>
