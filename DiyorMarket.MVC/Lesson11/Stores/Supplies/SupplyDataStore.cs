@@ -100,5 +100,13 @@ namespace Lesson11.Stores.Supplies
                 throw new Exception($"Could not delete supplies with id: {id}.");
             }
         }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("supplies/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
+        }
     }
 }

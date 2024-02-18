@@ -92,5 +92,13 @@ namespace Lesson11.Stores.Suppliers
                 throw new Exception($"Could not delete suppliers with id: {id}.");
             }
         }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("suppliers/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
+        }
     }
 }

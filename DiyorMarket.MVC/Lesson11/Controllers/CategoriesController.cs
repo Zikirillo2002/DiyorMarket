@@ -1,4 +1,5 @@
 ﻿using Bogus.DataSets;
+using ExcelDataReader;
 using Lesson11.Models;
 using Lesson11.Stores.Categories;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,36 @@ namespace Lesson11.Controllers
             return View(category);
         }
 
+        public IActionResult Upload()
+        {
+            ViewBag.FileUploaded = false;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (file is null)
+            {
+                ViewBag.FileUploaded = false;
+                return View();
+            }
+
+            var customers = DeserializeFile(file);
+
+            ViewBag.Categories = customers;
+            ViewBag.FileUploaded = true;
+
+            return View();
+        }
+
+        public IActionResult Download()
+        {
+            var result = _categoryDataStore.GetExportFile();
+
+            return File(result, "application/xls", "Categories.xls");
+        }
+
         [HttpPost]
         public IActionResult Edit(int id, string name)
         {
@@ -106,5 +137,25 @@ namespace Lesson11.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        private static List<Category> DeserializeFile(IFormFile file)
+        {
+            List<Category> categories = new();
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            using var stream = new MemoryStream();
+            file.CopyTo(stream);
+            stream.Position = 0;
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+
+            while (reader.Read())
+            {
+                categories.Add(new Category
+                {
+                    Name = reader.GetValue(0)?.ToString()
+                });
+            }
+
+            return categories;
+        }
     }
 }
