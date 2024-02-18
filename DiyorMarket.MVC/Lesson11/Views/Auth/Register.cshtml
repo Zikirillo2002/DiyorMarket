@@ -12,9 +12,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>We are The Lotus Team</title>
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
+        .d-flex.align-items-center.justify-content-center.pt-3 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .me-2 {
+            order: 1;
+            font-size: 19px; /* Уменьшаем размер шрифта */
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            margin: 10%;
+            text-align: center;
+        }
+
+        .btn-hover {
+            width: 150px; /* Уменьшаем ширину кнопки */
+            font-size: 14px; /* Уменьшаем размер шрифта */
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            margin: 20px;
+            height: 45px; /* Уменьшаем высоту кнопки */
+            text-align: center;
+            border: none;
+            background-size: 300% 100%;
+            border-radius: 50px;
+            moz-transition: all .4s ease-in-out;
+            -o-transition: all .4s ease-in-out;
+            -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        }
+
+            .btn-hover:hover {
+                background-position: 100% 0;
+                moz-transition: all .4s ease-in-out;
+                -o-transition: all .4s ease-in-out;
+                -webkit-transition: all .4s ease-in-out;
+                transition: all .4s ease-in-out;
+            }
+
+            .btn-hover:focus {
+                outline: none;
+            }
+
+            .btn-hover.color-6 {
+                background-image: linear-gradient(to right, #009245, #FCEE21, #00A8C5, #D9E021);
+                box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+            }
+
+            .btn-hover.color-9 {
+                background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+                box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+                order: 2;
+            }
+
+        .input-validation-error {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.5) !important;
+        }
+
+        .text-danger {
+            font-size: 12px;
+            position: relative;
+            top: -10px;
+        }
+
         body {
-            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('your-background-image.jpg') no-repeat center center fixed;
+            background: linear-gradient(to bottom right, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('your-background-image.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -24,7 +100,7 @@
 
         .card {
             opacity: 0.9;
-            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5));
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.5));
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
             border-radius: 20px;
         }
@@ -69,34 +145,9 @@
             transition: all 0.3s ease;
         }
 
-        .btn-outline-danger:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: #000;
-        }
-        .gradient-form {
-            background: linear-gradient(to right, #666, #333);
-        }
-
-        .field-validation-error {
-            color: #dc3545;
-            font-size: x-small;
-            position: relative;
-            top: -10px;
-        }
-
-        .input-validation-error {
-            border-color: #dc3545;
-        }
-
-        .input-validation-error {
-            border: 1px solid #dc3545;
-            box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-            .input-validation-error:focus {
-                border-color: #dc3545;
-                box-shadow: 0 0 8px rgba(220, 53, 69, 0.8);
+            .btn-outline-danger:hover {
+                background-color: rgba(255, 255, 255, 0.5);
+                color: #000;
             }
     </style>
 
@@ -106,65 +157,58 @@
 </head>
 
 <body>
-    <section class="h-100 gradient-form">
+    <section class="h-100">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-xl-10">
-                    <div class="card rounded-3 text-black">
+                <div class="col-xl-6">
+                    <div class="card text-black">
                         <div class="card-body p-md-5 mx-md-4">
                             <div class="text-center">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                                     style="width: 185px;" alt="logo">
-                                <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                                     style="width: 150px;" alt="logo">
+                                <h4 class="mt-1 mb-4">We are The Lotus Team</h4>
                             </div>
                             <form asp-action="Register" method="post">
-                                <p>Please register your account</p>
-                                <div class="form-outline mb-4">
+                                <div class="form-group">
                                     <input type="text" asp-for="FullName" class="form-control"
                                            placeholder="Enter your name" />
                                     <span asp-validation-for="FullName" class="text-danger"></span>
                                 </div>
-                                <div class="form-outline mb-4">
+                                <div class="form-group">
                                     <input type="text" asp-for="Login" class="form-control"
                                            placeholder="Enter login" />
                                     <span asp-validation-for="Login" class="text-danger"></span>
                                 </div>
-                                <div class="form-outline mb-4">
+                                <div class="form-group">
                                     <input type="text" asp-for="Phone" class="form-control"
                                            placeholder="Enter your phone" />
                                     <span asp-validation-for="Phone" class="text-danger"></span>
                                 </div>
-                                <div class="form-outline mb-4">
-                                    <div class="input-group">
-                                        <input type="password" asp-for="Password" class="form-control"
-                                               placeholder="Password" id="password" />
-                                        <span class="input-group-text" onclick="togglePasswordVisibility('password', 'password-icon')">
-                                            <i id="password-icon" class="fa-solid fa-eye-slash"></i>
-                                        </span>
-                                    </div>
+                                <div class="form-group">
+                                    <input type="password" asp-for="Password" class="form-control"
+                                           placeholder="Password" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
-                                <div class="form-outline mb-4">
-                                    <div class="input-group">
-                                        <input type="password" asp-for="RepeatPassword" class="form-control"
-                                               placeholder="Repeat Password" id="repeat-password" />
-                                        <span class="input-group-text" onclick="togglePasswordVisibility('repeat-password', 'repeat-password-icon')">
-                                            <i id="repeat-password-icon" class="fa-solid fa-eye-slash"></i>
-                                        </span>
-                                    </div>
+                                <div class="form-group">
+                                    <input type="password" asp-for="RepeatPassword" class="form-control"
+                                           placeholder="Repeat Password" />
                                     <span asp-validation-for="RepeatPassword" class="text-danger"></span>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <button type="submit" class="btn btn-primary w-50 mb-5">Register</button>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary btn-hover color-6">Register</button>
                                 </div>
                             </form>
-                            <p>Already have an account? <a href="@Url.Action("Index", "Auth")">Log in</a></p>
+                            <div class="text-center">
+                                @* <p class="me-2" style="display: inline-block;">Back to Login!</p> *@
+                                <a href="@Url.Action("Index", "Auth")" class="btn btn-secondary btn-hover color-9" style="display: flex; align-items: center; justify-content: center;">Back to Login</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <script>
         function togglePasswordVisibility(passwordId, iconId) {

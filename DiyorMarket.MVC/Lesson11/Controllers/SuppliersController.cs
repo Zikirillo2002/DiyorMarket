@@ -85,6 +85,23 @@ namespace Lesson11.Controllers
             var supplier = _supplierDataStore.GetSupplier(id);
             return View(supplier);
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var supplier = _supplierDataStore.GetSupplier((int)id);
+
+            if (supplier == null)
+            {
+                return NotFound(supplier);
+            }
+            return View(supplier);
+        }
+
+        [HttpPost, ActionName("Delete")]
 
         public IActionResult Delete(int id)
         {

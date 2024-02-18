@@ -1,4 +1,6 @@
-﻿
+﻿<head>
+    <link rel="stylesheet" href="~/css/animation.css" />
+</head>
 <div class="container mt-4">
 
     <form asp-controller="Suppliers" asp-action="Index" class="mb-4">
@@ -9,19 +11,20 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search supplier..."
                            name="searchString" value="@ViewBag.SearchString">
-                    <div class="input-group-append mx-lg-4">
-                        <button type="submit" value="Search" class="btn btn-outline-primary">
-                            Filtr<i class="fa fa-search"></i>
-                        </button>
-                    </div>
                 </div>
+            </div>
+
+            <div style="margin-top: -30px;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search"></i> Search
+                </button>
             </div>
 
             @* create *@
             <div class="col-md-2 text-right">
-                <a class="btn btn-success " asp-action="Create">
-                    Create Supplier
-                </a>
+                <button class="btn btn-outline-success mr-auto">
+                    <i class="fa fa-plus"></i> Create
+                </button>
             </div>
 
         </div>

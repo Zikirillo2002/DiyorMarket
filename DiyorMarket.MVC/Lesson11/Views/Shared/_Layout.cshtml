@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Lesson11.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Bell.css" asp-append-version="true"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="~/js/LotOut.js"></script>
     <script src="https://cdn.syncfusion.com/ej2/20.2.43/dist/ej2.min.js"></script>
 </head>
 <body class="e-bigger">
@@ -21,14 +23,15 @@
 
         <nav class="navbar sticky-top">
             <div class="container-fluid py-2 px-4">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-home"></i>
                 <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     <div class="icon-container">
                         <i class="fa-solid fa-bell icon"></i>
                     </div>
                     <a href="https://t.me/SUPERMARKET_13">
                         <i class="fa-solid fa-message" style="color: white"></i>
-                    </a>
+                    </a>                    
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #12161d; border-color: #12161d;">
                             <i class="fa-solid fa-user" style="background-color: #12161d; color: white;"></i>
@@ -46,30 +49,6 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <main role="main" class="pb-3">
-                            @*@if (ViewData["isDashboard"] == null)
-                            {
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="d-flex flex-column mb-5">
-                                            <div class="d-flex mb-1">
-                                                <div class="flex-grow-1">
-                                                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
-                                                </div>
-                                                <div>
-                                                    @if (ViewData["PageActionText"] != null)
-                                                    {
-                                                        <a class="btn btn-success" href="@ViewData["PageActionUrl"]">
-                                                            @ViewData["PageActionText"]
-                                                        </a>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <ejs-breadcrumb id="breadcrumb"
-                                                            separatorTemplate="@Html.Raw("<span class='fa-solid fa-angle-right'></span>")"></ejs-breadcrumb>
-                                        </div>
-                                    </div>
-                                </div>
-                            }*@
                             @RenderBody()
                         </main>
                     </div>
