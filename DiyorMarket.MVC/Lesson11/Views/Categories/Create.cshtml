@@ -20,19 +20,13 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-create">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Create
+                <button class="btn btn-outline-success mr-auto">
+                    <i class="fa fa-plus"></i> Create
                 </button>
-                <a asp-action="Index" class="btn btn-create btn-back">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Back to List
+                <a asp-action="Index">
+                    <div class="btn btn-outline-info">
+                        Back To List
+                    </div>
                 </a>
             </div>
         </form>
