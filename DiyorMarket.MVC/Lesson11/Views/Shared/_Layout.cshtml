@@ -4,6 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diyor Market</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let doctitle = document.title;
+
+            document.addEventListener("visibilitychange", function () {
+                if (document.visibilityState === 'hidden') {
+                    document.title = "Come Back 🥹";
+                } else {
+                    document.title = doctitle;
+                }
+            });
+        });
+    </script>
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.syncfusion.com/ej2/20.1.55/bootstrap5-dark.css" rel="stylesheet" />
