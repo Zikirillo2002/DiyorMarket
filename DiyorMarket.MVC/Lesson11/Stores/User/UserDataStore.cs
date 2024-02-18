@@ -7,6 +7,7 @@ namespace Lesson11.Stores.User
     public class UserDataStore : IUserDataStore
     {
         private readonly ApiClient _apiClient;
+
         public UserDataStore()
         {
             _apiClient = new ApiClient();
@@ -25,6 +26,8 @@ namespace Lesson11.Stores.User
             var tokenJson = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var token = JsonConvert.DeserializeObject<string>(tokenJson);
 
+            AddTokenForJsonFile(token);
+
             return (true, tokenJson);
         }
 
@@ -41,8 +44,35 @@ namespace Lesson11.Stores.User
             var tokenJson = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var token = JsonConvert.DeserializeObject<string>(tokenJson);
 
+            AddTokenForJsonFile(token);
+
             return (true, tokenJson);
         }
 
+        private void AddTokenForJsonFile(string token)
+        {
+            string path = Directory.GetCurrentDirectory() + "\\JsonFile\\UserToken.json";
+
+            if (!File.Exists(path))
+            {
+                File.Create(path).Close();
+
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    sw.WriteLine(token);
+                }
+            }
+            else
+            {
+                File.Delete(path);
+
+                File.Create(path).Close();
+
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    sw.WriteLine(token);
+                }
+            }
+        }
     }
 }

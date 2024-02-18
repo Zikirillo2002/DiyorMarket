@@ -8,7 +8,7 @@ namespace DiyorMarket.Controllers
 {
     [Route("api/suppliers")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class SuppliersController : Controller
     {
         private readonly ISupplierService _supplierService;

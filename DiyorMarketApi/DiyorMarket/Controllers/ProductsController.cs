@@ -3,6 +3,7 @@ using DiyorMarket.Domain.DTOs.Product;
 using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.ResourceParameters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace DiyorMarketApi.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;

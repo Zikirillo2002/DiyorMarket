@@ -25,4 +25,8 @@
     <PackageReference Include="Syncfusion.Licensing" Version="23.1.44" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="JsonFile\" />
+  </ItemGroup>
+
 </Project>

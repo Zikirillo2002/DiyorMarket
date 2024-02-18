@@ -10,9 +10,6 @@ namespace Lesson11.Stores.Products
     public class ProductDataStore : IProductDataStore
     {
         private readonly ApiClient _api;
-        private readonly IUserDataStore _userDataStore;
-
-        
 
         public ProductDataStore()
         {

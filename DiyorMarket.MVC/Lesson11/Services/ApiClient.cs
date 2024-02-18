@@ -1,4 +1,6 @@
-﻿namespace Lesson11.Services
+﻿using NuGet.Common;
+
+namespace Lesson11.Services
 {
     public class ApiClient
     {
@@ -10,7 +12,7 @@
         {
             _client.BaseAddress = new Uri(baseUrl);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
-            _apiToken = string.Empty;
+            _apiToken = ReadFromJsonFile();
         }
 
         public ApiClient(string apiToken)
@@ -57,6 +59,24 @@
             var response = _client.Send(request);
 
             return response;
+        }
+
+        private string ReadFromJsonFile()
+        {
+            string path = Directory.GetCurrentDirectory() + "\\JsonFile\\UserToken.json";
+            string token = "";
+
+            if (!File.Exists(path))
+            {
+                return token;
+            }
+
+            using (StreamReader sr = new StreamReader(path))
+            {
+                token = sr.ReadToEnd().ToString();
+            }
+
+            return token.Trim();
         }
     }
 }

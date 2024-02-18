@@ -2,7 +2,7 @@
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
-using Syncfusion.EJ2.Diagrams;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers;
@@ -62,6 +62,7 @@ public class ProductsController : Controller
 
     public IActionResult Create()
     {
+        ViewData["CategoryId"] = new SelectList(GetAllCategories(), "Id", "Name");
         return View();
     }
 
@@ -80,15 +81,16 @@ public class ProductsController : Controller
                 SalePrice = product.SalePrice,
                 SupplyPrice = product.SupplyPrice,
 			    ExpireDate = product.ExpireDate,
-			    CategoryId = product.CategoryId 
+			    CategoryId = product.CategoryId
             });
+        if (result is null)
+        {
+            return BadRequest();
+        }
 
-			if (result is null)
-			{
-				return BadRequest();
-			}
+        ViewData["CategoryId"] = new SelectList(GetAllCategories(), "Id", "Name", result.CategoryId);
 
-			return RedirectToAction("Details", new { id = result.Id});
+        return RedirectToAction("Details", new { id = result.Id});
     }
 
     public IActionResult Details(int id)
