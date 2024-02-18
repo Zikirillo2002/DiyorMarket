@@ -2,6 +2,7 @@
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers;
@@ -61,6 +62,7 @@ public class ProductsController : Controller
 
     public IActionResult Create()
     {
+        ViewData["Category"] = new SelectList(GetAllCategories(), "Id", "Name");
         return View();
     }
 
@@ -87,7 +89,9 @@ public class ProductsController : Controller
 				return BadRequest();
 			}
 
-			return RedirectToAction("Details", new { id = result.Id});
+        ViewData["Category"] = new SelectList(GetAllCategories(), "Id", "Name", result.CategoryId);
+
+        return RedirectToAction("Details", new { id = result.Id});
     }
 
     public IActionResult Details(int id)
@@ -100,7 +104,8 @@ public class ProductsController : Controller
     public IActionResult Edit(int id)
     {
         var product = _productDataStore.GetProduct(id);
-        
+        ViewData["Category"] = new SelectList(GetAllCategories(), "Id", "Name", product.CategoryId);
+
         return View(product);
     }
 
@@ -108,7 +113,7 @@ public class ProductsController : Controller
     public IActionResult Edit(int id, string name, string description,
         decimal salePrice, decimal supplyPrice, DateTime expireDate, int categoryId)
     {
-        _productDataStore.UpdateProduct(new Product
+        var updaetProduct = _productDataStore.UpdateProduct(new Product
         {
             Id = id,
             Name = name,
@@ -118,6 +123,8 @@ public class ProductsController : Controller
             ExpireDate = expireDate,
             CategoryId = categoryId
         });
+
+        ViewData["Category"] = new SelectList(GetAllCategories(), "Id", "Name", updaetProduct.CategoryId);
 
         return RedirectToAction("Details", new { id });
     }

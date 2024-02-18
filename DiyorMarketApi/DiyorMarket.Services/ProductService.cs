@@ -6,6 +6,7 @@ using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.ResourceParameters;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiyorMarket.Services
 {
@@ -84,7 +85,9 @@ namespace DiyorMarket.Services
 
         public ProductDto? GetProductById(int id)
         {
-            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            var product = _context.Products
+                .Include(x => x.Category)
+                .FirstOrDefault(x => x.Id == id);
 
             var productDto = _mapper.Map<ProductDto>(product);
 
