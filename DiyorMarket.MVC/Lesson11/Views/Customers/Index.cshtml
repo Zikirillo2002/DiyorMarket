@@ -32,7 +32,8 @@
         <div class="col-12">
             <ejs-grid id="customers-list"
                       dataSource="@ViewBag.Customers"
-                      gridLines="Vertical">
+                      gridLines="Vertical"
+                      allowSorting="true">
                 <e-grid-columns>
                     <e-grid-column headerText="Id" field="Id" template="#template" typeof="text"></e-grid-column>
                     <e-grid-column headerText="FullName" field="FullName" typeof="text"></e-grid-column>
