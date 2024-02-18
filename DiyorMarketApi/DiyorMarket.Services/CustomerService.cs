@@ -54,6 +54,13 @@ namespace DiyorMarket.Services
             return paginatedResult.ToResponse();
         }
 
+        public IEnumerable<CustomerDto> GetCustomers()
+        {
+            var customers = _context.Customers.ToList();
+
+            return _mapper.Map<IEnumerable<CustomerDto>>(customers) ?? Enumerable.Empty<CustomerDto>();
+        }
+
         public CustomerDto? GetCustomerById(int id)
         {
             var customer = _context.Customers.FirstOrDefault(x => x.Id == id);

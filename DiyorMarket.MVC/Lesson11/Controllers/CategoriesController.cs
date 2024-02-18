@@ -80,6 +80,7 @@ namespace Lesson11.Controllers
             var category = _categoryDataStore.GetCategory(id);
             return View(category);
         }
+
         public IActionResult Delete(int? id)
         {
             if (id == null)

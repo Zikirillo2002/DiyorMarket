@@ -1,6 +1,8 @@
-﻿using Lesson11.Models;
+﻿using ExcelDataReader;
+using Lesson11.Models;
 using Lesson11.Stores.Customers;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 
 namespace Lesson11.Controllers
 {
@@ -41,6 +43,29 @@ namespace Lesson11.Controllers
             return View();
         }
 
+        public IActionResult Upload()
+        {
+            ViewBag.FileUploaded = false;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (file is null)
+            {
+                ViewBag.FileUploaded = false;
+                return View();
+            }
+
+            var customers = DeserializeFile(file);
+
+            ViewBag.Customers = customers;
+            ViewBag.FileUploaded = true;
+
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Create(string? firstName, string? lastName, string? phoneNumber)
         {
@@ -62,6 +87,13 @@ namespace Lesson11.Controllers
             }
 
             return RedirectToAction("Details", new { id = result.Id });
+        }
+
+        public IActionResult Download()
+        {
+            var result = _customerDataStore.GetExportFile();
+
+            return File(result, "application/xls", "Customers.xls");
         }
 
         public IActionResult Edit(int id)
@@ -92,6 +124,7 @@ namespace Lesson11.Controllers
 
             return RedirectToAction("Details", new { id = result.Id });
         }
+
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +148,28 @@ namespace Lesson11.Controllers
             _customerDataStore.DeleteCustomer(id);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private static List<Customer> DeserializeFile(IFormFile file)
+        {
+            List<Customer> customers = new();
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            using var stream = new MemoryStream();
+            file.CopyTo(stream);
+            stream.Position = 0;
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+
+            while (reader.Read())
+            {
+                customers.Add(new Customer
+                {
+                    FullName = reader.GetValue(0)?.ToString(),
+                    PhoneNumber = reader.GetValue(1)?.ToString()
+                });
+            }
+
+            return customers;
         }
     }
 }
