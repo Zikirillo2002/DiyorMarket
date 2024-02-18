@@ -1,4 +1,5 @@
-﻿using Lesson11.Models;
+﻿using ExcelDataReader;
+using Lesson11.Models;
 using Lesson11.Stores.Suppliers;
 using Lesson11.Stores.Supplies;
 using Microsoft.AspNetCore.Mvc;
@@ -87,6 +88,36 @@ namespace Lesson11.Controllers
             var supply = _supplyDataStore.GetSupply(id);
             return View(supply);
         }
+
+        public IActionResult Upload()
+        {
+            ViewBag.FileUploaded = false;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (file is null)
+            {
+                ViewBag.FileUploaded = false;
+                return View();
+            }
+
+            var customers = DeserializeFile(file);
+
+            ViewBag.Categories = customers;
+            ViewBag.FileUploaded = true;
+
+            return View();
+        }
+
+        public IActionResult Download()
+        {
+            var result = _supplyDataStore.GetExportFile();
+
+            return File(result, "application/xls", "Supplies.xls");
+        }
         private List<Supplier> GetAllSuppliers(string? searchString)
         {
             int number = 1;
@@ -125,6 +156,29 @@ namespace Lesson11.Controllers
             _supplyDataStore.DeleteSupply(id);
 
             return RedirectToAction("Index");
+        }
+
+        private static List<Supply> DeserializeFile(IFormFile file)
+        {
+            List<Supply> supply = new();
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            using var stream = new MemoryStream();
+            file.CopyTo(stream);
+            stream.Position = 0;
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+
+            while (reader.Read())
+            {
+                supply.Add(new Supply
+                {
+                    SupplyDate = Convert.ToDateTime(reader.GetValue(0)),
+                    TotalDue = Convert.ToDecimal(reader.GetValue(1)),
+                    SupplierId = Convert.ToInt32(reader.GetValue(2)),
+                });
+            }
+
+            return supply;
         }
     }
 }

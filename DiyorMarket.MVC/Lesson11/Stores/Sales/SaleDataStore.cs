@@ -101,5 +101,13 @@ namespace Lesson11.Stores.Sales
                 throw new Exception($"Could not delete sales with id: {id}.");
             }
         }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("sales/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
+        }
     }
 }
