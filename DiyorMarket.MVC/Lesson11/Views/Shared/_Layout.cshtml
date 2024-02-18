@@ -4,6 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diyor Market</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let doctitle = document.title;
+
+            document.addEventListener("visibilitychange", function () {
+                if (document.visibilityState === 'hidden') {
+                    document.title = "Come Back 🥹";
+                } else {
+                    document.title = doctitle;
+                }
+            });
+        });
+    </script>
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.syncfusion.com/ej2/20.1.55/bootstrap5-dark.css" rel="stylesheet" />
@@ -22,26 +35,43 @@
     <div class="dock-target">
 
         <nav class="navbar sticky-top">
-            <div class="container-fluid py-2 px-4">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <div class="d-flex align-items-center">
-                    <div class="icon-container">
-                        <i class="fa-solid fa-bell icon"></i>
+            <div class="container-fluid py-2 px-4 d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <a href="/dashboard">
+                            <i class="fa-solid fa-home"></i>
+                        </a>
+                        <a href="#" class="current-page-link"></a>
                     </div>
-                    <a href="https://t.me/SUPERMARKET_13">
-                        <i class="fa-solid fa-message" style="color: white"></i>
-                    </a>                    
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #12161d; border-color: #12161d;">
-                            <i class="fa-solid fa-user" style="background-color: #12161d; color: white;"></i>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" style="color: red" href="@Url.Action("Index", "Auth")">Log out</a></li>
-                        </ul>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-bell icon"></i>
+                        </div>
+                        <a href="https://t.me/SUPERMARKET_13">
+                            <i class="fa-solid fa-message" style="color: white"></i>
+                        </a>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #12161d; border-color: #12161d;">
+                                <i class="fa-solid fa-user" style="background-color: #12161d; color: white;"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" style="color: red" href="@Url.Action("Index", "Auth")">Log out</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
             </div>
         </nav>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var currentPageLink = document.querySelector('.current-page-link');
+                var currentPath = window.location.pathname;
+                if (currentPath !== "/dashboard" && currentPath !== "/Dashboard") {
+                    currentPageLink.textContent = currentPath;
+                    currentPageLink.href = currentPath;
+                }
+            });
+        </script>
 
         <div class="main-content">
             <div class="container mt-5">

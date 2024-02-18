@@ -1,10 +1,6 @@
-﻿using Bogus.DataSets;
+using Bogus.DataSets;
 using ExcelDataReader;
 using Lesson11.Models;
-using Lesson11.Stores.Categories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Syncfusion.EJ2.Charts;
 
 namespace Lesson11.Controllers
 {
@@ -47,7 +43,7 @@ namespace Lesson11.Controllers
                 return BadRequest();
             }
 
-            var createdCategory = _categoryDataStore.CreateCategory(new Category { Name = name});
+            var createdCategory = _categoryDataStore.CreateCategory(new Category { Name = name });
 
             if (createdCategory is null)
             {
@@ -103,7 +99,7 @@ namespace Lesson11.Controllers
                 Name = name
             });
 
-            return RedirectToAction("Details",new {id});
+            return RedirectToAction("Details", new { id });
         }
 
         public IActionResult Edit(int id)
