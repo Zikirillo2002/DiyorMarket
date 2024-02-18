@@ -3,45 +3,34 @@
 </head>
 <div class="container mt-4">
 
-    <form asp-controller="Customers" asp-action="Index" class="mb-4">
-
-        <div class="row align-items-center">
-            @* search *@
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search customer..."
-                           name="searchString" value="@ViewBag.SearchString">
+    <form asp-controller="Customers" asp-action="Index">
+        <div class="input-group">
+            <input type="text" class="form-control" aria-label="Text input with radio button">
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="background: #6049A2; border: none;">
+                    <button type="submit" class="border-0" style="background: #6049A2">
+                        <i class="fa fa-search"></i> Search
+                    </button>
                 </div>
             </div>
-
-            <div style="margin-top: -30px;">
-                <button type="submit" class="btn btn-create btn-back">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <i class="fa fa-search"></i> Filter
-                </button>
-            </div>
-
-            @* create *@
-            <div class="col-md-2 text-right">
-                <a asp-action="Create" class="btn btn-create position-fixed" style="top: 80px; right: 20px;">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Create
-                </a>
-            </div>
-
         </div>
     </form>
 
     @* data grid *@
     <div class="row">
+        <div class="d-flex flex-row mt-5 mb-2 flex-row-reverse" style="gap: 10px;">
+            <a class="btn btn-outline-info" asp-action="upload">
+                <i class="fa-solid fa-upload"></i> Upload
+            </a>
+            <a class="btn btn-outline-info" asp-action="download">
+                <i class="fa-solid fa-download"></i> Download
+            </a>
+            <button class="btn btn-success mr-auto">
+                <i class="fa fa-plus"></i> Create
+            </button>
+        </div>
         <div class="col-12">
-            <ejs-grid id="categories-list"
+            <ejs-grid id="customers-list"
                       dataSource="@ViewBag.Customers"
                       gridLines="Vertical">
                 <e-grid-columns>
@@ -88,7 +77,6 @@
             <a rel='nofollow' href="customers/Details/${Id}">${Id}</a>
         </div>
     </script>
-
 </div>
 
 

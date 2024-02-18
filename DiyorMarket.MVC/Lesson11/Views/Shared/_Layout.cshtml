@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Lesson11.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Bell.css" asp-append-version="true"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="~/js/LotOut.js"></script>
     <script src="https://cdn.syncfusion.com/ej2/20.2.43/dist/ej2.min.js"></script>
 </head>
@@ -47,30 +48,6 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <main role="main" class="pb-3">
-                            @*@if (ViewData["isDashboard"] == null)
-                            {
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="d-flex flex-column mb-5">
-                                            <div class="d-flex mb-1">
-                                                <div class="flex-grow-1">
-                                                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
-                                                </div>
-                                                <div>
-                                                    @if (ViewData["PageActionText"] != null)
-                                                    {
-                                                        <a class="btn btn-success" href="@ViewData["PageActionUrl"]">
-                                                            @ViewData["PageActionText"]
-                                                        </a>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <ejs-breadcrumb id="breadcrumb"
-                                                            separatorTemplate="@Html.Raw("<span class='fa-solid fa-angle-right'></span>")"></ejs-breadcrumb>
-                                        </div>
-                                    </div>
-                                </div>
-                            }*@
                             @RenderBody()
                         </main>
                     </div>

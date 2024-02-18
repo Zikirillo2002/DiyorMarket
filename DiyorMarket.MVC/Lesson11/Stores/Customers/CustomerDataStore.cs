@@ -1,7 +1,10 @@
 ﻿using Lesson11.Models;
 using Lesson11.Response;
 using Lesson11.Services;
+using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System;
 using System.Text;
 
 namespace Lesson11.Stores.Customers
@@ -93,8 +96,15 @@ namespace Lesson11.Stores.Customers
 			if (!response.IsSuccessStatusCode)
 			{
 				throw new Exception($"Could not delete customers with id: {id}.");
-			}
-		}
+            }
+        }
 
-	}
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("customers/export");
+			var stream = response.Content.ReadAsStream();
+
+			return stream;
+        }
+    }
 }
