@@ -7,6 +7,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ISaleService
     {
+        IEnumerable<SaleDto> GetAllSales();
         GetBaseResponse<SaleDto> GetSales(SaleResourceParameters saleResourceParameters);
         SaleDto? GetSaleById(int id);
         SaleDto CreateSale(SaleForCreateDto saleToCreate);

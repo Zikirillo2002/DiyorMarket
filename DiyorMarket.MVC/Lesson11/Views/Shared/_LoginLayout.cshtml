@@ -1,9 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diyor Market</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let doctitle = document.title;
+
+            document.addEventListener("visibilitychange", function () {
+                if (document.visibilityState === 'hidden') {
+                    document.title = "Come Back 🥹";
+                } else {
+                    document.title = doctitle;
+                }
+            });
+        });
+    </script>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.syncfusion.com/ej2/20.1.55/bootstrap5-dark.css" rel="stylesheet" />
@@ -13,6 +27,7 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <script src="https://cdn.syncfusion.com/ej2/20.2.43/dist/ej2.min.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
 </head>
 <body class="e-bigger" style="background-image: url('/images/back.jfif'); background-repeat: no-repeat; background-size: cover; height: 100vh;">
     <div class="dock-target">
@@ -24,8 +39,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+   
     <ejs-scripts></ejs-scripts>
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false) 
+    <script>
+        window.addEventListener('beforeunload', function () {
+            document.getElementById('comeBackMessage').style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>

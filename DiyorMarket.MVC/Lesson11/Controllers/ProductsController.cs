@@ -1,4 +1,5 @@
-﻿using Lesson11.Models;
+﻿using ExcelDataReader;
+using Lesson11.Models;
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
@@ -98,6 +99,36 @@ public class ProductsController : Controller
 			return View(product);
     }
 
+    public IActionResult Upload()
+    {
+        ViewBag.FileUploaded = false;
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Upload(IFormFile file)
+    {
+        if (file is null)
+        {
+            ViewBag.FileUploaded = false;
+            return View();
+        }
+
+        var customers = DeserializeFile(file);
+
+        ViewBag.Products = customers;
+        ViewBag.FileUploaded = true;
+
+        return View();
+    }
+
+    public IActionResult Download()
+    {
+        var result = _categoryDataStore.GetExportFile();
+
+        return File(result, "application/xls", "Products.xls");
+    }
+
     public IActionResult Edit(int id)
     {
         var product = _productDataStore.GetProduct(id);
@@ -161,6 +192,32 @@ public class ProductsController : Controller
         }
 
         return categories;
+    }
+
+    private static List<Product> DeserializeFile(IFormFile file)
+    {
+        List<Product> products = new();
+
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+        using var stream = new MemoryStream();
+        file.CopyTo(stream);
+        stream.Position = 0;
+        using var reader = ExcelReaderFactory.CreateReader(stream);
+
+        while (reader.Read())
+        {
+            products.Add(new Product
+            {
+                Name = reader.GetValue(0)?.ToString(),
+                Description = reader.GetValue(1)?.ToString(),
+                SalePrice = Convert.ToDecimal(reader.GetValue(2)),
+                SupplyPrice = Convert.ToDecimal(reader.GetValue(3)),
+                ExpireDate = Convert.ToDateTime(reader.GetValue(4)),
+                CategoryId = Convert.ToInt32(reader.GetValue(5))
+            }); ;
+        }
+
+        return products;
     }
 }
         

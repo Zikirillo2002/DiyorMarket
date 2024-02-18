@@ -99,5 +99,13 @@ namespace Lesson11.Stores.Categories
                 throw new Exception($"Could not delete category with id: {id}.");
             }
         }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("categories/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
+        }
     }
 }
