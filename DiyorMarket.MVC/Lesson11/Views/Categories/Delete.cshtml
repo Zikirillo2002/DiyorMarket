@@ -27,20 +27,16 @@
         </dd>
     </dl>
 
-    <form asp-action="Delete">
-        <button type="submit" class="btn btn-create btn-delete">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Delete
-        </button>
-        <a asp-action="Index" class="btn btn-create btn-back">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Back to List
-        </a>
-    </form>
+    <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-outline-danger">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+        </svg>
+        Delete
+    </a>
+    <a asp-action="Index" class="btn btn-outline-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+        </svg>
+        Back to List
+    </a>
 </div>

@@ -18,13 +18,35 @@
                             </button>
                         </div>
                     </div>
+    <form asp-controller="Categories" asp-action="Index">
+        <div class="input-group" style="width: 530px">
+            <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Search category..."
+                   name="searchString" value="@ViewBag.SearchString">
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="background: #291dab; border: #291dab;">
+                    <button type="submit" style="background: #291dab; border: 2px solid #291dab; color: white">
+                        <i class="fa fa-search" style="color: white"></i> Search
+                    </button>
                 </div>
             </div>
         </div>
     </form>
+    @* create *@
+    
 
     @* data grid *@
     <div class="row">
+        <div class="d-flex flex-row mt-5 mb-2 flex-row-reverse" style="gap: 10px;">
+            <a class="btn btn-success mr-auto" asp-action="create">
+                <i class="fa fa-plus"></i> Create
+            </a>
+            <a class="btn btn-outline-info" asp-action="upload">
+                <i class="fa-solid fa-upload"></i> Upload
+            </a>
+            <a class="btn btn-outline-info" asp-action="download">
+                <i class="fa-solid fa-download"></i> Download
+            </a>
+        </div>
         <div class="col-12">
             <ejs-grid id="categories-list"
                       dataSource="@ViewBag.Categories"

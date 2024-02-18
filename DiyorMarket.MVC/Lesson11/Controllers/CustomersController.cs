@@ -2,7 +2,6 @@
 using Lesson11.Models;
 using Lesson11.Stores.Customers;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace Lesson11.Controllers
 {
@@ -17,7 +16,7 @@ namespace Lesson11.Controllers
 
         public IActionResult Index(string? searchString, int pageNumber)
         {
-            var customers = _customerDataStore.GetCustomers(searchString,pageNumber);
+            var customers = _customerDataStore.GetCustomers(searchString, pageNumber);
 
             ViewBag.Customers = customers.Data;
             ViewBag.PageSize = customers.PageSize;
@@ -103,7 +102,7 @@ namespace Lesson11.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit( string? firstName, string? lastName, string? phoneNumber)
+        public IActionResult Edit(string? firstName, string? lastName, string? phoneNumber)
         {
             if (!ModelState.IsValid)
             {
