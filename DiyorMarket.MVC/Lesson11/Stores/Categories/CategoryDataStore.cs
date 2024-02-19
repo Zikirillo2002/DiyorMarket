@@ -12,9 +12,10 @@ namespace Lesson11.Stores.Categories
         private readonly ApiClient _api;
         private readonly IUserDataStore _userDataStore;
 
-        public CategoryDataStore()
+        public CategoryDataStore(ApiClient client, IUserDataStore userDataStore)
         {
-            _api = new ApiClient();
+            _api = client;
+            _userDataStore = userDataStore;
         }
 
         public GetCategoryResponse? GetCategories(string? searchString, int? pageNumber)
@@ -98,6 +99,14 @@ namespace Lesson11.Stores.Categories
             {
                 throw new Exception($"Could not delete category with id: {id}.");
             }
+        }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("categories/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
         }
     }
 }

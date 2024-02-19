@@ -1,4 +1,5 @@
-﻿using Lesson11.Stores.Categories;
+﻿using Lesson11.Services;
+using Lesson11.Stores.Categories;
 using Lesson11.Stores.Customers;
 using Lesson11.Stores.Dashboard;
 using Lesson11.Stores.Products;
@@ -27,6 +28,13 @@ namespace Lesson11.Extensions
             services.AddScoped<ISupplyItemDataStore, SupplyItemDataStore>();
             services.AddScoped<IDashboardStore, DashboardStore>();
             services.AddScoped<IUserDataStore, UserDataStore>();
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        {
+            services.AddSingleton<ApiClient>();
 
             return services;
         }

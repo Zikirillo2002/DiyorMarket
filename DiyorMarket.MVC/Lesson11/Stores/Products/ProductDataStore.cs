@@ -12,11 +12,9 @@ namespace Lesson11.Stores.Products
         private readonly ApiClient _api;
         private readonly IUserDataStore _userDataStore;
 
-        
-
-        public ProductDataStore()
+        public ProductDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber)
@@ -104,6 +102,14 @@ namespace Lesson11.Stores.Products
             {
                 throw new Exception($"Could not delete products with id: {id}.");
             }
+        }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("products/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Lesson11.Stores.Suppliers
     {
         private readonly ApiClient _api;
 
-        public SupplierDataStore()
+        public SupplierDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
         public GetSupplierResponse? GetSuppliers(string? searchString, int pageNumber)
         {
@@ -91,6 +91,14 @@ namespace Lesson11.Stores.Suppliers
             {
                 throw new Exception($"Could not delete suppliers with id: {id}.");
             }
+        }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("suppliers/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
         }
     }
 }

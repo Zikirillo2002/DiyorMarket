@@ -1,31 +1,32 @@
 ﻿using Lesson11.Models;
 using Lesson11.Services;
 using Newtonsoft.Json;
+using NuGet.Common;
 
 namespace Lesson11.Stores.User
 {
     public class UserDataStore : IUserDataStore
     {
         private readonly ApiClient _apiClient;
-        public UserDataStore()
+        public UserDataStore(ApiClient apiClient)
         {
-            _apiClient = new ApiClient();
+            _apiClient = apiClient;
         }
 
-        public (bool,string) AuthenticateLogin(UserLogin loginViewModel)
+        public (bool Success, string Token) AuthenticateLogin(UserLogin loginViewModel)
         {
             var json = JsonConvert.SerializeObject(loginViewModel);
             var response = _apiClient.Post("auth/login", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                return (false, null);
+                return (false, string.Empty);
             }
 
             var tokenJson = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var token = JsonConvert.DeserializeObject<string>(tokenJson);
 
-            return (true, tokenJson);
+            return (true, token);
         }
 
         public (bool, string) RegisterLogin(UserLogin registerViewModel)
@@ -35,14 +36,19 @@ namespace Lesson11.Stores.User
 
             if (!response.IsSuccessStatusCode)
             {
-                return (false, null);
+                return (false, string.Empty);
             }
 
             var tokenJson = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var token = JsonConvert.DeserializeObject<string>(tokenJson);
+            var token = JsonConvert.DeserializeObject<AuthenticationResponse>(tokenJson);
 
             return (true, tokenJson);
         }
 
+    }
+
+    public class AuthenticationResponse
+    {
+        public string Token { get; set; }
     }
 }

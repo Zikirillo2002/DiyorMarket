@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using ClosedXML.Excel;
+using DiyorMarket.Domain.DTOs.Category;
 using DiyorMarket.Domain.DTOs.Product;
 using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.ResourceParameters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,7 +16,7 @@ namespace DiyorMarketApi.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -32,6 +36,35 @@ namespace DiyorMarketApi.Controllers
             var products = _productService.GetProducts(productResourceParameters);
 
             return Ok(products);
+        }
+
+        [HttpGet("export")]
+        public ActionResult ExportProducts()
+        {
+            var category = _productService.GetAllProducts();
+
+            using XLWorkbook wb = new XLWorkbook();
+            var sheet1 = wb.AddWorksheet(GetProductsDataTable(category), "Products");
+
+            sheet1.Column(1).Style.Font.FontColor = XLColor.Red;
+
+            sheet1.Columns(2, 4).Style.Font.FontColor = XLColor.Blue;
+
+            sheet1.Row(1).CellsUsed().Style.Fill.BackgroundColor = XLColor.Black;
+            //sheet1.Row(1).Cells(1,3).Style.Fill.BackgroundColor = XLColor.Yellow;
+            sheet1.Row(1).Style.Font.FontColor = XLColor.White;
+
+            sheet1.Row(1).Style.Font.Bold = true;
+            sheet1.Row(1).Style.Font.Shadow = true;
+            sheet1.Row(1).Style.Font.Underline = XLFontUnderlineValues.Single;
+            sheet1.Row(1).Style.Font.VerticalAlignment = XLFontVerticalTextAlignmentValues.Superscript;
+            sheet1.Row(1).Style.Font.Italic = true;
+
+            //sheet1.Rows(2, 3).Style.Font.FontColor = XLColor.AshGrey;
+
+            using MemoryStream ms = new MemoryStream();
+            wb.SaveAs(ms);
+            return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Products.xlsx");
         }
 
         // GET api/<ProductsController>/5
@@ -118,6 +151,32 @@ namespace DiyorMarketApi.Controllers
         public void Delete(int id)
         {
             _productService.DeleteProduct(id);
+        }
+
+        private DataTable GetProductsDataTable(IEnumerable<ProductDto> productDtos)
+        {
+            DataTable table = new DataTable();
+            table.TableName = "Products Data";
+            table.Columns.Add("Id", typeof(int));
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("SalePrice", typeof(decimal));
+            table.Columns.Add("SupplyPrice", typeof(decimal));
+            table.Columns.Add("ExpireDate", typeof(DateTime));
+            table.Columns.Add("CategoryName", typeof(string));
+
+            foreach (var product in productDtos)
+            {
+                table.Rows.Add(product.Id,
+                    product.Name,
+                    product.Description, 
+                    product.SalePrice, 
+                    product.SupplyPrice, 
+                    product.ExpireDate,
+                    product.Category != null ? product.Category.Name : null);
+            }
+
+            return table;
         }
     }
 }

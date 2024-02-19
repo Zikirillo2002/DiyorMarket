@@ -8,8 +8,6 @@ using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Data.Common;
 
 namespace DiyorMarket.Services
 {
@@ -61,6 +59,13 @@ namespace DiyorMarket.Services
             var paginatedResult = new PaginatedList<SupplyDto>(supplyDtos.ToList(), supplies.TotalCount, supplies.CurrentPage, supplies.PageSize);
 
             return paginatedResult.ToResponse();
+        }
+
+        public IEnumerable<SupplyDto> GetAllSupplies()
+        {
+            var supplies = _context.Supplies.ToList();
+
+            return _mapper.Map<IEnumerable<SupplyDto>>(supplies) ?? Enumerable.Empty<SupplyDto>();
         }
 
         public SupplyDto? GetSupplyById(int id)

@@ -10,9 +10,9 @@ namespace Lesson11.Stores.Sales
     {
         private readonly ApiClient _api;
 
-        public SaleDataStore()
+        public SaleDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient ;
         }
 
         public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber)
@@ -43,6 +43,21 @@ namespace Lesson11.Stores.Sales
 
             var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var result = JsonConvert.DeserializeObject<GetSaleResponse>(json);
+
+            return result;
+        }
+
+        public IEnumerable<Sale> GetCustomersSale(int customersId)
+        {
+            var response = _api.Get($"sales/CustomersSale/{customersId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Could not fetch sales with id: {customersId}.");
+            }
+
+            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var result = JsonConvert.DeserializeObject<IEnumerable<Sale>>(json);
 
             return result;
         }
@@ -100,6 +115,14 @@ namespace Lesson11.Stores.Sales
             {
                 throw new Exception($"Could not delete sales with id: {id}.");
             }
+        }
+
+        public Stream GetExportFile()
+        {
+            var response = _api.Get("sales/export");
+            var stream = response.Content.ReadAsStream();
+
+            return stream;
         }
     }
 }

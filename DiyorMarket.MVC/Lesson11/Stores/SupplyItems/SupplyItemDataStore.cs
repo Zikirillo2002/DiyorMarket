@@ -9,9 +9,9 @@ namespace Lesson11.Stores.SupplyItems
     {
         private readonly ApiClient _api;
 
-        public SupplyItemDataStore()
+        public SupplyItemDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetSupplyItemResponse? GetSupplyItems()

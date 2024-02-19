@@ -34,6 +34,13 @@ namespace DiyorMarket.Services
             return paginatedResult.ToResponse();
         }
 
+        public IEnumerable<SaleDto> GetAllSales()
+        {
+            var sales = _context.Sales.ToList();
+
+            return _mapper.Map<IEnumerable<SaleDto>>(sales) ?? Enumerable.Empty<SaleDto>();
+        }
+
         public SaleDto? GetSaleById(int id)
         {
             var sale = _context.Sales.FirstOrDefault(x => x.Id == id);
@@ -41,6 +48,15 @@ namespace DiyorMarket.Services
             var saleDto = _mapper.Map<SaleDto>(sale);
 
             return saleDto;
+        }
+
+        public IEnumerable<SaleDto> GetCustomersSale(int customersId)
+        {
+            var customersSale = _context.Sales
+                .Where(x => x.CustomerId == customersId).
+                ToList();
+
+            return _mapper.Map<IEnumerable<SaleDto>>(customersSale) ?? Enumerable.Empty<SaleDto>();
         }
 
         public SaleDto CreateSale(SaleForCreateDto saleToCreate)
@@ -72,8 +88,6 @@ namespace DiyorMarket.Services
             }
             _context.SaveChanges();
         }
-
-
 
         private IQueryable<Sale> GetFiltrSaleResParameters(
             SaleResourceParameters saleResourceParameters)
@@ -109,6 +123,5 @@ namespace DiyorMarket.Services
 
             return query;
         }
-
     }
 }

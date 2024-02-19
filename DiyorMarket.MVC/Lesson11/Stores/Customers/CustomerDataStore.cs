@@ -1,4 +1,5 @@
-﻿using Lesson11.Models;
+﻿using Lesson11.Exceptions;
+using Lesson11.Models;
 using Lesson11.Response;
 using Lesson11.Services;
 using Newtonsoft.Json;
@@ -9,9 +10,9 @@ namespace Lesson11.Stores.Customers
     public class CustomerDataStore : ICustomerDataStore
     {
         private readonly ApiClient _api;
-        public CustomerDataStore()
+        public CustomerDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetCustomerResponse? GetCustomers(string? searchString, int pageNumber)
@@ -29,11 +30,6 @@ namespace Lesson11.Stores.Customers
             }
 
             var response = _api.Get("customers?" + query.ToString());
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Could not fetch customers.");
-            }
 
             var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var result = JsonConvert.DeserializeObject<GetCustomerResponse>(json);

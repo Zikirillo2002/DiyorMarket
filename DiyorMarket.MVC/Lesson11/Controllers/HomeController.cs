@@ -24,9 +24,30 @@ namespace Lesson11.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return statusCode switch
+            {
+                401 => RedirectToAction("Index", "Auth"),
+                403 => RedirectToAction(nameof(Forbidden)),
+                404 => RedirectToAction(nameof(NotFound)),
+                _ => RedirectToAction(nameof(InternalServerError)),
+            };
+        }
+
+        public IActionResult Forbidden()
+        {
+            return View();
+        }
+
+        public IActionResult NotFound()
+        {
+            return View();
+        }
+
+        public IActionResult InternalServerError()
+        {
+            return View();
         }
     }
 }

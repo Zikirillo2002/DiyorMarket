@@ -7,6 +7,7 @@ namespace DiyorMarket.Domain.Interfaces.Services
 {
     public interface ISupplyItemService
     {
+        IEnumerable<SupplyItemDto> GetAllSupplyItems();
         GetBaseResponse<SupplyItemDto> GetSupplyItems(SupplyItemResourceParameters supplyItemResourceParameters);
         SupplyItemDto? GetSupplyItemById(int id);
         SupplyItemDto CreateSupplyItem(SupplyItemForCreateDto supplyItemToCreate);

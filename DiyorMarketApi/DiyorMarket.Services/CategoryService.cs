@@ -25,7 +25,7 @@ namespace DiyorMarket.Services
 
         public GetBaseResponse<CategoryDto> GetCategories(CategoryResourceParameters categoryResourceParameters)
         {
-            var query = _context.Categories.Include(s=>s.Products).IgnoreAutoIncludes().AsQueryable();
+            var query = _context.Categories.Include(s => s.Products).IgnoreAutoIncludes().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(categoryResourceParameters.SearchString))
             {
@@ -48,6 +48,13 @@ namespace DiyorMarket.Services
             var paginatedResult = new PaginatedList<CategoryDto>(categoryDtos, categories.TotalCount, categories.CurrentPage, categories.PageSize);
 
             return paginatedResult.ToResponse();
+        }
+
+        public IEnumerable<CategoryDto> GetAllCategories()
+        {
+            var categories = _context.Categories.ToList();
+
+            return _mapper.Map<IEnumerable<CategoryDto>>(categories) ?? Enumerable.Empty<CategoryDto>();
         }
 
         public CategoryDto? GetCategoryById(int id)

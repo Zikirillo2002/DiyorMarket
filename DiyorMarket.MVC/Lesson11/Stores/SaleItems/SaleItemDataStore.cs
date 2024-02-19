@@ -9,9 +9,9 @@ namespace Lesson11.Stores.SaleItems
     {
         private readonly ApiClient _api;
 
-        public SaleItemDataStore()
+        public SaleItemDataStore(ApiClient apiClient)
         {
-            _api = new ApiClient();
+            _api = apiClient;
         }
 
         public GetSaleItemResponse? GetSaleItems()

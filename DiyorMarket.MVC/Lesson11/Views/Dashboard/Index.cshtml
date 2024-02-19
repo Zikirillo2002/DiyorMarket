@@ -9,10 +9,10 @@
                 <div class="icon-container p-5" onmouseover="startBounce(this)" onmouseout="stopBounce(this)">
                     <i class="fa-solid fa-dollar-sign fa-2xl"></i>
                 </div>
-            <div class="d-flex flex-column m-auto py-3">
-                <span class="lead">Total Revenue</span>
-                <h1 class="display-6 fw-bold">@ViewBag.Summary</h1>
-            </div>
+                <div class="d-flex flex-column m-auto py-3" id="revenueContainer" onclick="toggleRevenue()">
+                    <span class="lead">Total Revenue</span>
+                    <h1 class="display-6 fw-bold" id="revenueValue" data-value="@ViewBag.Summary">@String.Format("{0:N2}", ViewBag.Summary)</h1>
+                </div>
         </div>
     </div>
 
@@ -132,6 +132,35 @@
 
         function stopBounce(element) {
             element.querySelector('i').classList.remove('fa-flip');
+        }
+
+        let isExpanded = false;
+        const revenueValue = document.getElementById('revenueValue');
+
+        function toggleRevenue() {
+            const originalValue = parseFloat(revenueValue.getAttribute('data-value'));
+
+            if (!isNaN(originalValue)) {
+                if (isExpanded) {
+                    revenueValue.textContent = abbreviateNumber(originalValue);
+                } else {
+                    revenueValue.textContent = originalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                isExpanded = !isExpanded;
+            }
+        }
+
+        function abbreviateNumber(value) {
+            const abbreviations = ['k', 'mln', 'bln', 'trln'];
+            let index = 0;
+
+            while (value >= 1000 && index < abbreviations.length - 1) {
+                value /= 1000;
+                index++;
+            }
+
+            return value.toFixed(2) + abbreviations[index - 1];
         }
     </script>
 </body>
