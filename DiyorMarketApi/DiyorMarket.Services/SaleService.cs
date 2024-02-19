@@ -50,6 +50,15 @@ namespace DiyorMarket.Services
             return saleDto;
         }
 
+        public IEnumerable<SaleDto> GetCustomersSale(int customersId)
+        {
+            var customersSale = _context.Sales
+                .Where(x => x.CustomerId == customersId).
+                ToList();
+
+            return _mapper.Map<IEnumerable<SaleDto>>(customersSale) ?? Enumerable.Empty<SaleDto>();
+        }
+
         public SaleDto CreateSale(SaleForCreateDto saleToCreate)
         {
             var saleEntity = _mapper.Map<Sale>(saleToCreate);

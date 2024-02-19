@@ -6,6 +6,7 @@ using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Data;
 
 namespace DiyorMarket.Controllers
@@ -59,6 +60,13 @@ namespace DiyorMarket.Controllers
             using MemoryStream ms = new MemoryStream();
             wb.SaveAs(ms);
             return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Sales.xlsx");
+        }
+
+        [HttpGet("CustomersSale/{customersId}")]
+        public ActionResult<IEnumerable<SaleDto>> GetCustomersSale(int customersId)
+        {
+            var customersSales = _saleService.GetCustomersSale(customersId);
+            return Ok(customersSales);
         }
 
         [HttpGet("{id}", Name = "GetSaleById")]

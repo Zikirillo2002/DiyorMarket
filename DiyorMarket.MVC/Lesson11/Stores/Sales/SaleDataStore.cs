@@ -12,7 +12,7 @@ namespace Lesson11.Stores.Sales
 
         public SaleDataStore(ApiClient apiClient)
         {
-            _api = apiClient;
+            _api = apiClient ;
         }
 
         public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber)
@@ -43,6 +43,21 @@ namespace Lesson11.Stores.Sales
 
             var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var result = JsonConvert.DeserializeObject<GetSaleResponse>(json);
+
+            return result;
+        }
+
+        public IEnumerable<Sale> GetCustomersSale(int customersId)
+        {
+            var response = _api.Get($"sales/CustomersSale/{customersId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Could not fetch sales with id: {customersId}.");
+            }
+
+            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var result = JsonConvert.DeserializeObject<IEnumerable<Sale>>(json);
 
             return result;
         }

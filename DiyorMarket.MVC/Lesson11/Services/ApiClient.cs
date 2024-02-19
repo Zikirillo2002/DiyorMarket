@@ -6,14 +6,12 @@ namespace Lesson11.Services
     {
         private const string baseUrl = "https://localhost:7258/api";
         private readonly HttpClient _client = new();
-        private readonly string _apiToken;
         private readonly IHttpContextAccessor _contextAccessor;
 
         public ApiClient(IHttpContextAccessor contextAccessor)
         {
             _client.BaseAddress = new Uri(baseUrl);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
-            _apiToken = string.Empty;
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
         }
 
@@ -21,14 +19,14 @@ namespace Lesson11.Services
         {
             string token = string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Get, _client.BaseAddress?.AbsolutePath + "/" + url);
-            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue("", out token);
+            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue("JwtToken", out token);
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = _client.Send(request);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new ApiException(response.StatusCode, $"Error fetching url: {url}");
+                throw new Exception($"Error fetching url: {url}");
             }
 
             return response;

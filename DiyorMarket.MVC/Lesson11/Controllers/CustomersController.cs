@@ -1,6 +1,7 @@
 ﻿using ExcelDataReader;
 using Lesson11.Models;
 using Lesson11.Stores.Customers;
+using Lesson11.Stores.Sales;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
@@ -8,10 +9,12 @@ namespace Lesson11.Controllers
     public class CustomersController : Controller
     {
         private readonly ICustomerDataStore _customerDataStore;
+        private readonly ISaleDataStore _saleDataStore;
 
-        public CustomersController(ICustomerDataStore customerDataStore)
+        public CustomersController(ICustomerDataStore customerDataStore, ISaleDataStore saleDataStore)
         {
             _customerDataStore = customerDataStore ?? throw new ArgumentNullException(nameof(customerDataStore));
+            _saleDataStore = saleDataStore ?? throw new ArgumentNullException(nameof(saleDataStore));
         }
 
         public IActionResult Index(string? searchString, int pageNumber)
@@ -32,7 +35,10 @@ namespace Lesson11.Controllers
 
         public IActionResult Details(int id)
         {
+            var customersSales = _saleDataStore.GetCustomersSale(id);
             var customer = _customerDataStore.GetCustomer(id);
+
+            ViewBag.CustomersSale = customersSales;
 
             return View(customer);
         }
