@@ -1,16 +1,13 @@
-﻿<head>
-    <link rel="stylesheet" type="text/css" href="StyleSheet/style.css">
-</head>
-
+﻿
 <div class="container mt-18">
     <form asp-controller="Products" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
         <div class="container">
             <div class="row row-cols-sm-1 align-items-center">
-                <div class="d-flex flex-row justify-content-center col-md-14 mb-1 mt-10">
+                <div class="d-flex flex-row justify-content-center gap-4">
                     <!-- Search -->
                     <form asp-controller="Products" asp-action="Index">
-                        <div class="col-md-5 mb-4 ml-12 mr-10 search-filter">
+                        <div class="col-md-5 mb-4 ml-12 mr-10">
                             <div class="input-group">
                                 <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
                                 <input type="text" class="form-control" placeholder="Search product..." name="searchString" value="@ViewBag.SearchString">
@@ -23,7 +20,7 @@
                         </div>
                     </form>
                     <!-- Filter -->
-                    <div class="col-md-3 mb-3 ml-4 search-filter">
+                    <div class="col-md-3 mb-3 ml-4">
                         <div class="input-group">
                             <select class="form-control" name="categoryId">
                                 <option value="" selected disabled>@ViewBag.SelectedCategory.Name</option>
@@ -37,8 +34,8 @@
                         </div>
                     </div>
                     <!-- Action Buttons -->
-                    <div class="d-flex flex-row col-md-4 mb-4" style="gap: 10px;">
-                        <a class="btn btn-outline-info" asp-action="download">
+                    <div class="d-flex flex-row col-md-4 mb-4" style="gap: 15px;">
+                        <a class="btn btn-outline-info" style="margin-left : 50px" asp-action="download">
                             <i class="fa-solid fa-download"></i> Download
                         </a>
                         <a class="btn btn-outline-info" asp-action="upload">
