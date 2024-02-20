@@ -36,12 +36,12 @@
 
         <nav class="navbar sticky-top">
             <div class="container-fluid py-2 px-4 d-flex justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <a href="/dashboard">
-                            <i class="fa-solid fa-home"></i>
-                        </a>
-                        <a href="#" class="current-page-link"></a>
-                    </div>
+                <div class="d-flex align-items-center">
+                    <a href="/dashboard">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                    <a href="#" class="current-page-link"></a>
+                </div>
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <div class="icon-container">
@@ -66,11 +66,45 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var currentPageLink = document.querySelector('.current-page-link');
                 var currentPath = window.location.pathname;
-                if (currentPath !== "/dashboard" && currentPath !== "/Dashboard") {
-                    currentPageLink.textContent = currentPath;
-                    currentPageLink.href = currentPath;
+
+                // Разбиваем URL по слешам и фильтруем пустые сегменты
+                var segments = currentPath.split("/").filter(Boolean);
+
+                if (segments.length > 0) {
+                    // Если есть хотя бы один сегмент
+                    var entity = segments[0]; // Получаем первый сегмент
+
+                    // Создаем ссылку на Index для текущей сущности
+                    var indexLink = "/" + entity;
+
+                    // Проверяем, является ли первый сегмент именем сущности
+                    if (segments.length === 1) {
+                        currentPageLink.textContent = entity;
+                        currentPageLink.href = indexLink;
+                        currentPageLink.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            window.location.href = indexLink;
+                        });
+                    } else if(segments.length > 1 && segments[1] === "Index") {
+                        currentPageLink.textContent = entity + "/Index";
+                        currentPageLink.href = indexLink + "/Index";
+                        currentPageLink.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            window.location.href = indexLink + "/Index";
+                        });
+                    } else {
+                        // Иначе, сохраняем полный путь
+                        currentPageLink.textContent = currentPath;
+                        currentPageLink.href = currentPath;
+                        currentPageLink.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            window.location.href = currentPath;
+                        });
+                    }
                 }
             });
+        </script>
+
         </script>
 
         <div class="main-content">
