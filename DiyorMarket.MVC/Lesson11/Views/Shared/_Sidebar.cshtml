@@ -101,8 +101,7 @@
         <div class="profile-wrapper">
             <i class="fa-solid fa-user"></i>
             <div class="titles d-flex flex-column ps-3">
-                <h6 class="mb-0">Diyor Market</h6>
-                <span class="text-muted">John Doe</span>
+                <h6 class="mb-0" id="loginName">@ViewBag.User</h6>
             </div>
         </div>
 
@@ -112,7 +111,13 @@
                   hamburgerMode></ejs-menu>
     </e-content-template>
 </ejs-sidebar>
+@* <script>
+    // Assuming you have a way to obtain the user's login name dynamically
+    var userLoginName = "JohnDoe";
 
+    // Set the user's login name in the h6 element
+    document.getElementById("loginName").innerText = userLoginName;
+</script> *@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         dockBar = document.getElementById('sidebar').ej2_instances[0];
