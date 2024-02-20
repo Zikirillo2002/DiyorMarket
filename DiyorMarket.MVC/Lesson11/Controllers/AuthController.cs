@@ -15,10 +15,10 @@ namespace Lesson11.Controllers
 
         public IActionResult Index()
         {
-            //if (HttpContext.Request.Cookies.TryGetValue("JwtToken", out _))
-            //{
-            //    return RedirectToAction("Index", "Dashboard");
-            //}
+            if (HttpContext.Request.Cookies.TryGetValue("JwtToken", out _))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
 
             return View();
         }
@@ -41,7 +41,7 @@ namespace Lesson11.Controllers
 
             if (success)
             {
-                HttpContext.Response.Cookies.Append("", token, new CookieOptions
+                HttpContext.Response.Cookies.Append("JwtToken", token, new CookieOptions
                 {
                     Secure = true,
                     SameSite = SameSiteMode.Strict,

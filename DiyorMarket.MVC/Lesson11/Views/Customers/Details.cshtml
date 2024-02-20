@@ -58,55 +58,43 @@
 <!-- Блок с историей -->
 <div id="historyBlock">
     <div class="d-flex flex-row mt-3 mb-2 flex-row-reverse" style="gap: 10px;">
-            <a class="btn btn-outline-info" asp-action="download">
-                <i class="fa-solid fa-download"></i> Download
-            </a>
-        </div>
+        <a class="btn btn-outline-info" asp-action="download">
+            <i class="fa-solid fa-download"></i> Download
+        </a>
+    </div>
     <div class="col-12">
         <ejs-grid id="customers-list"
                   dataSource="@ViewBag.CustomersSale"
-                  gridLines="Vertical">
+                  gridLines="Vertical"
+                  allowSorting="true">
             <e-grid-columns>
+                <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
                 <e-grid-column headerText="Sale Date" field="SaleDate" format="dd/MM/yyyy, HH:mm:ss" typeof="text"></e-grid-column>
                 <e-grid-column headerText="Total price" field="TotalDue" format="C2" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
-</div
-
-
-
-<!-- Тело вкладок -->
-<div class="tab-content" id="nav-tabContent">
-    <!-- Вкладка Home -->
-    <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab">
-        <!-- Вставьте сюда код для содержимого вкладки Home -->
-    </div>
-
-    <!-- Вкладка History -->
-    <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-        <!-- Вставьте сюда код для содержимого вкладки History -->
-    </div>
 </div>
 
-<!-- Скрипты jQuery и скрипт управления вкладками -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // При загрузке страницы покажем блок с деталями
-        $("#detailsBlock").show();
-        $("#historyBlock").hide();
-
-        // Обработчик события нажатия на вкладку Home
-        $("#nav-details-tab").click(function () {
+        $(document).ready(function () {
             $("#detailsBlock").show();
             $("#historyBlock").hide();
-        });
 
-        // Обработчик события нажатия на вкладку History
-        $("#nav-history-tab").click(function () {
-            $("#detailsBlock").hide();
-            $("#historyBlock").show();
+            $("#nav-details-tab").click(function () {
+                $("#detailsBlock").show();
+                $("#historyBlock").hide();
+            });
+
+            $("#nav-history-tab").click(function () {
+                $("#detailsBlock").hide();
+                $("#historyBlock").show();
+            });
         });
-    });
+</script>
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="/customers/GetSalesSaleItems/${Id}">${Id}</a>
+    </div>
 </script>

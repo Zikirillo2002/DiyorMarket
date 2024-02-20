@@ -1,9 +1,11 @@
-﻿namespace DiyorMarket.Domain.DTOs.SaleItem
+﻿using DiyorMarket.Domain.DTOs.Product;
+
+namespace DiyorMarket.Domain.DTOs.SaleItem
 {
     public record SaleItemDto(
         int Id,
         int Quantity,
         decimal UnitPrice,
-        int ProductId,
+        ProductDto Product,
         int SaleId);
 }

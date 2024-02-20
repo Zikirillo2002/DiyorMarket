@@ -87,6 +87,8 @@ namespace DiyorMarket.Services
         public IEnumerable<SaleItemDto> GetSalesSaleItems(int salesId)
         {
             var salesSaleItems = _context.SaleItems
+                .Include(x => x.Product)
+                .IgnoreAutoIncludes()
                 .Where(x => x.SaleId == salesId).
                 ToList();
 

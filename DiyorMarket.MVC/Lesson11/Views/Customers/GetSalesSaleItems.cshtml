@@ -1,0 +1,28 @@
+﻿<div class="d-flex flex-row mt-3 mb-2 flex-row-reverse" style="gap: 10px;">
+    <a class="btn btn-outline-info" asp-action="download">
+        <i class="fa-solid fa-download"></i> Download
+    </a>
+</div>
+<div class="col-12">
+    <ejs-grid id="customers-list"
+              dataSource="@ViewBag.SalesSaleItems"
+              gridLines="Vertical"
+              allowSorting="true">
+        <e-grid-columns>
+            <e-grid-column headerText="Product" field="Product.Name" typeof="text"></e-grid-column>
+            <e-grid-column headerText="Quantity" field="Quantity" typeof="text"></e-grid-column>
+            <e-grid-column headerText="Unit Price" field="UnitPrice" format="C2" typeof="text"></e-grid-column>
+            <e-grid-column headerText="Total Price" template="#totalTemplate" format="C2" typeof="text"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
+
+<script id="totalTemplate" type="text/x-template">
+    <div>${formatTotalPrice(data.Quantity, data.UnitPrice)}</div>
+</script>
+
+<script>
+    function formatTotalPrice(quantity, unitPrice) {
+        return (quantity * unitPrice).toFixed(2);
+    }
+</script>

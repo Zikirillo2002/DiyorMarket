@@ -1,6 +1,7 @@
 ﻿using ExcelDataReader;
 using Lesson11.Models;
 using Lesson11.Stores.Customers;
+using Lesson11.Stores.SaleItems;
 using Lesson11.Stores.Sales;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,13 @@ namespace Lesson11.Controllers
     {
         private readonly ICustomerDataStore _customerDataStore;
         private readonly ISaleDataStore _saleDataStore;
+        private readonly ISaleItemDataStore _saleItemDataStore;
 
-        public CustomersController(ICustomerDataStore customerDataStore, ISaleDataStore saleDataStore)
+        public CustomersController(ICustomerDataStore customerDataStore, ISaleDataStore saleDataStore, ISaleItemDataStore saleItemDataStore)
         {
             _customerDataStore = customerDataStore ?? throw new ArgumentNullException(nameof(customerDataStore));
             _saleDataStore = saleDataStore ?? throw new ArgumentNullException(nameof(saleDataStore));
+            _saleItemDataStore = saleItemDataStore ?? throw new ArgumentNullException(nameof(saleItemDataStore));
         }
 
         public IActionResult Index(string? searchString, int pageNumber)
@@ -41,6 +44,18 @@ namespace Lesson11.Controllers
             ViewBag.CustomersSale = customersSales;
 
             return View(customer);
+        }
+
+        public IActionResult GetSalesSaleItems(int id)
+        {
+            var salesSaleItems = _saleItemDataStore.GetSalesSaleItems(id);
+
+            decimal totalPrice = salesSaleItems.Sum(item => item.Quantity * item.UnitPrice);
+
+            ViewBag.SalesSaleItems = salesSaleItems;
+            ViewBag.TotalPrice = totalPrice;
+
+            return View(salesSaleItems);
         }
 
         public IActionResult Create()

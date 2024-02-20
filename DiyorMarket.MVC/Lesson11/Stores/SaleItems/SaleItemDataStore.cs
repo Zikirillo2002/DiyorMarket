@@ -46,7 +46,7 @@ namespace Lesson11.Stores.SaleItems
 
         public IEnumerable<SaleItem> GetSalesSaleItems(int salesId)
         {
-            var response = _api.Get($"saleItems/SalesSaleItems /{salesId}");
+            var response = _api.Get($"saleItems/SalesSaleItems/{salesId}");
 
             if (!response.IsSuccessStatusCode)
             {
