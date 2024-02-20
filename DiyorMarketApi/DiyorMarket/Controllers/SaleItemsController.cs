@@ -1,6 +1,8 @@
-﻿using DiyorMarket.Domain.DTOs.SaleItem;
+﻿using DiyorMarket.Domain.DTOs.Sale;
+using DiyorMarket.Domain.DTOs.SaleItem;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.ResourceParameters;
+using DiyorMarket.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +26,13 @@ namespace DiyorMarket.Controllers
             var saleItems = _saleItemService.GetSaleItems(saleItemResourceParameters);
 
             return Ok(saleItems);
+        }
+
+        [HttpGet("SalesSaleItems/{salesId}")]
+        public ActionResult<IEnumerable<SaleItemDto>> GetSalesSaleItems(int salesId)
+        {
+            var salesSaleItems = _saleItemService.GetSalesSaleItems(salesId);
+            return Ok(salesSaleItems);
         }
 
         [HttpGet("{id}", Name = "GetSaleItemById")]

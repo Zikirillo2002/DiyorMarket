@@ -44,6 +44,21 @@ namespace Lesson11.Stores.SaleItems
             return result;
         }
 
+        public IEnumerable<SaleItem> GetSalesSaleItems(int salesId)
+        {
+            var response = _api.Get($"saleItems/SalesSaleItems /{salesId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Could not fetch sales with id: {salesId}.");
+            }
+
+            var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var result = JsonConvert.DeserializeObject<IEnumerable<SaleItem>>(json);
+
+            return result;
+        }
+
         public SaleItem? CreateSaleItem(SaleItem saleItem)
         {
             var json = JsonConvert.SerializeObject(saleItem);
