@@ -41,7 +41,7 @@ namespace Lesson11.Controllers
 
             if (success)
             {
-                HttpContext.Response.Cookies.Append("", token, new CookieOptions
+                HttpContext.Response.Cookies.Append("JwtToken", token, new CookieOptions
                 {
                     Secure = true,
                     SameSite = SameSiteMode.Strict,

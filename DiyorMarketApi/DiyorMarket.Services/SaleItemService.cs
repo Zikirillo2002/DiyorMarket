@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DiyorMarket.Domain.DTOs.Sale;
 using DiyorMarket.Domain.DTOs.SaleItem;
 using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Interfaces.Services;
@@ -6,6 +7,7 @@ using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiyorMarket.Services
 {
@@ -80,6 +82,17 @@ namespace DiyorMarket.Services
             var saleItems = _context.SaleItems.ToList();
 
             return _mapper.Map<IEnumerable<SaleItemDto>>(saleItems) ?? Enumerable.Empty<SaleItemDto>();
+        }
+
+        public IEnumerable<SaleItemDto> GetSalesSaleItems(int salesId)
+        {
+            var salesSaleItems = _context.SaleItems
+                .Include(x => x.Product)
+                .IgnoreAutoIncludes()
+                .Where(x => x.SaleId == salesId).
+                ToList();
+
+            return _mapper.Map<IEnumerable<SaleItemDto>>(salesSaleItems) ?? Enumerable.Empty<SaleItemDto>();
         }
 
         public SaleItemDto? GetSaleItemById(int id)
