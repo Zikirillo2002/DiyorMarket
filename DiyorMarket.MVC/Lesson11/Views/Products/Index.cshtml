@@ -49,28 +49,32 @@
             </div>
         </div>
     </form>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 
 
 
     <div class="row">
         </div>
-        <div class="col-12">
-            <ejs-grid id="products-list"
+            <div class="col-12">
+                <ejs-grid id="products-list"
                         dataSource="@ViewBag.Products"
                         gridLines="Vertical"
                         allowSorting="true">
-                <e-grid-columns>
-                    <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
-                    <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
-                    <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
-                    <e-grid-column headerText="Sale Price" field="SalePrice" typeof="number" format="C2"></e-grid-column>
-                    <e-grid-column headerText="Supply Price" field="SupplyPrice" typeof="number" format="C2"></e-grid-column>
-                    <e-grid-column headerText="Category" field="Category.Name" typeof="text"></e-grid-column>
-                </e-grid-columns>
-            </ejs-grid>
+                    <e-grid-columns>
+                        <e-grid-column headerText="Id" field="Id" template="#template" typeof="Text"></e-grid-column>
+                        <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
+                        <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
+                        <e-grid-column headerText="Sale Price" field="SalePrice" typeof="number" format="C2"></e-grid-column>
+                        <e-grid-column headerText="Supply Price" field="SupplyPrice" typeof="number" format="C2"></e-grid-column>
+                        <e-grid-column headerText="Category" field="Category.Name" typeof="text"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
         </div>
-    </div>
+
 
     <div class="d-flex justify-content-between">
         <div class="p-2" style="font-size: 14px;">
@@ -109,6 +113,7 @@
         </div>
     </div>
 </div>
+
 <script id="template" type="text/x-template">
     <div>
         <a rel='nofollow' href="products/Details/${Id}">${Id}</a>
