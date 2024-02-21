@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿<head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
@@ -12,6 +13,38 @@
                     <button type="submit" style="background: #291dab; border: 2px solid #291dab; color: white">
                         <i class="fa fa-search" style="color: white"></i> Search
                     </button>
+=======
+﻿
+<div class="container">
+    <form asp-controller="Categories" asp-action="Index">
+        <input type="hidden"/>
+        <div class="container">
+            <div class="row row-cols-sm-1 align-items-start">
+                <div class="d-flex flex-row justify-content-between gap-4">
+                    <!-- Search -->
+                    <div class="col-md-5 mb-4 ml-0 mr-10" style="margin-left: -25px">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search product..." name="searchString" value="@ViewBag.SearchString">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-row col-md-7 mb-4 justify-content-end" style="gap: 15px; margin-left: 22px">
+                        <a class="btn btn-outline-info" asp-action="download">
+                            <i class="fa-solid fa-download"></i> Download
+                        </a>
+                        <a class="btn btn-outline-info" asp-action="upload">
+                            <i class="fa-solid fa-upload"></i> Upload
+                        </a>
+                        <a class="btn btn-success" asp-action="create">
+                            <i class="fa fa-plus"></i> Create
+                        </a>
+                    </div>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
