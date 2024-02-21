@@ -111,13 +111,11 @@
                   hamburgerMode></ejs-menu>
     </e-content-template>
 </ejs-sidebar>
-@* <script>
-    // Assuming you have a way to obtain the user's login name dynamically
+<script>
     var userLoginName = "JohnDoe";
 
-    // Set the user's login name in the h6 element
     document.getElementById("loginName").innerText = userLoginName;
-</script> *@
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         dockBar = document.getElementById('sidebar').ej2_instances[0];
@@ -125,5 +123,4 @@
             dockBar.toggle();
         };
     });
-
 </script>
