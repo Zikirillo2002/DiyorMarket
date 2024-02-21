@@ -1,20 +1,4 @@
-﻿<head>
-    <link rel="stylesheet" href="~/css/animation.css" />
-</head>
-
-<<<<<<< Updated upstream
-<div class="container mt-4">
-
-    <form asp-controller="Supplies" asp-action="Index" class="mb-4">
-
-        <div class="row align-items-center">
-            <div class="d-flex justify-content-between">
-                @* search *@
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search supply..."
-                               name="searchString" value="@ViewBag.SearchString">
-=======
+﻿
 <div class="container">
     <form asp-controller="Supplies" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
@@ -55,7 +39,6 @@
                                 }
                             </select>
                         </div>
->>>>>>> Stashed changes
                     </div>
                 </div>
 
