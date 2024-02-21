@@ -1,6 +1,9 @@
-﻿<head>
-    <link rel="stylesheet" href="~/css/animation.css" />
-</head>
+﻿@model Lesson11.Models.Category
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
 <div class="container mt-4">
 
     <form asp-controller="Categories" asp-action="Index">

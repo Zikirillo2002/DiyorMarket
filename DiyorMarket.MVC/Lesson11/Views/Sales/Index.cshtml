@@ -1,49 +1,54 @@
 ﻿
 <div class="container">
-
     <form asp-controller="Sales" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
-        <div class="container">
-            <div class="row row-cols-sm-1 align-items-center">
-                <div class="d-flex flex-row justify-content-center gap-4">
-                    <!-- Search -->
-                    <form asp-controller="Products" asp-action="Index">
-                        <div class="col-md-5 mb-4 ml-12 mr-10">
-                            <div class="input-group">
-                                <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
-                                <input type="text" class="form-control" placeholder="Search product..." name="searchString" value="@ViewBag.SearchString">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-search"></i> Search
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- Filter -->
-                    <div class="col-md-3 mb-3 ml-4">
-                        <div class="input-group">
-                            <select class="form-control" name="customerId">
-                                <option value="" selected disabled>  All Customer </option>
-                                @foreach (var customer in ViewBag.Customers)
-                                {
-                                    <option value="@customer.Id">@customer.FullName</option>
-                                }
-                            </select>
+        <div class="row">
+            <div class="d-flex flex-row align-items-start gap-4">
+                <!-- Search -->
+                <div class="col-md-3 mb-4">
+                    <div class="input-group">
+                        <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
+                        <input type="text" class="form-control" placeholder="Search sales..." name="searchString" value="@ViewBag.SearchString">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-search"></i>
+                            </button>
                         </div>
                     </div>
-                    <!-- Action Buttons -->
-                    <div class="d-flex flex-row col-md-4 mb-4" style="gap: 15px;">
-                        <a class="btn btn-outline-info" style="margin-left : 50px" asp-action="download">
-                            <i class="fa-solid fa-download"></i> Download
-                        </a>
-                        <a class="btn btn-outline-info" asp-action="upload">
-                            <i class="fa-solid fa-upload"></i> Upload
-                        </a>
-                        <a class="btn btn-success" asp-action="create">
-                            <i class="fa fa-plus"></i> Create
-                        </a>
+                </div>
+                <!-- Filter -->
+                <div class="col-md-3">
+                    <select class="form-control" name="customerId">
+                        <option value="" selected disabled>  Select Customer </option>
+                        @foreach (var customer in ViewBag.Customers)
+                        {
+                            <option value="@customer.Id">@customer.FullName</option>
+                        }
+                    </select>
+                </div>
+                <!-- Date -->
+                <div class="col-md-2">
+                    <input type="date" />
+                </div>
+                <!-- Action Buttons -->
+                <div class="d-flex flex-row col-md-4 mb-4" style="gap: 15px;">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
                     </div>
+                    
+                    <a class="btn btn-outline-info" asp-action="upload">
+                        <i class="fa-solid fa-upload"></i> Upload
+                    </a>
+                    <a class="btn btn-success" asp-action="create">
+                        <i class="fa fa-plus"></i> Create
+                    </a>
                 </div>
             </div>
         </div>
@@ -65,9 +70,9 @@
         </div>
     </div>
 
-        @* pagineted *@
-    <div class="d-flex justify-content-between">
-        <div class="p-2">
+    @* pagination *@
+    <div class="d-flex justify-content-between mt-3 mb-3">
+        <div>
             @if (ViewBag.HasPreviousPage)
             {
                 <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1 })">&lt;&lt;</a>
@@ -78,7 +83,7 @@
                 <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
             }
 
-            <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
+            <button type="button" class="btn btn-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
 
             @if (ViewBag.HasNextPage)
             {
@@ -99,8 +104,8 @@
             <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
         </div>
     </div>
-
 </div>
+
 <script id="template" type="text/x-template">
     <div>
         <a rel='nofollow' href="sales/Details/${Id}">${Id}</a>
