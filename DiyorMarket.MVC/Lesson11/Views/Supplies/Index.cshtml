@@ -36,7 +36,9 @@
                                 <option value="" selected disabled>  All Suppliers </option> *@
                                 @foreach (var supplier in ViewBag.Suppliers)
                                 {
-                                    <option value="@supplier.Id">@supplier.Company</option>
+                                    <option value="@supplier.Id" selected="@(supplier.Id == ViewBag.supplierId)">
+                                        @supplier.Company
+                                    </option>
                                 }
                             </select>
                         </div>
