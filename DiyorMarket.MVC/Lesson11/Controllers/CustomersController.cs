@@ -63,29 +63,6 @@ namespace Lesson11.Controllers
             return View();
         }
 
-        public IActionResult Upload()
-        {
-            ViewBag.FileUploaded = false;
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Upload(IFormFile file)
-        {
-            if (file is null)
-            {
-                ViewBag.FileUploaded = false;
-                return View();
-            }
-
-            var customers = DeserializeFile(file);
-
-            ViewBag.Customers = customers;
-            ViewBag.FileUploaded = true;
-
-            return View();
-        }
-
         [HttpPost]
         public IActionResult Create(string? firstName, string? lastName, string? phoneNumber)
         {
@@ -169,7 +146,27 @@ namespace Lesson11.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Upload()
+        {
+            ViewBag.FileUploaded = false;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (file is null)
+            {
+                ViewBag.FileUploaded = false;
+                return View();
+            }
 
+            var customers = DeserializeFile(file);
+
+            ViewBag.Customers = customers;
+            ViewBag.FileUploaded = true;
+
+            return View();
+        }
         private static List<Customer> DeserializeFile(IFormFile file)
         {
             List<Customer> customers = new();
@@ -184,8 +181,8 @@ namespace Lesson11.Controllers
             {
                 customers.Add(new Customer
                 {
-                    FullName = reader.GetValue(0)?.ToString(),
-                    PhoneNumber = reader.GetValue(1)?.ToString()
+                    FullName = reader.GetValue(1)?.ToString(),
+                    PhoneNumber = reader.GetValue(2)?.ToString()
                 });
             }
 
