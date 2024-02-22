@@ -18,10 +18,24 @@ namespace Lesson11.Controllers
             _supplierDataStore = supplierDataStore ?? throw new ArgumentNullException(nameof(supplierDataStore));
         }
 
-        public IActionResult Index(string? searchString, int supplierId, int pageNumber)
+        public IActionResult Index(string? searchString, int? supplierId, int pageNumber)
         {
             var result = _supplyDataStore.GetSupplies(searchString, supplierId, pageNumber);
-            var supliers = GetAllSuppliers(searchString);
+            var supliers = GetAllSupplier();
+
+            supliers.Insert(0, new Supplier
+            {
+                Id = 0,
+                Company = "All"
+            });
+
+            var selectSuppliers = supliers[0];
+            if (supplierId.HasValue && supplierId != 0)
+            {
+                selectSuppliers = supliers.FirstOrDefault(x => x.Id == supplierId);
+            }
+
+            ViewBag.SelectedSupplier = selectSuppliers;
 
             ViewBag.Supplies = result.Data;
             ViewBag.Suppliers = supliers;
@@ -179,6 +193,22 @@ namespace Lesson11.Controllers
             }
 
             return supply;
+        }
+
+        private List<Supplier> GetAllSupplier()
+        {
+            int number = 1;
+            var categoryResponse = _supplierDataStore.GetSuppliers(null, number);
+            var categories = categoryResponse.Data.ToList();
+
+
+            for (int i = 1; i <= categoryResponse.TotalPages; i++)
+            {
+                categoryResponse = _supplierDataStore.GetSuppliers(null, ++number);
+                categories.AddRange(categoryResponse.Data.ToList());
+            }
+
+            return categories;
         }
     }
 }
