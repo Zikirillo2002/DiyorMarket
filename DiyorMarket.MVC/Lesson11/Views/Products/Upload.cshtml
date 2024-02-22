@@ -1,9 +1,7 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Upload";
 }
-
-<h1>Upload customers</h1>
+<h1>Upload products</h1>
 <form asp-action="upload" method="post" enctype="multipart/form-data">
     <input class="form-control" type="file" id="formFile" name="file" accept=".xls, .xlsx" />
     <button class="btn btn-success " type="submit">
@@ -13,15 +11,19 @@
 
 <div>
     <ejs-grid id="categories-list"
-              dataSource="@ViewBag.Customers"
+              dataSource="@ViewBag.Products"
               gridLines="Vertical"
               toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
         <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
         </e-grid-editsettings>
         <e-grid-columns>
-            <e-grid-column headerText="FullName" field="FullName" typeof="text" class="customer-name"></e-grid-column>
-            <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text" class="phone-number"></e-grid-column>
-        </e-grid-columns> 
+            <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
+            <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
+            <e-grid-column headerText="Sale Price" field="SalePrice" typeof="number" format="C2"></e-grid-column>
+            <e-grid-column headerText="Supply Price" field="SupplyPrice" typeof="number" format="C2"></e-grid-column>
+            <e-grid-column headerText="Expire Date" field="ExpireDate" format="dd/MM/yyyy, HH:mm:ss" typeof="text"></e-grid-column>
+            <e-grid-column headerText="CategoryId" field="CategoryId" typeof="text"></e-grid-column>
+        </e-grid-columns>
     </ejs-grid>
 </div>
 
@@ -37,7 +39,7 @@
 
     function phoneValidation(args) {
         const phone = args['value'].toString();
-        
+
         if (!phone.startsWith('+')) {
             return false;
         }
@@ -48,19 +50,4 @@
 
         return true;
     };
-
-    // TODO: Get custom error message using method
-    // function getPhoneValidationError(args) {
-    //     const phone = args['value'].toString();
-
-    //     if (!phone.startsWith('+')) {
-    //         return 'Phone number should start with: "+"';
-    //     }
-
-    //     if (phone.length > 13) {
-    //         return "Phone number must have 13 numbers.";
-    //     }
-
-    //     return "";
-    // }
 </script>
