@@ -1,10 +1,10 @@
 
-<div class="container mt-4">
+<div class="container">
     <form asp-controller="Categories" asp-action="Index">
         <input type="hidden"/>
         <div class="container">
             <div class="row row-cols-sm-1 align-items-start">
-                <div class="d-flex flex-row justify-content-start gap-4">
+                <div class="d-flex flex-row justify-content-between gap-4">
                     <!-- Search -->
                     <div class="col-md-5 mb-4 ml-2 mr-10" style="margin-left: 50px">
                         <div class="input-group">
@@ -17,7 +17,8 @@
                         </div>
                     </div>
                     <!-- Action Buttons -->
-                    <div class="d-flex flex-row col-md-7 mb-4 justify-content-end ml-16" style="gap: 15px; margin-right: 100px">
+                    <div class="d-flex flex-row col-md-7 mb-4 justify-content-end" style="gap: 15px; margin-left: 22px">
+
                         <a class="btn btn-outline-info" asp-action="download">
                             <i class="fa-solid fa-download"></i> Download
                         </a>
