@@ -1,8 +1,5 @@
-﻿
 
 <div class="container">
-
-
     <form asp-controller="Supplies" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
         <div class="container">
@@ -81,24 +78,24 @@
         <div class="p-2">
             @if (ViewBag.HasPreviousPage)
             {
-                <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1})">&lt;&lt;</a>
+                <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1 })">&lt;&lt;</a>
             }
 
             @if (ViewBag.HasPreviousPage)
             {
-                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
+                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
             }
 
-            <button type="button" class="btn btn-primary btn-lg rounded-0" disabled>@ViewBag.CurrentPage</button>
+            <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
 
             @if (ViewBag.HasNextPage)
             {
-                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">@(@ViewBag.CurrentPage + 1)</a>
+                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">@(@ViewBag.CurrentPage + 1)</a>
             }
 
-            @if (ViewBag.CurrentPage < ViewBag.PageCount - 1)
+            @if (ViewBag.CurrentPage <= 1)
             {
-                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 2})">@(@ViewBag.CurrentPage + 2)</a>
+                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 2})">@(@ViewBag.CurrentPage + 2)</a>
             }
 
             @if (ViewBag.HasNextPage)
