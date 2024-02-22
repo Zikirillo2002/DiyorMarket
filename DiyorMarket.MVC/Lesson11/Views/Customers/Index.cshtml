@@ -1,50 +1,60 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+@model Lesson11.Models.Customer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<body>
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Customers List</li>
-        </ol>
-    </nav>
+<!-- Navigation link -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Customers List</li>
+    </ol>
+</nav>
 
-    <div class="container mt-4">
-
-
-        <form asp-controller="Customers" asp-action="Index">
-            <div class="input-group" style="width: 530px">
-                <input type="text" class="form-control" aria-label="Text input with radio button" placeholder="Search customer..."
-                       name="searchString" value="@ViewBag.SearchString">
-                <div class="input-group-prepend">
-                    <div class="input-group-text" style="background: #291dab; border: #291dab;">
-                        <button type="submit" style="background: #291dab; border: 2px solid #291dab; color: white">
-                            <i class="fa fa-search" style="color: white"></i> Search
-                        </button>
+<div class="container mt-4">
+    <form asp-controller="Customers" asp-action="Index">
+        <input type="hidden" />
+        <div class="container" style="margin-top: 50px;">
+            <div class="row row-cols-sm-1 align-items-start">
+                <div class="d-flex flex-row justify-content-between gap-4">
+                    <!-- Search -->
+                    <div class="col-md-5 mb-4 ml-0 mr-10" style="margin-left: -25px">
+                        <div class="input-group">
+                            <input type="text" class="form-control" 
+                            placeholder="Search product..." 
+                            name="searchString" 
+                            value="@ViewBag.SearchString">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-row col-md-7 mb-4 justify-content-end" style="gap: 15px; margin-left: 22px">
+                        <a class="btn btn-outline-info" asp-action="download">
+                            <i class="fa-solid fa-download"></i> Download
+                        </a>
+                        <a class="btn btn-outline-info" asp-action="upload">
+                            <i class="fa-solid fa-upload"></i> Upload
+                        </a>
+                        <a class="btn btn-success" asp-action="create">
+                            <i class="fa fa-plus"></i> Create
+                        </a>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+
         @* data grid *@
         <div class="row">
-            <div class="d-flex flex-row mt-5 mb-2 flex-row-reverse" style="gap: 10px;">
-                <a class="btn btn-outline-success mr-auto" asp-action="create">
-                    <i class="fa fa-plus"></i> Create
-                </a>
-                <a class="btn btn-outline-info" asp-action="upload">
-                    <i class="fa-solid fa-upload"></i> Upload
-                </a>
-                <a class="btn btn-outline-info" asp-action="download">
-                    <i class="fa-solid fa-download"></i> Download
-                </a>
-            </div>
             <div class="col-12">
                 <ejs-grid id="customers-list"
                           dataSource="@ViewBag.Customers"
@@ -57,50 +67,50 @@
                 </ejs-grid>
             </div>
         </div>
+        @* pagination *@
+        <div class="d-flex justify-content-between">
+            <div class="p-2">
+                @if (ViewBag.HasPreviousPage)
+                {
+                    <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1 })">&lt;&lt;</a>
+                }
 
-    @* pagineted *@
-    <div class="d-flex justify-content-between">
-        <div class="p-2">
-            @if (ViewBag.HasPreviousPage)
-            {
-                <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1})">&lt;&lt;</a>
-            }
+                @if (ViewBag.HasPreviousPage)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
+                }
 
-            @if (ViewBag.HasPreviousPage)
-            {
-                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
-            }
+                <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
 
-            <button type="button" class="btn btn-primary btn-lg rounded-0" disabled>@ViewBag.CurrentPage</button>
+                @if (ViewBag.HasNextPage)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">@(@ViewBag.CurrentPage + 1)</a>
+                }
 
-            @if (ViewBag.HasNextPage)
-            {
-                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">@(@ViewBag.CurrentPage + 1)</a>
-            }
+                @if (ViewBag.CurrentPage <= 1)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 2})">@(@ViewBag.CurrentPage + 2)</a>
+                }
 
-            @if (ViewBag.CurrentPage < ViewBag.PageCount - 1)
-            {
-                <a class="btn btn-outline-primary rounded-0" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 2})">@(@ViewBag.CurrentPage + 2)</a>
-            }
-
-            @if (ViewBag.HasNextPage)
-            {
-                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.PageCount })">&gt;&gt;</a>
-            }
-        </div>
-        <div class="p-2">
-            <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
-        </div>
-
-    </div>
-
-        <script id="template" type="text/x-template">
-            <div>
-                <a rel='nofollow' href="customers/Details?id=${Id}">${Id}</a>
+                @if (ViewBag.HasNextPage)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.PageCount })">&gt;&gt;</a>
+                }
             </div>
-        </script>
-    </div>
+            <div class="p-2">
+                <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
+            </div>
+        </div>
+    </form>
+    
+</div>
 
-</body>
-</html>
+
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="customers/Details?id=${Id}">${Id}</a>
+    </div>
+</script>
+
+
 

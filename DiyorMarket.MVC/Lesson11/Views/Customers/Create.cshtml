@@ -1,4 +1,9 @@
-﻿@model Lesson11.Models.Customer
+﻿@model Lesson11.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -8,17 +13,13 @@
         </ol>
     </nav>
 
-@{
-    ViewData["Title"] = "Create";
-}
 <head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<h1>Create</h1>
 
-<h4>Customer</h4>
-<hr />
-<div class="row">
+<hr class="align-items-baseline" style="margin-top: 100px" />
+
+<div class="row" style="margin-top: 60px; margin-left:50px">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

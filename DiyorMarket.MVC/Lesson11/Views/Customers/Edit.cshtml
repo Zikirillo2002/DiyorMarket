@@ -1,5 +1,9 @@
 ﻿@model Lesson11.Models.Customer
 
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -10,18 +14,12 @@
     </ol>
 </nav>
 
-@{
-    ViewData["Title"] = "Edit";
-}
-
-
 <head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<h1>Edit</h1>
 
-<h4>Customer</h4>
-<hr />
+<hr class="align-items-baseline" style="margin-top: 100px" />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
