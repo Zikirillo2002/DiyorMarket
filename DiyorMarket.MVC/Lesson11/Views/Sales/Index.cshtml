@@ -33,16 +33,21 @@
                 <!-- Action Buttons -->
                 <div class="d-flex flex-row col-md-4 mb-4" style="gap: 15px;">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown button
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa-solid fa-file-pdf"></i> PDF </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa-solid fa-file-excel"></i> XML <a>
                         </div>
                     </div>
-                    
+                    <a class="btn btn-outline-info" style="margin-left : 50px" asp-action="download">
+                        <i class="fa-solid fa-download"></i> Download
+                    </a>
+
+
                     <a class="btn btn-outline-info" asp-action="upload">
                         <i class="fa-solid fa-upload"></i> Upload
                     </a>
