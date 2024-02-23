@@ -2,14 +2,22 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
 }
 
-<h1>Create</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Suppliers/index">Suppliers List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+    </ol>
+</nav>
+
 <head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<h4>Supplier</h4>
-<hr />
+
+<hr class="align-items-baseline" style="margin-top: 100px" />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">

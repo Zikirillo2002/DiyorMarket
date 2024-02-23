@@ -1,7 +1,20 @@
-﻿
+﻿@model Lesson11.Models.Sale
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
+
+<!-- Navigation link -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sales List</li>
+    </ol>
+</nav>
     <form asp-controller="Sales" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
-        <div class="row">
+    <div class="row" style="margin-top: 50px;">
             <div class="d-flex flex-row align-items-start gap-4">
                 <!-- Search -->
                 <div class="col-md-3 mb-4">

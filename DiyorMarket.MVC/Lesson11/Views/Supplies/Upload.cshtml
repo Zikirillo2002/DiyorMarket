@@ -5,13 +5,13 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
-        <li class="breadcrumb-item"><a href="/Products/index">Products List</a></li>
+        <li class="breadcrumb-item"><a href="/Supplies/index">Supplies List</a></li>
         <li class="breadcrumb-item active" aria-current="page">Upload</li>
     </ol>
 </nav>
 
 <div style="margin-top: 90px;">
-    <h1>Upload products</h1>
+    <h1>Upload supplies</h1>
     <form asp-action="upload" method="post" enctype="multipart/form-data">
         <input class="form-control" type="file" id="formFile" name="file" accept=".xls, .xlsx" />
         <button class="btn btn-success " type="submit">
@@ -20,45 +20,28 @@
     </form>
 
     <div>
-        <ejs-grid id="categories-list"
-                  dataSource="@ViewBag.Products"
+        <ejs-grid id="supplies-list"
+                  dataSource="@ViewBag.Supplies"
                   gridLines="Vertical"
                   toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
             <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
             </e-grid-editsettings>
             <e-grid-columns>
-                <e-grid-column headerText="Name" field="Name" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Description" field="Description" typeof="text"></e-grid-column>
-                <e-grid-column headerText="Sale Price" field="SalePrice" typeof="number" format="C2"></e-grid-column>
-                <e-grid-column headerText="Supply Price" field="SupplyPrice" typeof="number" format="C2"></e-grid-column>
                 <e-grid-column headerText="Expire Date" field="ExpireDate" format="dd/MM/yyyy, HH:mm:ss" typeof="text"></e-grid-column>
-                <e-grid-column headerText="CategoryId" field="CategoryId" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Total Price" field="TotalPrice" typeof="number" format="C2"></e-grid-column>
+                <e-grid-column headerText="Supplier name" field="Supplier.FirstName" typeof="text"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
 
     <script>
         function load(args) {
-            this.columns[0].validationRules = { required: true, minLength: [nameValidation, 'Name should be at least 3 letters'] };
-            this.columns[1].validationRules = { required: true, format: [phoneValidation, 'Phone number should have following format: +998 ## ###-##-##'] };
+            this.columns[2].validationRules = { required: true, minLength: [nameValidation, 'Name should be at least 3 letters'] };
         }
 
         function nameValidation(args) {
             return args['value'].length >= 3;
         };
-
-        function phoneValidation(args) {
-            const phone = args['value'].toString();
-
-            if (!phone.startsWith('+')) {
-                return false;
-            }
-
-            if (phone.length > 13) {
-                return false;
-            }
-
-            return true;
-        };
     </script>
 </div>
+

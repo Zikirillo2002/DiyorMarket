@@ -1,16 +1,25 @@
-﻿@model Lesson11.Models.Customer
+﻿@model Lesson11.Models.Category
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
 }
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+            <li class="breadcrumb-item"><a href="/Customers/index">Customers List</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create</li>
+        </ol>
+    </nav>
+
 <head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<h1>Create</h1>
 
-<h4>Customer</h4>
-<hr />
-<div class="row">
+<hr class="align-items-baseline" style="margin-top: 100px" />
+
+<div class="row" style="margin-top: 60px; margin-left:50px">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

@@ -3,6 +3,7 @@ using Lesson11.Models;
 using Lesson11.Stores.Customers;
 using Lesson11.Stores.SaleItems;
 using Lesson11.Stores.Sales;
+using Lesson11.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lesson11.Controllers
@@ -49,13 +50,25 @@ namespace Lesson11.Controllers
         public IActionResult GetSalesSaleItems(int id)
         {
             var salesSaleItems = _saleItemDataStore.GetSalesSaleItems(id);
+            var customersSaleItems = new List<CustomerSaleItemsViewModels>();
+            var sale = _saleDataStore.GetSale(id);
 
-            decimal totalPrice = salesSaleItems.Sum(item => item.Quantity * item.UnitPrice);
+            foreach(var item in salesSaleItems)
+            {
+                customersSaleItems.Add(new CustomerSaleItemsViewModels()
+                {
+                    Id = item.Id,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice,
+                    ProductId = item.ProductId,
+                    Product = item.Product,
+                    SaleId = item.SaleId,
+                    Sale = sale,
+                    TotalPrice = item.Quantity * item.UnitPrice
+                });
+            }
 
-            ViewBag.SalesSaleItems = salesSaleItems;
-            ViewBag.TotalPrice = totalPrice;
-
-            return View(salesSaleItems);
+            return View(customersSaleItems);
         }
 
         public IActionResult Create()

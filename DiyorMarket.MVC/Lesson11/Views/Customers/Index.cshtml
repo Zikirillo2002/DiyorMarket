@@ -1,14 +1,35 @@
+@model Lesson11.Models.Customer
 
-<div class="container">
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/animation.css" />
+</head>
+
+<!-- Navigation link -->
+<nav aria-label="breadcrumb" style="margin-left: 20px;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Customers List</li>
+    </ol>
+</nav>
+
+<div class="container mt-4">
     <form asp-controller="Customers" asp-action="Index">
         <input type="hidden" />
-        <div class="container">
+        <div class="container" style="margin-top: 50px;">
             <div class="row row-cols-sm-1 align-items-start">
                 <div class="d-flex flex-row justify-content-between gap-4">
                     <!-- Search -->
                     <div class="col-md-5 mb-4 ml-0 mr-10" style="margin-left: -25px">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search product..." name="searchString" value="@ViewBag.SearchString">
+                            <input type="text" class="form-control" 
+                            placeholder="Search product..." 
+                            name="searchString" 
+                            value="@ViewBag.SearchString">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i> Search
@@ -31,60 +52,63 @@
                 </div>
             </div>
         </div>
+
+        @* data grid *@
+        <div class="row">
+            <div class="col-12">
+                <ejs-grid id="customers-list"
+                          dataSource="@ViewBag.Customers"
+                          gridLines="Vertical">
+                    <e-grid-columns>
+                        <e-grid-column headerText="Id" field="Id" template="#template" typeof="text"></e-grid-column>
+                        <e-grid-column headerText="FullName" field="FullName" typeof="text"></e-grid-column>
+                        <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
+            </div>
+        </div>
+        @* pagination *@
+        <div class="d-flex justify-content-between">
+            <div class="p-2">
+                @if (ViewBag.HasPreviousPage)
+                {
+                    <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1 })">&lt;&lt;</a>
+                }
+
+                @if (ViewBag.HasPreviousPage)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
+                }
+
+                <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
+
+                @if (ViewBag.HasNextPage)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">@(@ViewBag.CurrentPage + 1)</a>
+                }
+
+                @if (ViewBag.CurrentPage <= 1)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 2})">@(@ViewBag.CurrentPage + 2)</a>
+                }
+
+                @if (ViewBag.HasNextPage)
+                {
+                    <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.PageCount })">&gt;&gt;</a>
+                }
+            </div>
+            <div class="p-2">
+                <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
+            </div>
+        </div>
     </form>
-    @* data grid *@
-    <div class="row">
-        <div class="col-12">
-            <ejs-grid id="customers-list"
-                      dataSource="@ViewBag.Customers"
-                      gridLines="Vertical">
-                <e-grid-columns>
-                    <e-grid-column headerText="Id" field="Id" template="#template" typeof="text"></e-grid-column>
-                    <e-grid-column headerText="FullName" field="FullName" typeof="text"></e-grid-column>
-                    <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text"></e-grid-column>
-                </e-grid-columns>
-            </ejs-grid>
-        </div>
-    </div>
-
-    @* pagineted *@
-    <div class="d-flex justify-content-between">
-        <div class="p-2">
-            @if (ViewBag.HasPreviousPage)
-            {
-                <a class="btn btn-outline-primary rounded-left" href="@Url.Action("Index", new { pageNumber = 1 })">&lt;&lt;</a>
-            }
-
-            @if (ViewBag.HasPreviousPage)
-            {
-                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
-            }
-
-            <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
-
-            @if (ViewBag.HasNextPage)
-            {
-                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 1})">@(@ViewBag.CurrentPage + 1)</a>
-            }
-
-            @if (ViewBag.CurrentPage <= 1)
-            {
-                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage + 2})">@(@ViewBag.CurrentPage + 2)</a>
-            }
-
-            @if (ViewBag.HasNextPage)
-            {
-                <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.PageCount })">&gt;&gt;</a>
-            }
-        </div>
-        <div class="p-2">
-            <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
-        </div>
-    </div>
+    
 </div>
+
+
 <script id="template" type="text/x-template">
     <div>
-        <a rel='nofollow' href="customers/Details/${Id}">${Id}</a>
+        <a rel='nofollow' href="customers/Details?id=${Id}">${Id}</a>
     </div>
 </script>
 
