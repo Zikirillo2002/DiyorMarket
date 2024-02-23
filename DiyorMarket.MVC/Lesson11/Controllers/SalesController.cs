@@ -113,11 +113,17 @@ namespace Lesson11.Controllers
             return View();
         }
 
-        public IActionResult Download()
+        public IActionResult DownloadXML()
         {
             var result = _saleDataStore.GetExportFile();
 
-            return File(result, "application/xls", "Categories.xls");
+            return File(result, "application/xls", "Sales.xls");
+        }
+        public IActionResult DownloadPDF()
+        {
+            var result = _saleDataStore.GetExportFile();
+
+            return File(result, "application/pdf", "Sales.pdf");
         }
         [HttpPost]
         public IActionResult Edit(int id, DateTime saleDate, int customerId, decimal totalDue)

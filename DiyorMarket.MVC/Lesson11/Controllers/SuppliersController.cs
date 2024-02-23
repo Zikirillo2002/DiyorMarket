@@ -27,7 +27,6 @@ namespace Lesson11.Controllers
             ViewBag.HasNextPage = suppliers.HasNextPage;
             ViewBag.SearchString = searchString;
 
-
             return View();
         }
 

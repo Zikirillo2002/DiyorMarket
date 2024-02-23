@@ -217,7 +217,7 @@ public class ProductsController : Controller
                         : DateTime.MinValue,
                 CategoryId = int.TryParse(reader.GetValue(6)?.ToString(), out int categoryId)
                         ? categoryId
-                        : 0
+                        : 0,            
             });
         }
         return products;
