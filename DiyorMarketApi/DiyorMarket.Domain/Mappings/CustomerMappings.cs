@@ -21,14 +21,6 @@ namespace DiyorMarket.Domain.Mappings
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => ParseFullName(src.FullName).firstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => ParseFullName(src.FullName).lastName));
 
-
-            //CreateMap<Customer, CustomerForCreateDto>()
-            //    .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
-            ////.ForCtorParam(nameof(CustomerForCreateDto.FullName),
-            ////    opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
-            //CreateMap<Customer, CustomerForUpdateDto>();
-
-
         }
         private (string firstName, string lastName) ParseFullName(string fullName)
         {

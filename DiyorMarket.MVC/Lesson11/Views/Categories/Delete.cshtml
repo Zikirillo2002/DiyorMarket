@@ -2,16 +2,27 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
 }
 <head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<h1>Delete</h1>
+<!-- Navigation link -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Categories/index">Categories List</a></li>
+        <li class="breadcrumb-item"><a href="/Categories/details/@Model.Id">Details</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    </ol>
+</nav>
 
-<h3>Are you sure you want to delete this?</h3>
+<h1 class="align-items-baseline" style="margin-top: 100px">Delete</h1>
+<hr />
+
+<h3 style="color:red;">Are you sure you want to delete this?</h3>
 <div>
-    <h4>Category</h4>
-    <hr />
+    <hr style="margin-bottom: 30px;" />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
