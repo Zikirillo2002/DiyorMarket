@@ -96,7 +96,7 @@
                 <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
             }
 
-            <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
+            <button type="button" class="btn btn-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
 
             @if (ViewBag.HasNextPage)
             {
