@@ -1,7 +1,6 @@
 ﻿using Lesson11.Models;
 using Lesson11.Services;
 using Newtonsoft.Json;
-using NuGet.Common;
 
 namespace Lesson11.Stores.User
 {
@@ -40,7 +39,6 @@ namespace Lesson11.Stores.User
             }
 
             var tokenJson = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            //var token = JsonConvert.DeserializeObject<AuthenticationResponse>(tokenJson);
 
             return (true, tokenJson);
         }
