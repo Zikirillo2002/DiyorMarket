@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Sales
 {
     public interface ISaleDataStore
     {
-        public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber);
+        public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber,DateTime? saleDate);
         public IEnumerable<Sale> GetCustomersSale(int customersId);
         public Stream GetExportFile();
         public Sale? GetSale(int id);

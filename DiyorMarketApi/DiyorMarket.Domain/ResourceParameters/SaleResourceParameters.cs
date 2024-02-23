@@ -1,4 +1,6 @@
-﻿namespace DiyorMarket.Domain.ResourceParameters
+﻿using System.ComponentModel;
+
+namespace DiyorMarket.Domain.ResourceParameters
 {
     public class SaleResourceParameters
     {
@@ -7,7 +9,7 @@
         public int? CustomerId { get; set; }
         public string? SearchString { get; set; }
         public string OrderBy { get; set; } = "int";
-
+        public DateTime? SaleDate { get; set; }
         public int PageNumber { get; set; } = 1;
 
         private int _pageSize = 15;
