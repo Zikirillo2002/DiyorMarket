@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Upload";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Sales/index">Sales List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Upload</li>
+    </ol>
+</nav>
+
+<div style="margin-top: 90px;">
+    <h1>Upload sales</h1>
+    <form asp-action="upload" method="post" enctype="multipart/form-data">
+        <input class="form-control" type="file" id="formFile" name="file" accept=".xls, .xlsx" />
+        <button class="btn btn-success " type="submit">
+            Save Data
+        </button>
+    </form>
+
+    <div>
+        <ejs-grid id="sales-list"
+                  dataSource="@ViewBag.Sales"
+                  gridLines="Vertical"
+                  toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
+            <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
+            </e-grid-editsettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Expire Date" field="ExpireDate" format="dd/MM/yyyy, HH:mm:ss" typeof="text"></e-grid-column>
+                <e-grid-column headerText="Total Price" field="TotalPrice" typeof="number" format="C2"></e-grid-column>
+                <e-grid-column headerText="Customer name" field="Customer.FullName" typeof="text"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+
+    <script>
+        function load(args) {
+            this.columns[2].validationRules = { required: true, minLength: [nameValidation, 'Name should be at least 3 letters'] };
+        }
+
+        function nameValidation(args) {
+            return args['value'].length >= 3;
+        };
+    </script>
+</div>
