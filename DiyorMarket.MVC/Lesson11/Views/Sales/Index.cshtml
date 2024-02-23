@@ -40,7 +40,7 @@
                 </div>
                 <!-- Date -->
                 <div class="col-md-2">
-                    <input type="date" />
+                    <input type="date" name="saleDate" class="form-control">
                 </div>
                 <!-- Action Buttons -->
                 <div class="d-flex flex-row col-md-4 mb-4" style="gap: 13px;">
@@ -83,7 +83,11 @@
             </ejs-grid>
         </div>
     </div>
-
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="sales/Details?Id=${Id}">${Id}</a>
+    </div>
+</script>
     @* pagination *@
     <div class="d-flex justify-content-between mt-3 mb-3">
         <div>
