@@ -92,7 +92,14 @@ namespace Lesson11.Controllers
             return File(result, "application/xls", "Categories.xls");
         }
 
-        [HttpPost]
+
+        public IActionResult Edit(int id)
+        {
+            var category = _categoryDataStore.GetCategory(id);
+            return View(category);
+        }
+
+        [HttpPost, ActionName("Edit")]
         public IActionResult Edit(int id, string name)
         {
             _categoryDataStore.UpdateCategory(new Category()
@@ -102,12 +109,6 @@ namespace Lesson11.Controllers
             });
 
             return RedirectToAction("Details", new { id });
-        }
-
-        public IActionResult Edit(int id)
-        {
-            var category = _categoryDataStore.GetCategory(id);
-            return View(category);
         }
 
         public IActionResult Delete(int? id)

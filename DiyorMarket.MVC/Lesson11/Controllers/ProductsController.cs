@@ -167,7 +167,7 @@ public class ProductsController : Controller
         {
             return NotFound(product);
         }
-        return View();
+        return View(product);
     }
 
     [HttpPost, ActionName("Delete")]
