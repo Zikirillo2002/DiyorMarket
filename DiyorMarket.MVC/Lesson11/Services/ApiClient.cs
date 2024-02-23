@@ -1,4 +1,5 @@
-﻿using Lesson11.Exceptions;
+﻿using Lesson11.Constants;
+using Lesson11.Exceptions;
 
 namespace Lesson11.Services
 {
@@ -19,7 +20,7 @@ namespace Lesson11.Services
         {
             string token = string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Get, _client.BaseAddress?.AbsolutePath + "/" + url);
-            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue("JwtToken", out token);
+            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue(Configurations.JwtToken, out token);
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = _client.Send(request);

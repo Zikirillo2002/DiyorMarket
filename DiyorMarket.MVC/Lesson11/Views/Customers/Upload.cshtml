@@ -21,19 +21,19 @@
         </button>
     </form>
 
-    <div>
-        <ejs-grid id="categories-list"
-                  dataSource="@ViewBag.Customers"
-                  gridLines="Vertical"
-                  toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
-            <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
-            </e-grid-editsettings>
-            <e-grid-columns>
-                <e-grid-column headerText="FullName" field="FullName" typeof="text" class="customer-name"></e-grid-column>
-                <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text" class="phone-number"></e-grid-column>
-            </e-grid-columns>
-        </ejs-grid>
-    </div>
+<div>
+    <ejs-grid id="categories-list"
+              dataSource="@ViewBag.Customers"
+              gridLines="Vertical"
+              toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
+        <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
+        </e-grid-editsettings>
+        <e-grid-columns>
+            <e-grid-column headerText="FullName" field="FullName" typeof="text" class="customer-name"></e-grid-column>
+            <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text" class="phone-number"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 
     <script>
         function load(args) {

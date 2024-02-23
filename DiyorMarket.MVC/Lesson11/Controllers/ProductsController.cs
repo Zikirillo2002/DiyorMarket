@@ -3,7 +3,6 @@ using Lesson11.Models;
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
-using Syncfusion.EJ2.Diagrams;
 using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers;
@@ -69,62 +68,39 @@ public class ProductsController : Controller
     [HttpPost]
     public IActionResult Create(Product product)
     {
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
 
-			var result = _productDataStore.CreateProduct(new Product
-            {
-                Name = product.Name,
-                Description = product.Description,
-                SalePrice = product.SalePrice,
-                SupplyPrice = product.SupplyPrice,
-			    ExpireDate = product.ExpireDate,
-			    CategoryId = product.CategoryId 
-            });
+        var result = _productDataStore.CreateProduct(new Product
+        {
+            Name = product.Name,
+            Description = product.Description,
+            SalePrice = product.SalePrice,
+            SupplyPrice = product.SupplyPrice,
+            ExpireDate = product.ExpireDate,
+            CategoryId = product.CategoryId
+        });
 
-			if (result is null)
-			{
-				return BadRequest();
-			}
+        if (result is null)
+        {
+            return BadRequest();
+        }
 
-			return RedirectToAction("Details", new { id = result.Id});
+        return RedirectToAction("Details", new { id = result.Id });
     }
 
     public IActionResult Details(int id)
     {
         var product = _productDataStore.GetProduct(id);
 
-			return View(product);
-    }
-
-    public IActionResult Upload()
-    {
-        ViewBag.FileUploaded = false;
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Upload(IFormFile file)
-    {
-        if (file is null)
-        {
-            ViewBag.FileUploaded = false;
-            return View();
-        }
-
-        var customers = DeserializeFile(file);
-
-        ViewBag.Products = customers;
-        ViewBag.FileUploaded = true;
-
-        return View();
+        return View(product);
     }
 
     public IActionResult Download()
     {
-        var result = _categoryDataStore.GetExportFile();
+        var result = _productDataStore.GetExportFile();
 
         return File(result, "application/xls", "Products.xls");
     }
@@ -132,7 +108,7 @@ public class ProductsController : Controller
     public IActionResult Edit(int id)
     {
         var product = _productDataStore.GetProduct(id);
-        
+
         return View(product);
     }
 
@@ -193,6 +169,28 @@ public class ProductsController : Controller
 
         return categories;
     }
+    public IActionResult Upload()
+    {
+        ViewBag.FileUploaded = false;
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Upload(IFormFile file)
+    {
+        if (file is null)
+        {
+            ViewBag.FileUploaded = false;
+            return View();
+        }
+
+        var products = DeserializeFile(file);
+
+        ViewBag.Products = products;
+        ViewBag.FileUploaded = true;
+
+        return View();
+    }
 
     private static List<Product> DeserializeFile(IFormFile file)
     {
@@ -208,17 +206,22 @@ public class ProductsController : Controller
         {
             products.Add(new Product
             {
-                Name = reader.GetValue(0)?.ToString(),
-                Description = reader.GetValue(1)?.ToString(),
-                SalePrice = Convert.ToDecimal(reader.GetValue(2)),
-                SupplyPrice = Convert.ToDecimal(reader.GetValue(3)),
-                ExpireDate = Convert.ToDateTime(reader.GetValue(4)),
-                CategoryId = Convert.ToInt32(reader.GetValue(5))
-            }); ;
+                Name = reader.GetValue(1)?.ToString(),
+                Description = reader.GetValue(2)?.ToString(),
+                SalePrice = decimal.TryParse(reader.GetValue(3)?.ToString(), out decimal salePrice)
+                        ? salePrice : 0.0m,
+                SupplyPrice = decimal.TryParse(reader.GetValue(4)?.ToString(), out decimal supplyPrice)
+                        ? supplyPrice : 0.0m,
+                ExpireDate = DateTime.TryParse(reader.GetValue(5)?.ToString(), out DateTime expireDate)
+                        ? expireDate
+                        : DateTime.MinValue,
+                CategoryId = int.TryParse(reader.GetValue(6)?.ToString(), out int categoryId)
+                        ? categoryId
+                        : 0
+            });
         }
-
         return products;
     }
 }
-        
-    
+
+

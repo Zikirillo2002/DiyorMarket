@@ -1,4 +1,5 @@
-﻿using Lesson11.Models;
+﻿using Lesson11.Constants;
+using Lesson11.Models;
 using Lesson11.Stores.User;
 using Lesson11.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace Lesson11.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Request.Cookies.TryGetValue("JwtToken", out _))
+            if (HttpContext.Request.Cookies.TryGetValue(Configurations.JwtToken, out _))
             {
                 return RedirectToAction("Index", "Dashboard");
             }
@@ -41,7 +42,7 @@ namespace Lesson11.Controllers
 
             if (success)
             {
-                HttpContext.Response.Cookies.Append("JwtToken", token, new CookieOptions
+                HttpContext.Response.Cookies.Append(Configurations.JwtToken, token, new CookieOptions
                 {
                     Secure = true,
                     SameSite = SameSiteMode.Strict,
