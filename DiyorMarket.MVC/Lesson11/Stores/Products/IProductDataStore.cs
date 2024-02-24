@@ -5,7 +5,7 @@ namespace Lesson11.Stores.Products
 {
     public interface IProductDataStore
     {
-        public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber);
+        public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber, DateTime? expireDate);
         public Product? GetProduct(int id);
         public Stream GetExportFile();
         public Product? CreateProduct(Product category);
