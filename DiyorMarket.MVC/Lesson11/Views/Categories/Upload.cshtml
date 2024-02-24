@@ -6,14 +6,14 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
-        <li class="breadcrumb-item"><a href="/Customers/index">Customers List</a></li>
+        <li class="breadcrumb-item"><a href="/Categories/index">Categories List</a></li>
         <li class="breadcrumb-item active" aria-current="page">Upload</li>
     </ol>
 </nav>
 
 
 <div style="margin-top: 90px;">
-    <h1>Upload customers</h1>
+    <h1>Upload categories</h1>
     <form asp-action="upload" method="post" enctype="multipart/form-data">
         <input class="form-control" type="file" id="formFile" name="file" accept=".xls, .xlsx" />
         <button class="btn btn-success " type="submit">
@@ -21,42 +21,27 @@
         </button>
     </form>
 
-<div>
-    <ejs-grid id="categories-list"
-              dataSource="@ViewBag.Customers"
-              gridLines="Vertical"
-              toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
-        <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
-        </e-grid-editsettings>
-        <e-grid-columns>
-            <e-grid-column headerText="FullName" field="FullName" typeof="text" class="customer-name"></e-grid-column>
-            <e-grid-column headerText="Phonenumber" field="PhoneNumber" typeof="text" class="phone-number"></e-grid-column>
-        </e-grid-columns>
-    </ejs-grid>
-</div>
+    <div>
+        <ejs-grid id="categories-list"
+                  dataSource="@ViewBag.Categories"
+                  gridLines="Vertical"
+                  toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" load="load">
+            <e-grid-editsettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Normal">
+            </e-grid-editsettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Name" field="Name" typeof="text" class="customer-name"></e-grid-column>
+                <e-grid-column headerText="NumberOfProducts" field="Number Of Products" typeof="text" class="Number-of-products"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
 
     <script>
         function load(args) {
             this.columns[0].validationRules = { required: true, minLength: [nameValidation, 'Name should be at least 3 letters'] };
-            this.columns[1].validationRules = { required: true, format: [phoneValidation, 'Phone number should have following format: +998 ## ###-##-##'] };
         }
 
         function nameValidation(args) {
             return args['value'].length >= 3;
-        };
-
-        function phoneValidation(args) {
-            const phone = args['value'].toString();
-
-            if (!phone.startsWith('+')) {
-                return false;
-            }
-
-            if (phone.length > 13) {
-                return false;
-            }
-
-            return true;
         };
 
         // TODO: Get custom error message using method

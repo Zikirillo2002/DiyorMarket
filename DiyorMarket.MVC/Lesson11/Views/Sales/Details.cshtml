@@ -2,13 +2,20 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
 }
-<head>
-    <link rel="stylesheet" href="~/css/animation.css" />
-</head>
-<h1>Details</h1>
+<!-- Navigation link -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Sales/index">Sales List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+    </ol>
+</nav>
 
-<div>
+<hr class="align-items-baseline" style="margin-top: 100px" />
+
+<div style="margin-top: 30px">
     <h4>Sale</h4>
     <hr />
     <dl class="row">

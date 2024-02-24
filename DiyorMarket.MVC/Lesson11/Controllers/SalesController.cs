@@ -17,9 +17,9 @@ namespace Lesson11.Controllers
             _customersDataStore = customersDataStore ?? throw new ArgumentNullException(nameof(customersDataStore)); ;
         }
 
-        public IActionResult Index(string? searchString, int? customerId, int pageNumber)
+        public IActionResult Index(string? searchString, int? customerId, DateTime? saleDate ,int pageNumber)
         {
-            var sales = _saleDataStore.GetSales(searchString, customerId, pageNumber);
+            var sales = _saleDataStore.GetSales(searchString, customerId, pageNumber, saleDate);
             var customers = GetAllCustomers(searchString);
 
             foreach (var sale in sales.Data.ToList())

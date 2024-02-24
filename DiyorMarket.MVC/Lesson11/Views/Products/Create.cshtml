@@ -2,15 +2,20 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
 }
 <head>
     <link rel="stylesheet" href="~/css/animation.css" />
 </head>
-<body>
-    <h1>Create</h1>
 
-    <h4>Product</h4>
-    <hr />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item"><a href="/Products/index">Products List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+    </ol>
+</nav>
+<hr class="align-items-baseline" style="margin-top: 100px" />
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Create">
@@ -64,4 +69,3 @@
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
-</body>

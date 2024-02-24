@@ -1,12 +1,22 @@
-﻿
+﻿@model Lesson11.Models.Supplier
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
+<!-- Navigation link -->
+<nav aria-label="breadcrumb" style="margin-left: 20px;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Suppliers List</li>
+    </ol>
+</nav>
 <form asp-controller="Suppliers" asp-action="Index" class="mb-2">
-    <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
-    <div class="row">
+    <div class="row" style="margin-top: 60px;">
         <div class="d-flex flex-row align-items-start gap-4">
             <!-- Search -->
             <div class="col-md-3 mb-4">
                 <div class="input-group">
-                    <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
                     <input type="text" class="form-control" placeholder="Search supplier..." name="searchString" id="searchString" value="@ViewBag.SearchString">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary">
@@ -58,7 +68,7 @@
         </div>
     </div>
 
-    @* pagineted *@
+    @* pagination *@
     <div class="d-flex justify-content-between">
         <div class="p-2">
             @if (ViewBag.HasPreviousPage)
@@ -71,7 +81,7 @@
                 <a class="btn btn-outline-primary rounded-right" href="@Url.Action("Index", new { pageNumber = ViewBag.CurrentPage - 1})">@(@ViewBag.CurrentPage - 1)</a>
             }
 
-            <button type="button" class="btn btn-outline-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
+        <button type="button" class="btn btn-primary rounded-right" disabled>@ViewBag.CurrentPage</button>
 
             @if (ViewBag.HasNextPage)
             {

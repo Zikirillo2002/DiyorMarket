@@ -1,7 +1,20 @@
-﻿
+﻿@model Lesson11.Models.Sale
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DataGridLayout.cshtml";
+}
+
+<!-- Navigation link -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard/index"><i class="fa fa-home" style="color: white"></i></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sales List</li>
+    </ol>
+</nav>
     <form asp-controller="Sales" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
-        <div class="row">
+    <div class="row" style="margin-top: 50px;">
             <div class="d-flex flex-row align-items-start gap-4">
                 <!-- Search -->
                 <div class="col-md-3 mb-4">
@@ -27,7 +40,7 @@
                 </div>
                 <!-- Date -->
                 <div class="col-md-2">
-                    <input type="date" />
+                    <input type="date" name="saleDate" class="form-control">
                 </div>
                 <!-- Action Buttons -->
                 <div class="d-flex flex-row col-md-4 mb-4" style="gap: 13px;">
@@ -70,7 +83,11 @@
             </ejs-grid>
         </div>
     </div>
-
+<script id="template" type="text/x-template">
+    <div>
+        <a rel='nofollow' href="sales/Details?Id=${Id}">${Id}</a>
+    </div>
+</script>
     @* pagination *@
     <div class="d-flex justify-content-between mt-3 mb-3">
         <div>

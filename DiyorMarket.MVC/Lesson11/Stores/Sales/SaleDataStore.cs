@@ -12,12 +12,16 @@ namespace Lesson11.Stores.Sales
 
         public SaleDataStore(ApiClient apiClient)
         {
-            _api = apiClient ;
+            _api = apiClient;
         }
-
-        public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber)
+        public GetSaleResponse? GetSales(string? searchString, int? customerId, int pageNumber , DateTime?  saleDate)
         {
             StringBuilder query = new("");
+
+            if(saleDate is not null)
+            {
+                query.Append($"saleDate={saleDate.Value.ToString("MM/dd/yyyy")}&");
+            }
 
             if (!string.IsNullOrEmpty(searchString))
             {
