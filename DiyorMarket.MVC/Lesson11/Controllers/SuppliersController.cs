@@ -97,18 +97,18 @@ namespace Lesson11.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Supplier supplier)
+        public IActionResult Edit(int id, string? firstName, string? lastName, string? phoneNumber, string? company)
         {
             _supplierDataStore.UpdateSupplier(new Supplier()
             {
-                Id = supplier.Id,
-                FirstName = supplier.FirstName,
-                LastName = supplier.LastName,
-                PhoneNumber = supplier.PhoneNumber,
-                Company = supplier.Company
+                Id = id,
+                FirstName = firstName,
+                LastName = lastName,
+                PhoneNumber = phoneNumber,
+                Company = company
             });
 
-            return RedirectToAction("Details", new { supplier.Id });
+            return RedirectToAction("Details", new { id });
         }
 
         public IActionResult Edit(int id)
