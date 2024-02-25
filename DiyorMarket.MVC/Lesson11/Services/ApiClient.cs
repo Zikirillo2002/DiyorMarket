@@ -1,5 +1,6 @@
 ﻿using Lesson11.Constants;
 using Lesson11.Exceptions;
+using NuGet.Common;
 
 namespace Lesson11.Services
 {
@@ -35,10 +36,13 @@ namespace Lesson11.Services
 
         public HttpResponseMessage Post(string url, string data)
         {
+            string token = string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Post, _client.BaseAddress?.AbsolutePath + "/" + url)
             {
                 Content = new StringContent(data, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"))
             };
+            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue(Configurations.JwtToken, out token);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             var response = _client.Send(request);
 
             if (!response.IsSuccessStatusCode)
@@ -51,10 +55,13 @@ namespace Lesson11.Services
 
         public HttpResponseMessage Put(string url, string data)
         {
+            var token = string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Put, _client.BaseAddress?.AbsolutePath + "/" + url)
             {
                 Content = new StringContent(data, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"))
             };
+            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue(Configurations.JwtToken, out token);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             var response = _client.Send(request);
 
             if (!response.IsSuccessStatusCode)
@@ -67,7 +74,10 @@ namespace Lesson11.Services
 
         public HttpResponseMessage Delete(string url)
         {
+            string token = string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Delete, _client.BaseAddress?.AbsolutePath + "/" + url);
+            _contextAccessor.HttpContext?.Request.Cookies.TryGetValue(Configurations.JwtToken, out token);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             var response = _client.Send(request);
 
             if (!response.IsSuccessStatusCode)
