@@ -6,6 +6,7 @@ using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.ResourceParameters;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiyorMarket.Services
 {
@@ -22,7 +23,9 @@ namespace DiyorMarket.Services
 
         public GetBaseResponse<ProductDto> GetProducts(ProductResourceParameters productResourceParameters)
         {
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products
+                .Include(p => p.Category)
+                .AsQueryable();
 
             if (productResourceParameters.CategoryId is not null && productResourceParameters.CategoryId != 0)
             {
@@ -91,7 +94,9 @@ namespace DiyorMarket.Services
 
         public ProductDto? GetProductById(int id)
         {
-            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            var product = _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefault(x => x.Id == id);
 
             var productDto = _mapper.Map<ProductDto>(product);
 

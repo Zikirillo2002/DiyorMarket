@@ -82,7 +82,7 @@ namespace Lesson11.Stores.Products
         public Product? UpdateProduct(Product product)
         {
             var json = JsonConvert.SerializeObject(product);
-            var response = _api.Put("products", json);
+            var response = _api.Put($"products/{product.Id}", json);
 
             if (!response.IsSuccessStatusCode)
             {

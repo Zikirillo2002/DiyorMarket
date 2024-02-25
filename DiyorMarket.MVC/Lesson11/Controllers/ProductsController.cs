@@ -3,6 +3,7 @@ using Lesson11.Models;
 using Lesson11.Stores.Categories;
 using Lesson11.Stores.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Syncfusion.EJ2.Linq;
 
 namespace Lesson11.Controllers;
@@ -62,6 +63,8 @@ public class ProductsController : Controller
 
     public IActionResult Create()
     {
+        var categories = GetAllCategories();
+        ViewBag.Categories = new SelectList(categories, "Id", "Name");
         return View();
     }
 
@@ -108,7 +111,8 @@ public class ProductsController : Controller
     public IActionResult Edit(int id)
     {
         var product = _productDataStore.GetProduct(id);
-
+        var categories = GetAllCategories();
+        ViewBag.Categories = categories;
         return View(product);
     }
 
@@ -116,6 +120,11 @@ public class ProductsController : Controller
     public IActionResult Edit(int id, string name, string description,
         decimal salePrice, decimal supplyPrice, DateTime expireDate, int categoryId)
     {
+        if(categoryId == 0)
+        {
+            var product = _productDataStore.GetProduct(id);
+            categoryId = product.Category.Id;
+        }
         _productDataStore.UpdateProduct(new Product
         {
             Id = id,
@@ -147,9 +156,9 @@ public class ProductsController : Controller
     }
 
     [HttpPost, ActionName("Delete")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int itemid)
     {
-        _productDataStore.DeleteProduct(id);
+        _productDataStore.DeleteProduct(itemid);
 
         return RedirectToAction(nameof(Index));
     }

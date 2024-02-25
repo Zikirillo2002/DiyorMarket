@@ -17,7 +17,8 @@ namespace DiyorMarket.Domain.Mappings
             CreateMap<ProductDto, Product>();
             CreateMap<ProductForCreateDto, Product>()
                 .ForMember(x => x.Price, r => r.MapFrom(x => x.SupplyPrice));
-            CreateMap<ProductForUpdateDto, Product>();
+            CreateMap<ProductForUpdateDto, Product>()
+                .ForMember(x => x.Price, r => r.MapFrom(x => x.SupplyPrice));
             CreateMap<Product, ProductForCreateDto>();
             CreateMap<Product, ProductForUpdateDto>();
         }
