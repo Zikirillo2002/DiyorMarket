@@ -70,7 +70,9 @@ namespace DiyorMarket.Services
 
         public SupplyDto? GetSupplyById(int id)
         {
-            var supply = _context.Supplies.FirstOrDefault(x => x.Id == id);
+            var supply = _context.Supplies
+                .Include(s => s.Supplier)
+                .FirstOrDefault(x => x.Id == id);
 
             var supplyDto = _mapper.Map<SupplyDto>(supply);
 

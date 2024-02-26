@@ -26,7 +26,7 @@ namespace Lesson11.Stores.Supplies
 
             if (supplierId != null)
             {
-                query.Append($"categoryId={supplierId}&");
+                query.Append($"supplierId={supplierId}&");
             }
 
             if (pageNumber != 0)
@@ -79,7 +79,7 @@ namespace Lesson11.Stores.Supplies
         public Supply? UpdateSupply(Supply category)
         {
             var json = JsonConvert.SerializeObject(category);
-            var response = _api.Put("supplies", json);
+            var response = _api.Put($"supplies/{category.Id}", json);
 
             if (!response.IsSuccessStatusCode)
             {

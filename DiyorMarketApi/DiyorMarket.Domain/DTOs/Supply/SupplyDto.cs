@@ -7,6 +7,6 @@ namespace DiyorMarket.Domain.DTOs.Supply
         int Id,
         DateTime SupplyDate,
         decimal TotalDue,
-        SupplierDto Supplier,
+        int SupplierId,
         ICollection<SupplyItemDto> SupplyItems);
 }
