@@ -1,6 +1,9 @@
-﻿namespace DiyorMarket.Domain.DTOs.Supply
+﻿using DiyorMarket.Domain.DTOs.SupplyItem;
+
+namespace DiyorMarket.Domain.DTOs.Supply
 {
     public record SupplyForCreateDto(
         DateTime SupplyDate,
-        int SupplierId);
+        int SupplierId,
+        ICollection<SupplyItemForCreateDto> SupplyItems);
 }

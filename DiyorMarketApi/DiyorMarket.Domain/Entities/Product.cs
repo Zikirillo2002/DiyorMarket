@@ -1,4 +1,5 @@
 ﻿using DiyorMarket.Domain.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace DiyorMarket.Domain.Entities
 {
@@ -8,6 +9,10 @@ namespace DiyorMarket.Domain.Entities
         public string Description { get; set; }
         public decimal Price { get; set; }
         public DateTime ExpireDate { get; set; }
+        [Range(0, int.MaxValue)]
+        public int QuantityInStock { get; set; }
+        [Range(0, int.MaxValue)]
+        public int LowQuantityAmount { get; set; }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }

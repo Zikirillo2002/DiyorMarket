@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DiyorMarket.Domain.DTOs.Sale;
 using DiyorMarket.Domain.Entities;
+using DiyorMarket.Domain.Exceptions;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
@@ -65,6 +66,23 @@ namespace DiyorMarket.Services
         public SaleDto CreateSale(SaleForCreateDto saleToCreate)
         {
             var saleEntity = _mapper.Map<Sale>(saleToCreate);
+
+            foreach(var saleItem in saleEntity.SaleItems)
+            {
+                var item = _context.Products.FirstOrDefault(x => x.Id == saleItem.ProductId);
+
+                if (item is null)
+                {
+                    throw new EntityNotFoundException($"Product with id: {saleItem.ProductId} does not exist");
+                }
+
+                if (item.QuantityInStock < saleItem.Quantity)
+                {
+                    throw new LowStockException($"{item.QuantityInStock} {item.Name}s left in stock. Requested: {saleItem.Quantity}");
+                }
+
+                item.QuantityInStock -= saleItem.Quantity;
+            }
 
             _context.Sales.Add(saleEntity);
             _context.SaveChanges();

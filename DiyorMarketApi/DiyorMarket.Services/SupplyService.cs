@@ -2,6 +2,7 @@
 using DiyorMarket.Domain.DTOs.Sale;
 using DiyorMarket.Domain.DTOs.Supply;
 using DiyorMarket.Domain.Entities;
+using DiyorMarket.Domain.Exceptions;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
 using DiyorMarket.Domain.ResourceParameters;
@@ -80,6 +81,18 @@ namespace DiyorMarket.Services
         public SupplyDto CreateSupply(SupplyForCreateDto supplyToCreate)
         {
             var supplyEntity = _mapper.Map<Supply>(supplyToCreate);
+
+            foreach(var supplyItem in supplyEntity.SupplyItems)
+            {
+                var item = _context.Products.FirstOrDefault(x => x.Id == supplyItem.ProductId);
+
+                if (item is null)
+                {
+                    throw new EntityNotFoundException($"Product with id: {supplyItem.ProductId} does not exist");
+                }
+
+                item.QuantityInStock += supplyItem.Quantity;
+            }
 
             _context.Supplies.Add(supplyEntity);
             _context.SaveChanges();
