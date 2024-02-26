@@ -17,9 +17,11 @@ namespace Lesson11.Controllers
 
         public IActionResult Index(string searchString, int? pageNumber)
         {
-            //int page = string.IsNullOrWhiteSpace(pageNumber) ? 1 : int.Parse(pageNumber);
-
             var categories = _categoryDataStore.GetCategories(searchString, pageNumber);
+            foreach(var category in categories.Data)
+            {
+                category.NumberOfProducts = category.Products.Count();
+            }
 
             ViewBag.Categories = categories.Data;
             ViewBag.PageSize = categories.PageSize;
@@ -58,6 +60,7 @@ namespace Lesson11.Controllers
         public IActionResult Details(int id)
         {
             var category = _categoryDataStore.GetCategory(id);
+            category.NumberOfProducts = category.Products.Count();
 
             return View(category);
         }
@@ -124,6 +127,7 @@ namespace Lesson11.Controllers
             {
                 return NotFound(category);
             }
+            category.NumberOfProducts = category.Products.Count();
             return View(category);
         }
 
