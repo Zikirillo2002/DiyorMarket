@@ -7,7 +7,7 @@ namespace DiyorMarket.Controllers;
 
 [Route("api/dashboard")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class DashboardController : ControllerBase
 {
     private readonly IDashboardService _dashboardService;

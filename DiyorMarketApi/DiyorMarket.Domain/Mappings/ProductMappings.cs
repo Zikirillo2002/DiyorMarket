@@ -9,8 +9,6 @@ namespace DiyorMarket.Domain.Mappings
         public ProductMappings() 
         {
             CreateMap<Product, ProductDto>()
-                //.ForCtorParam(nameof(ProductDto.SalePrice), s => s.MapFrom(nameof(Product.Price)))
-                //.ForCtorParam(nameof(ProductDto.SupplyPrice), s => s.MapFrom(s => s.Price * (decimal)0.8))
                 .ForMember(x => x.SupplyPrice, r => r.MapFrom(x => x.Price))
                 .ForMember(x => x.SalePrice, r => r.MapFrom(x => x.Price * (decimal)1.5));
 
