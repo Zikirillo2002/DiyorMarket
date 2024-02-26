@@ -99,7 +99,7 @@ namespace Lesson11.Stores.Sales
         public Sale? UpdateSale(Sale sale)
         {
             var json = JsonConvert.SerializeObject(sale);
-            var response = _api.Put("sales", json);
+            var response = _api.Put($"sales/{sale.Id}", json);
 
             if (!response.IsSuccessStatusCode)
             {
