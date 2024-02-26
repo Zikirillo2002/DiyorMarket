@@ -2,6 +2,7 @@
 using DiyorMarket.Domain.DTOs.Supply;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.ResourceParameters;
+using DiyorMarket.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -106,22 +107,14 @@ namespace DiyorMarket.Controllers
             table.Columns.Add("Id", typeof(int));
             table.Columns.Add("TotalDue", typeof(decimal));
             table.Columns.Add("SupplyDate", typeof(DateTime));
-            table.Columns.Add("FirstName", typeof(string));
-            table.Columns.Add("LastName", typeof(string));
-            table.Columns.Add("Company", typeof(string));
+            table.Columns.Add("SupplierId", typeof(int));
 
             foreach (var supply in supplyDtos)
             {
-                string firstName = supply.Supplier != null ? supply.Supplier.FirstName : null;
-                string lastName = supply.Supplier != null ? supply.Supplier.LastName : null;
-                string company = supply.Supplier != null ? supply.Supplier.Company : null;
-
                 table.Rows.Add(supply.Id,
                     supply.TotalDue,
                     supply.SupplyDate,
-                    firstName,
-                    lastName,
-                    company);
+                    supply.SupplierId);
             }
 
             return table;

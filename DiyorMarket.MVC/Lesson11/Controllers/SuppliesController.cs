@@ -3,6 +3,7 @@ using Lesson11.Models;
 using Lesson11.Stores.Suppliers;
 using Lesson11.Stores.Supplies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Lesson11.Controllers
 {
@@ -18,21 +19,31 @@ namespace Lesson11.Controllers
             _supplierDataStore = supplierDataStore ?? throw new ArgumentNullException(nameof(supplierDataStore));
         }
 
-        public IActionResult Index(string? searchString, int? supplierId, int pageNumber)
+        public IActionResult Index(string? searchString, int? supplierId, int pageNumber, int? prevSupplierId)
         {
+            if (supplierId == null && prevSupplierId != null)
+            {
+                supplierId = prevSupplierId;
+            }
+
             var result = _supplyDataStore.GetSupplies(searchString, supplierId, pageNumber);
-            var supliers = GetAllSupplier();
+            var supliers = GetAllSupplier(searchString);
 
             supliers.Insert(0, new Supplier
             {
                 Id = 0,
-                Company = "All"
+                FirstName = "All"
             });
 
             var selectSuppliers = supliers[0];
             if (supplierId.HasValue && supplierId != 0)
             {
                 selectSuppliers = supliers.FirstOrDefault(x => x.Id == supplierId);
+            }
+
+            foreach (var supply in result.Data.ToList())
+            {
+                supply.Supplier = supliers.FirstOrDefault(x => x.Id == supply.SupplierId);
             }
 
             ViewBag.SelectedSupplier = selectSuppliers;
@@ -52,6 +63,8 @@ namespace Lesson11.Controllers
 
         public IActionResult Create()
         {
+            var suppliers = GetAllSupplier(null);
+            ViewBag.Suppliers = new SelectList(suppliers, "Id", "FirstName");
             return View();
         }
 
@@ -79,14 +92,20 @@ namespace Lesson11.Controllers
 
         public IActionResult Details(int id)
         {
-            var createSupply = _supplyDataStore.GetSupply(id);
+            var supply = _supplyDataStore.GetSupply(id);
+            supply.Supplier = _supplierDataStore.GetSupplier(supply.SupplierId);
 
-            return View(createSupply);
+            return View(supply);
         }
 
         [HttpPost]
         public IActionResult Edit(int id, DateTime supplyDate, int supplierId)
         {
+            if (supplierId == 0)
+            {
+                var supply = _supplyDataStore.GetSupply(id);
+                supplierId = supply.Supplier.Id;
+            }
             _supplyDataStore.UpdateSupply(new Supply
             {
                 Id = id,
@@ -100,6 +119,9 @@ namespace Lesson11.Controllers
         public IActionResult Edit(int id)
         {
             var supply = _supplyDataStore.GetSupply(id);
+            var suppliers = GetAllSupplier(null);
+            ViewBag.Suppliers = suppliers;
+            supply.Supplier = suppliers.FirstOrDefault(x => x.Id == supply.SupplierId);
             return View(supply);
         }
 
@@ -195,10 +217,10 @@ namespace Lesson11.Controllers
             return supply;
         }
 
-        private List<Supplier> GetAllSupplier()
+        private List<Supplier> GetAllSupplier(string? searchString)
         {
             int number = 1;
-            var categoryResponse = _supplierDataStore.GetSuppliers(null, number);
+            var categoryResponse = _supplierDataStore.GetSuppliers(searchString, number);
             var categories = categoryResponse.Data.ToList();
 
 

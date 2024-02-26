@@ -1,5 +1,4 @@
 using DiyorMarket.Extensions;
-using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.Middlewares;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.IdentityModel.Tokens;

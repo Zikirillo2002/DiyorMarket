@@ -3,6 +3,7 @@ using Lesson11.Models;
 using Lesson11.Stores.Customers;
 using Lesson11.Stores.Sales;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Lesson11.Controllers
 {
@@ -27,7 +28,6 @@ namespace Lesson11.Controllers
                 sale.Customer = customers.FirstOrDefault(x => x.Id == sale.CustomerId);
             }
 
-
             ViewBag.Sales = sales.Data;
             ViewBag.Customers = customers;
             ViewBag.PageSize = sales.PageSize;
@@ -43,11 +43,13 @@ namespace Lesson11.Controllers
 
         public IActionResult Create()
         {
+            var customers = GetAllCustomers(null);
+            ViewBag.Customers = new SelectList(customers, "Id", "FullName");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(DateTime dateTime, int customerId)
+        public IActionResult Create(Sale sale)
         {
             if (!ModelState.IsValid)
             {
@@ -56,8 +58,8 @@ namespace Lesson11.Controllers
 
             var result = _saleDataStore.CreateSale(new Sale
             {
-                SaleDate = dateTime,
-                CustomerId = customerId
+                SaleDate = sale.SaleDate,
+                CustomerId = sale.CustomerId
             });
 
             if (result is null)
@@ -71,6 +73,7 @@ namespace Lesson11.Controllers
         public IActionResult Details(int id)
         {
             var sale = _saleDataStore.GetSale(id);
+            sale.Customer = _customersDataStore.GetCustomer(sale.CustomerId);
 
             return View(sale);
         }
@@ -125,11 +128,28 @@ namespace Lesson11.Controllers
 
             return File(result, "application/pdf", "Sales.pdf");
         }
+
+
+        public IActionResult Edit(int id)
+        {
+            var sale = _saleDataStore.GetSale(id);
+            var customers = GetAllCustomers(null);
+            ViewBag.Customers = customers;
+            sale.Customer = customers.FirstOrDefault(x => x.Id == sale.CustomerId);
+            return View(sale);
+        }
+
         [HttpPost]
         public IActionResult Edit(int id, DateTime saleDate, int customerId, decimal totalDue)
         {
+            if (customerId == 0)
+            {
+                var sale = _saleDataStore.GetSale(id);
+                customerId = sale.Customer.Id?? customerId;
+            }
             _saleDataStore.UpdateSale(new Sale
             {
+                Id = id,
                 SaleDate = saleDate,
                 CustomerId = customerId,
                 TotalDue = totalDue
@@ -138,11 +158,6 @@ namespace Lesson11.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
-        public IActionResult Edit(int id)
-        {
-            var sale = _saleDataStore.GetSale(id);
-            return View(sale);
-        }
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -156,6 +171,8 @@ namespace Lesson11.Controllers
             {
                 return NotFound(sale);
             }
+
+            sale.Customer = _customersDataStore.GetCustomer(sale.CustomerId);
             return View(sale);
         }
 

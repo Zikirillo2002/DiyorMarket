@@ -43,7 +43,6 @@ namespace DiyorMarket.Services
             }
 
             var categories = query.ToPaginatedList(categoryResourceParameters.PageSize, categoryResourceParameters.PageNumber);
-            // var products = query.ToList();
             var categoryDtos = _mapper.Map<List<CategoryDto>>(categories);
             var paginatedResult = new PaginatedList<CategoryDto>(categoryDtos, categories.TotalCount, categories.CurrentPage, categories.PageSize);
 
@@ -59,7 +58,10 @@ namespace DiyorMarket.Services
 
         public CategoryDto? GetCategoryById(int id)
         {
-            var category = _context.Categories.FirstOrDefault(x => x.Id == id);
+            var category = _context.Categories
+                .Include(c => c.Products)
+                .IgnoreAutoIncludes()
+                .FirstOrDefault(x => x.Id == id);
 
             if (category is null)
             {

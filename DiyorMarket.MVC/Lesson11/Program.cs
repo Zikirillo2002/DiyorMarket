@@ -1,5 +1,6 @@
 using Lesson11.Extensions;
 using Lesson11.Filters;
+using Lesson11.Constants;
 
 namespace Lesson11
 {
@@ -16,7 +17,7 @@ namespace Lesson11
             builder.Services.ConfigureServices();
             builder.Services.AddHttpContextAccessor();
 
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2VlhhQlJCfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn9Sd0xjWHpacHFdRGNY");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configurations.SynfusionLicenseKey);
 
             var app = builder.Build();
 

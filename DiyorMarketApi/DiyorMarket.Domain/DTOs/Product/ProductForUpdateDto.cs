@@ -4,7 +4,8 @@
         int Id,
         string Name,
         string Description,
-        decimal Price,
+        decimal SalePrice,
+        decimal SupplyPrice,
         DateTime ExpireDate,
         int CategoryId);
 }

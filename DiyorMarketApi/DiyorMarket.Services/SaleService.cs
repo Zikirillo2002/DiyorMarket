@@ -38,14 +38,20 @@ namespace DiyorMarket.Services
 
         public IEnumerable<SaleDto> GetAllSales()
         {
-            var sales = _context.Sales.ToList();
+            var sales = _context.Sales
+                .Include(x => x.SaleItems)
+                .IgnoreAutoIncludes()
+                .ToList();
 
             return _mapper.Map<IEnumerable<SaleDto>>(sales) ?? Enumerable.Empty<SaleDto>();
         }
 
         public SaleDto? GetSaleById(int id)
         {
-            var sale = _context.Sales.FirstOrDefault(x => x.Id == id);
+            var sale = _context.Sales
+                .Include(x => x.SaleItems)
+                .IgnoreAutoIncludes()
+                .FirstOrDefault(x => x.Id == id);
 
             var saleDto = _mapper.Map<SaleDto>(sale);
 

@@ -113,7 +113,7 @@ namespace Lesson11.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(string? firstName, string? lastName, string? phoneNumber)
+        public IActionResult Edit(int id, string? firstName, string? lastName, string? phoneNumber)
         {
             if (!ModelState.IsValid)
             {
@@ -123,6 +123,7 @@ namespace Lesson11.Controllers
 
             var result = _customerDataStore.UpdateCustomer(new Customer
             {
+                Id = id,
                 FullName = fullName,
                 PhoneNumber = phoneNumber,
             });
