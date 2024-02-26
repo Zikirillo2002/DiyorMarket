@@ -3,6 +3,7 @@ using DiyorMarket.Domain.DTOs.Product;
 using DiyorMarket.Domain.Entities;
 using DiyorMarket.Domain.Interfaces.Services;
 using DiyorMarket.Domain.Pagniation;
+using DiyorMarket.Domain.ResourceParameters;
 using DiyorMarket.Domain.Responses;
 using DiyorMarket.Infrastructure.Persistence;
 using DiyorMarket.ResourceParameters;
@@ -26,6 +27,11 @@ namespace DiyorMarket.Services
             var query = _context.Products
                 .Include(p => p.Category)
                 .AsQueryable();
+
+            if (productResourceParameters.ExpireDate is not null)
+            {
+                query = query.Where(x => x.ExpireDate.Date == productResourceParameters.ExpireDate.Value.Date);
+            }
 
             if (productResourceParameters.CategoryId is not null && productResourceParameters.CategoryId != 0)
             {

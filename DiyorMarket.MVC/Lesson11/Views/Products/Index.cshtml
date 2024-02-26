@@ -11,15 +11,13 @@
         <li class="breadcrumb-item active" aria-current="page">Products List</li>
     </ol>
 </nav>
-<div class="container">
     <form asp-controller="Products" asp-action="Index" class="mb-2">
         <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
-        <div class="container" style="margin-top: 50px;">
+        <div class="container" style="margin-top: 50px; margin-left: 15px;">
             <div class="row row-cols-sm-1 align-items-center">
                 <div class="d-flex flex-row justify-content-center gap-4">
                     <!-- Search -->
-                    <form asp-controller="Products" asp-action="Index">
-                        <div class="col-md-5 mb-4 ml-12 mr-10">
+                        <div class="col-md-3 mb-4">
                             <div class="input-group">
                                 <input type="hidden" name="prevCategoryId" value="@ViewBag.SelectedCategory?.Id" />
                                 <input type="text" class="form-control" placeholder="Search product..." name="searchString" value="@ViewBag.SearchString">
@@ -29,10 +27,9 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </div>      
                     <!-- Filter -->
-                    <div class="col-md-3 mb-3 ml-4">
+                    <div class="col-md-3">
                         <div class="input-group">
                             <select class="form-control" name="categoryId">
                                 <option value="" selected disabled>@ViewBag.SelectedCategory.Name</option>
@@ -45,9 +42,13 @@
                             </select>
                         </div>
                     </div>
+                    <!-- Date -->
+                    <div class="col-md-2">
+                        <input type="date" name="expireDate" class="form-control">
+                    </div>
                     <!-- Action Buttons -->
                     <div class="d-flex flex-row col-md-4 mb-4" style="gap: 15px;">
-                        <a class="btn btn-outline-info" style="margin-left : 50px" asp-action="download">
+                        <a class="btn btn-outline-info" style="margin-left: 40px;" asp-action="download">
                             <i class="fa-solid fa-download"></i> Download
                         </a>
                         <a class="btn btn-outline-info" asp-action="upload">
@@ -119,7 +120,7 @@
             <p class="h6">@ViewBag.CurrentPage of @ViewBag.PageCount pages (@ViewBag.TotalCount items)</p>
         </div>
     </div>
-</div>
+
 
 <script id="template" type="text/x-template">
     <div>

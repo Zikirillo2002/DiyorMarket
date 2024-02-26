@@ -8,7 +8,10 @@ using DiyorMarket.ResourceParameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 using System.Data;
+using System.IO.Compression;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,7 +19,7 @@ namespace DiyorMarketApi.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -66,6 +69,38 @@ namespace DiyorMarketApi.Controllers
             wb.SaveAs(ms);
             return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Products.xlsx");
         }
+
+        [HttpGet("exportPDF")]
+        public ActionResult ExportProductsPDF()
+        {
+            var products = _productService.GetAllProducts();
+            var dataTable = GetProductsDataTable(products);
+
+            // Создание PDF-документа
+            using PdfDocument pdf = new PdfDocument();
+            PdfPage page = pdf.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Arial", 12, XFontStyle.Regular);
+
+            // Начало новой страницы PDF
+            gfx.DrawString("Продукты PDF", font, XBrushes.Black, new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.TopCenter);
+
+            // Добавление данных о продуктах в PDF
+            int yPosition = 40;
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string productInfo = $"Id: {row["Id"]}, Name: {row["Name"]}, Description: {row["Description"]}, SalePrice: {row["SalePrice"]}, SupplyPrice: {row["SupplyPrice"]}, ExpireDate: {row["ExpireDate"]}, CategoryName: {(row["CategoryName"] != DBNull.Value ? row["CategoryName"] : "")}";
+                gfx.DrawString(productInfo, font, XBrushes.Black, new XRect(0, yPosition, page.Width.Point, page.Height.Point), XStringFormats.TopLeft);
+                yPosition += 20;
+            }
+
+            // Сохранение PDF в MemoryStream и отправка его как файл ответа
+            using MemoryStream pdfStream = new MemoryStream();
+            pdf.Save(pdfStream, false);
+
+            // Возврат PDF-файла
+            return File(pdfStream.ToArray(), "application/pdf", "Products.pdf");
+        }   
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}", Name = "GetProductById")]

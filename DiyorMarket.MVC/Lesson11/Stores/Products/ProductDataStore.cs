@@ -17,9 +17,14 @@ namespace Lesson11.Stores.Products
             _api = apiClient;
         }
 
-        public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber)
+        public GetProductResponse? GetProducts(string? searchString, int? categoryId, int pageNumber, DateTime? expireDate)
         {
             StringBuilder query = new("");
+            
+            if(expireDate is not null)
+            {
+                query.Append($"expireDate={expireDate.Value.ToString("MM/dd/yyyy")}&");
+            }
 
             if (!string.IsNullOrWhiteSpace(searchString))
             {

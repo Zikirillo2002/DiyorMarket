@@ -81,9 +81,9 @@ namespace Lesson11.Controllers
                 return View();
             }
 
-            var customers = DeserializeFile(file);
+            var suppliers = DeserializeFile(file);
 
-            ViewBag.Categories = customers;
+            ViewBag.Suppliers = suppliers;
             ViewBag.FileUploaded = true;
 
             return View();

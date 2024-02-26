@@ -10,6 +10,7 @@
         public decimal? PriceLessThan { get; set; }
         public decimal? PriceGreaterThan { get; set; }
         public string OrderBy { get; set; } = "name";
+        public DateTime? ExpireDate { get; set; }
 
         public int PageNumber { get; set; } = 1;
 

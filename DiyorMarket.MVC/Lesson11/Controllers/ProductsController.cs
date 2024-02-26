@@ -19,14 +19,14 @@ public class ProductsController : Controller
         _categoryDataStore = categoryDataStore ?? throw new ArgumentNullException(nameof(categoryDataStore));
     }
 
-    public IActionResult Index(string? searchString, int? categoryId, int pageNumber, int? prevCategoryId)
+    public IActionResult Index(string? searchString, int? categoryId, int pageNumber, int? prevCategoryId, DateTime? expireDate)
     {
         if (categoryId == null && prevCategoryId != null)
         {
             categoryId = prevCategoryId;
         }
 
-        var filteredProducts = _productDataStore.GetProducts(searchString, categoryId, pageNumber);
+        var filteredProducts = _productDataStore.GetProducts(searchString, categoryId, pageNumber,expireDate);
 
         var categories = GetAllCategories();
 
